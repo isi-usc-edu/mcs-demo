@@ -1,8 +1,5 @@
 # models
-/roberta_large
-/taska_model
-/taskb_model
-/models
+/api/models
 
 # dependencies
 /node_modules

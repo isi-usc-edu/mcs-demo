@@ -1,7 +1,9 @@
 FROM ubuntu:18.04
 FROM g1eb/cwc:mcs-web
 
-ADD . /api
+ADD ./api /api
+ADD ./build /api/static
+
 WORKDIR /api
 
 RUN apt-get update \
