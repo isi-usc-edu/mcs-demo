@@ -134,7 +134,7 @@ class App extends React.Component {
       return
     }
 
-    const url = `http://localhost:5005/classify?s1=${inputs.s1.value}&s2=${inputs.s2.value}&s3=${inputs.s3.value}`
+    const url = `/classify?s1=${inputs.s1.value}&s2=${inputs.s2.value}&s3=${inputs.s3.value}`
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
