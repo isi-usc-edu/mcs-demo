@@ -38,6 +38,7 @@ from tqdm import (
     trange,
 )
 
+from slack_client import SlackClient
 from datetime import datetime
 import logging
 import random
@@ -55,6 +56,10 @@ CORS(app)
 MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://0.0.0.0:27017/mcs')
 app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
+
+# Slack api settings
+SLACK_TOKEN = os.environ.get('SLACK_TOKEN', '')
+slack_client = SlackClient(SLACK_TOKEN)
 
 
 # load trained models
@@ -87,6 +92,41 @@ def select_field(features, field):
             for choice in features
         ]
     ]
+
+
+def send_slack_message(data):
+    """
+       "s1": {
+           "system_1": {
+               "input": input1,
+               "score": round(score_0, 5),
+               "lie": bool(min([score_0, score_1, sco
+           },
+    """
+    text = 'New entry in the MCS Demo!'
+    blocks = json.dumps([
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "1. {}: {} - {}\n2. {}: {} - {}\n3. {}: {} - {}".format(
+                    data['s1']['system_1']['input'], data['s1']['system_1']['score'], 'LIE! ❌ 🤥' if data['s1']['system_1']['lie'] else 'TRUE ✅',
+                    data['s2']['system_1']['input'], data['s2']['system_1']['score'], 'LIE! ❌ 🤥' if data['s2']['system_1']['lie'] else 'TRUE ✅',
+                    data['s3']['system_1']['input'], data['s3']['system_1']['score'], 'LIE! ❌ 🤥' if data['s3']['system_1']['lie'] else 'TRUE ✅',
+                ),
+            }
+        }, {
+            "type": "divider"
+        }
+    ])
+    slack_client.chat_post_message(
+        '#mcs-demo',
+        text,
+        blocks=blocks,
+        username='2 Truths and 1 Lie?',
+        as_user='False',
+        icon_emoji=':robot_face:',
+    )
 
 
 @app.route('/classify')
@@ -196,6 +236,9 @@ def classify():
 
     # store trial data in the mongo db
     mongo.db.trials.insert_one({'ts': ts, **data})
+
+    # send a slack message
+    send_slack_message(data)
 
     # Return json output
     return jsonify(data)
