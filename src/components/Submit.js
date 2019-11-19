@@ -11,7 +11,7 @@ const styles = theme => ({
     borderRadius: 3,
     color: 'white',
     fontSize: theme.spacing(3.5),
-    padding: theme.spacing(6, 15),
+    padding: theme.spacing(6, 12),
     '&> .MuiFab-label': {
       marginTop: -1 * theme.spacing(2.5),
     },
