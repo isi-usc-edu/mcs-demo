@@ -1,23 +1,46 @@
 #!/usr/bin/env python3
-from flask import Flask, send_file, jsonify, request, send_from_directory
+from flask import (
+    Flask,
+    jsonify,
+    request,
+)
 from flask_cors import CORS
+
+import torch
+from torch.utils.data import (
+    DataLoader,
+    RandomSampler,
+    SequentialSampler,
+    TensorDataset,
+)
+from torch.utils.data.distributed import DistributedSampler
+
+from scipy.special import softmax
+
+from transformers import (
+    AdamW,
+    BertConfig,
+    BertForMultipleChoice,
+    BertTokenizer,
+    XLNetConfig,
+    XLNetForMultipleChoice,
+    XLNetTokenizer,
+    RobertaConfig,
+    RobertaForMultipleChoice,
+    RobertaTokenizer,
+    WarmupLinearSchedule,
+    WEIGHTS_NAME,
+)
+
+from tqdm import (
+    tqdm,
+    trange,
+)
+
+import logging
 import random
 import json
 
-import torch
-import logging
-from transformers import (WEIGHTS_NAME, BertConfig,
-                          BertForMultipleChoice, BertTokenizer,
-                          XLNetConfig, XLNetForMultipleChoice,
-                          XLNetTokenizer, RobertaConfig,
-                          RobertaForMultipleChoice, RobertaTokenizer)
-from tqdm import tqdm, trange
-
-from transformers import AdamW, WarmupLinearSchedule
-from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
-                              TensorDataset)
-from torch.utils.data.distributed import DistributedSampler
-from scipy.special import softmax
 logger = logging.getLogger(__name__)
 
 
