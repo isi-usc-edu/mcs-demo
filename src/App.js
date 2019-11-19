@@ -135,21 +135,21 @@ class App extends React.Component {
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} />
-                {!!s1.score && <Score statement={s1} />}
+                {s1.score != null && <Score statement={s1} />}
                 {!!s1.lie && <Lie />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={s2} updateText={this.handleUpdate.bind(this)} />
-                {!!s2.score && <Score statement={s2} />}
+                {s2.score != null && <Score statement={s2} />}
                 {!!s2.lie && <Lie />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={s3} updateText={this.handleUpdate.bind(this)} />
-                {!!s3.score && <Score statement={s3} />}
+                {s3.score != null && <Score statement={s3} />}
                 {!!s3.lie && <Lie />}
               </Paper>
             </Grid>
