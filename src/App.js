@@ -59,33 +59,35 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      s1: {
-        id: 's1',
-        name: 's1',
-        label: 'input 1',
-        changed: false,
-        score: null,
-        lie: false,
-        value: '',
+      inputs: {
+        s1: {
+          id: 's1',
+          name: 's1',
+          label: 'input 1',
+          changed: false,
+          score: null,
+          lie: false,
+          value: '',
+        },
+        s2: {
+          id: 's2',
+          name: 's2',
+          label: 'input 2',
+          changed: false,
+          score: null,
+          lie: false,
+          value: '',
+        },
+        s3: {
+          id: 's3',
+          name: 's3',
+          label: 'input 3',
+          changed: false,
+          score: null,
+          lie: false,
+          value: '',
+        },
       },
-      s2: {
-        id: 's2',
-        name: 's2',
-        label: 'input 2',
-        changed: false,
-        score: null,
-        lie: false,
-        value: '',
-      },
-      s3: {
-        id: 's3',
-        name: 's3',
-        label: 'input 3',
-        changed: false,
-        score: null,
-        lie: false,
-        value: '',
-      }
     }
   }
 
@@ -98,44 +100,41 @@ class App extends React.Component {
   }
 
   handleUpdate(id, value) {
-    let update = {}
-    update[id] = {...this.state[id], value, changed: true}
-    this.setState(update, () => {
-      const count = Object.keys(this.state).reduce((c, id) => {
-        return c + (+this.state[id]['changed'])
+    let inputs = {...this.state.inputs}
+    inputs[id] = {...inputs[id], value, changed: true}
+    this.setState({inputs}, () => {
+      const count = Object.keys(inputs).reduce((c, id) => {
+        return c + (+inputs[id]['changed'])
       }, 0)
       if ( count === 1 ) {
-        Object.keys(this.state).forEach(id => {
-          if ( !this.state[id].changed ) {
-            let updated = {}
-            updated[id] = {...this.state[id], value}
-            this.setState(updated)
+        Object.keys(inputs).forEach(id => {
+          if ( !inputs[id].changed ) {
+            inputs[id] = {...inputs[id], value}
+            this.setState({inputs})
           }
         })
       }
     })
   }
 
-  validate(statements) {
-    return statements.every(s => !!s.value)
-  }
-
   submit(event) {
     event.preventDefault()
-    const { s1, s2, s3 } = this.state
+    const { inputs } = this.state
 
-    if ( !this.validate([s1, s2, s3]) ) {
+    if ( !Object.keys(inputs).every(key => !!inputs[key].value) ) {
       return
     }
 
-    const url = `/classify?s1=${s1.value}&s2=${s2.value}&s3=${s3.value}`
+    const url = `http://localhost:5005/classify?s1=${inputs.s1.value}&s2=${inputs.s2.value}&s3=${inputs.s3.value}`
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         this.setState({
-          s1: {...s1, ...data['s1']['system_1']},
-          s2: {...s2, ...data['s2']['system_1']},
-          s3: {...s3, ...data['s3']['system_1']},
+          inputs: {
+            s1: {...inputs.s1, ...data['s1']['system_1']},
+            s2: {...inputs.s2, ...data['s2']['system_1']},
+            s3: {...inputs.s3, ...data['s3']['system_1']},
+          },
         })
       })
       .catch((error) => console.log(error))
@@ -143,7 +142,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { s1, s2, s3, anchorEl } = this.state
+    const { inputs, anchorEl } = this.state
     return (
       <Container maxWidth="xl">
         <CssBaseline />
@@ -181,23 +180,23 @@ class App extends React.Component {
           <Grid container spacing={10}>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
-                <Input text={s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} />
-                {s1.score != null && <Score statement={s1} />}
-                {!!s1.lie && <Lie />}
+                <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} />
+                {inputs.s1.score != null && <Score statement={inputs.s1} />}
+                {!!inputs.s1.lie && <Lie />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
-                <Input text={s2} updateText={this.handleUpdate.bind(this)} />
-                {s2.score != null && <Score statement={s2} />}
-                {!!s2.lie && <Lie />}
+                <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
+                {inputs.s2.score != null && <Score statement={inputs.s2} />}
+                {!!inputs.s2.lie && <Lie />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
-                <Input text={s3} updateText={this.handleUpdate.bind(this)} />
-                {s3.score != null && <Score statement={s3} />}
-                {!!s3.lie && <Lie />}
+                <Input text={inputs.s3} updateText={this.handleUpdate.bind(this)} />
+                {inputs.s3.score != null && <Score statement={inputs.s3} />}
+                {!!inputs.s3.lie && <Lie />}
               </Paper>
             </Grid>
             <Grid item xs={12} align="center">
