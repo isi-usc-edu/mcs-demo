@@ -4,6 +4,7 @@ from flask import (
     jsonify,
     request,
 )
+from flask_pymongo import PyMongo
 from flask_cors import CORS
 
 import torch
@@ -37,6 +38,7 @@ from tqdm import (
     trange,
 )
 
+from datetime import datetime
 import logging
 import random
 import json
@@ -47,6 +49,12 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_url_path='')
 CORS(app)
+
+
+# Add mongo db settings for logging
+MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://0.0.0.0:27017/mcs')
+app.config["MONGO_URI"] = MONGO_URI
+mongo = PyMongo(app)
 
 
 # load trained models
@@ -159,6 +167,9 @@ def classify():
     score_0, score_1, score_2 = score_0.item(), score_1.item(), score_2.item()
     score_0, score_1, score_2 = 100 * softmax([score_0, score_1, score_2])
 
+    # Get a timestamp
+    ts = datetime.now().isoformat()
+
     data = {
         "s1": {
             "system_1": {
@@ -182,6 +193,9 @@ def classify():
             },
         },
     }
+
+    # store trial data in the mongo db
+    mongo.db.trials.insert_one({'ts': ts, **data})
 
     # Return json output
     return jsonify(data)
