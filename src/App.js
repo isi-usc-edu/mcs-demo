@@ -76,7 +76,7 @@ class App extends React.Component {
           changed: false,
           score: null,
           lie: false,
-          value: '',
+          value: 'roses are flowers',
         },
         s2: {
           id: 's2',
@@ -85,7 +85,7 @@ class App extends React.Component {
           changed: false,
           score: null,
           lie: false,
-          value: '',
+          value: 'roses are red',
         },
         s3: {
           id: 's3',
@@ -94,7 +94,7 @@ class App extends React.Component {
           changed: false,
           score: null,
           lie: false,
-          value: '',
+          value: 'roses are blue',
         },
       },
     }
