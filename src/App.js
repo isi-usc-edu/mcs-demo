@@ -39,6 +39,9 @@ const styles = theme => ({
     pointerEvents: 'none',
     borderRadius: 0,
   },
+  popoverContent: {
+    padding: theme.spacing(2),
+  },
   anchorEl: {
     textDecoration: 'underline',
     cursor: 'pointer',
@@ -86,6 +89,14 @@ class App extends React.Component {
     }
   }
 
+  handlePopoverOpen(event) {
+    this.setState({anchorEl: event.currentTarget})
+  }
+
+  handlePopoverClose() {
+    this.setState({anchorEl: null})
+  }
+
   handleUpdate(id, value) {
     let update = {}
     update[id] = {...this.state[id], value, changed: true}
@@ -130,18 +141,6 @@ class App extends React.Component {
       .catch((error) => console.log(error))
   }
 
-  handlePopoverOpen(event) {
-    this.setState({
-      anchorEl: event.currentTarget,
-    })
-  }
-
-  handlePopoverClose() {
-    this.setState({
-      anchorEl: null,
-    })
-  }
-
   render() {
     const { classes } = this.props
     const { s1, s2, s3, anchorEl } = this.state
@@ -168,9 +167,15 @@ class App extends React.Component {
             horizontal: 'left',
           }}
           className={classes.popover}
+          classes={{
+            paper: classes.popoverContent,
+          }}
           onClose={this.handlePopoverClose.bind(this)}
           disableRestoreFocus>
-          <Typography>popover placeholder</Typography>
+          <Typography>
+            1. All statements should be common sense<br/>
+            2. Statements should be about the same subject<br/>
+            3. Two of the statements should be true, one false (lie)</Typography>
         </Popover>
         <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
           <Grid container spacing={10}>
