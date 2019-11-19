@@ -140,13 +140,22 @@ def classify():
     # Return json output
     return jsonify({
         "s1": {
-            "system_1": round(score_0, 5),
+            "system_1": {
+                "score": round(score_0, 5),
+                "lie": bool(min([score_0, score_1, score_2]) == score_0),
+            },
         },
         "s2": {
-            "system_1": round(score_1, 5),
+            "system_1": {
+                "score": round(score_1, 5),
+                "lie": bool(min([score_0, score_1, score_2]) == score_1),
+            },
         },
         "s3": {
-            "system_1": round(score_2, 5),
+            "system_1": {
+                "score": round(score_2, 5),
+                "lie": bool(min([score_0, score_1, score_2]) == score_2),
+            },
         },
     })
 
