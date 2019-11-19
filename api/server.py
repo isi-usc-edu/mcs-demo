@@ -84,18 +84,16 @@ def select_field(features, field):
 def classify():
     global tokenizer, model, device
 
-    sent0 = request.args.get('s1')
-    sent1 = request.args.get('s2')
-    sent2 = request.args.get('s3')
-
-    # we will not use label
-    label = "1"
+    input1 = request.args.get('s1')
+    input2 = request.args.get('s2')
+    input3 = request.args.get('s3')
 
     max_length = 48
+
     # create model format data
     addtext = "Belows are three commonsense statements."
     contexts = [addtext, addtext, addtext]
-    endings = [sent0, sent1, sent2]
+    endings = [input1, input2, input3]
 
     choices_features = []
     for ending_idx, (context, ending) in enumerate(zip(contexts, endings)):
@@ -160,27 +158,32 @@ def classify():
     score_0, score_1, score_2 = score_0.item(), score_1.item(), score_2.item()
     score_0, score_1, score_2 = 100 * softmax([score_0, score_1, score_2])
 
-    # Return json output
-    return jsonify({
+    data = {
         "s1": {
             "system_1": {
+                "input": input1,
                 "score": round(score_0, 5),
                 "lie": bool(min([score_0, score_1, score_2]) == score_0),
             },
         },
         "s2": {
             "system_1": {
+                "input": input2,
                 "score": round(score_1, 5),
                 "lie": bool(min([score_0, score_1, score_2]) == score_1),
             },
         },
         "s3": {
             "system_1": {
+                "input": input3,
                 "score": round(score_2, 5),
                 "lie": bool(min([score_0, score_1, score_2]) == score_2),
             },
         },
-    })
+    }
+
+    # Return json output
+    return jsonify(data)
 
 
 @app.route('/')
