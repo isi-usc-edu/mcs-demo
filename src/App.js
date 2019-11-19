@@ -150,7 +150,11 @@ class App extends React.Component {
   }
 
   handleOnClear() {
-    window.location.reload()
+    const { inputs } = this.state
+    inputs.s1 = {...inputs.s1, value: '', changed: false, lie: false, score: null}
+    inputs.s2 = {...inputs.s2, value: '', changed: false, lie: false, score: null}
+    inputs.s3 = {...inputs.s3, value: '', changed: false, lie: false, score: null}
+    this.setState({inputs})
   }
 
   render() {
