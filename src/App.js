@@ -2,6 +2,7 @@ import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
+import Popover from '@material-ui/core/Popover'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Submit from './components/Submit'
@@ -33,6 +34,14 @@ const styles = theme => ({
   h1: {
     color: '#fefefe',
     marginBottom: theme.spacing(5),
+  },
+  popover: {
+    pointerEvents: 'none',
+    borderRadius: 0,
+  },
+  anchorEl: {
+    textDecoration: 'underline',
+    cursor: 'pointer',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -121,15 +130,48 @@ class App extends React.Component {
       .catch((error) => console.log(error))
   }
 
+  handlePopoverOpen(event) {
+    this.setState({
+      anchorEl: event.currentTarget,
+    })
+  }
+
+  handlePopoverClose() {
+    this.setState({
+      anchorEl: null,
+    })
+  }
+
   render() {
     const { classes } = this.props
-    const { s1, s2, s3 } = this.state
+    const { s1, s2, s3, anchorEl } = this.state
     return (
       <Container maxWidth="xl">
         <CssBaseline />
-        <Typography component="h1" variant="h4" className={classes.h1}>
-          Please enter 2 truths and 1 lie (three common sense statements, they should be <em><b>slightly</b></em> different)
+        <Typography
+          component="h1"
+          variant="h4"
+          className={classes.h1}>
+          Enter 2 truths and 1 lie <span className={classes.anchorEl}
+            onMouseEnter={this.handlePopoverOpen.bind(this)}
+            onMouseLeave={this.handlePopoverClose.bind(this)}>(*rules apply)</span>
         </Typography>
+        <Popover
+          open={!!anchorEl}
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          className={classes.popover}
+          onClose={this.handlePopoverClose.bind(this)}
+          disableRestoreFocus>
+          <Typography>popover placeholder</Typography>
+        </Popover>
         <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
           <Grid container spacing={10}>
             <Grid item xs={12}>
