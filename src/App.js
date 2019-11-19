@@ -2,12 +2,12 @@ import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
-import CancelIcon from '@material-ui/icons/Cancel'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Submit from './components/Submit'
 import Input from './components/Input'
 import Score from './components/Score'
+import Lie from './components/Lie'
 import { withStyles } from '@material-ui/core/styles'
 
 
@@ -37,13 +37,6 @@ const styles = theme => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
-  },
-  cancelIcon: {
-    color: 'red',
-    position: 'absolute',
-    fontSize: theme.spacing(15),
-    right: theme.spacing(3),
-    top: theme.spacing(3),
   },
 })
 
@@ -156,21 +149,21 @@ class App extends React.Component {
               <Paper component="div" className={classes.paper} square>
                 <Input text={s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} />
                 {!!s1.score && <Score statement={s1} />}
-                {!!s1.lie && <CancelIcon className={classes.cancelIcon} />}
+                {!!s1.lie && <Lie />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={s2} updateText={this.handleUpdate.bind(this)} />
                 {!!s2.score && <Score statement={s2} />}
-                {!!s2.lie && <CancelIcon className={classes.cancelIcon} />}
+                {!!s2.lie && <Lie />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={s3} updateText={this.handleUpdate.bind(this)} />
                 {!!s3.score && <Score statement={s3} />}
-                {!!s3.lie && <CancelIcon className={classes.cancelIcon} />}
+                {!!s3.lie && <Lie />}
               </Paper>
             </Grid>
             <Grid item xs={12} align="center">
