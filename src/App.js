@@ -3,6 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Popover from '@material-ui/core/Popover'
+import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Submit from './components/Submit'
@@ -49,6 +50,14 @@ const styles = theme => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
+  },
+  clearButton: {
+    color: 'white',
+    float: 'right',
+    borderColor: 'whitesmoke',
+    borderRadius: 3,
+    fontSize: theme.spacing(3.5),
+    padding: theme.spacing(3),
   },
 })
 
@@ -140,6 +149,10 @@ class App extends React.Component {
       .catch((error) => console.log(error))
   }
 
+  handleOnClear() {
+    window.location.reload()
+  }
+
   render() {
     const { classes } = this.props
     const { inputs, anchorEl } = this.state
@@ -201,6 +214,9 @@ class App extends React.Component {
             </Grid>
             <Grid item xs={12} align="center">
               <Submit />
+              <Button variant="outlined" className={classes.clearButton} onClick={this.handleOnClear.bind(this)}>
+                Clear
+              </Button>
             </Grid>
           </Grid>
         </form>
