@@ -40,6 +40,7 @@ from tqdm import (
 import logging
 import random
 import json
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -195,4 +196,7 @@ if __name__ == "__main__":
     global tokenizer, model, device
     tokenizer, model, device = load_models('models/taska_model')
 
-    app.run('0.0.0.0', port=5005, debug=False)
+    host = os.environ.get('MCS_SERVER_HOST', '0.0.0.0')
+    port = int(os.environ.get('MCS_SERVER_PORT', '5005'))
+
+    app.run(host=host, port=port, debug=False)
