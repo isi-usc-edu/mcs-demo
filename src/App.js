@@ -100,18 +100,6 @@ class App extends React.Component {
     return statements.every(s => !!s.value)
   }
 
-  getLies(data) {
-    const min = Object.keys(data).map(s => data[s]['system_1']).sort()[0]
-    return Object.keys(data).reduce((lies, s, i) => {
-      if ( data[s]['system_1'] < 1 ) {
-        lies.push(s)
-      } else if ( min === data[s]['system_1'] ) {
-        lies.push(s)
-      }
-      return lies
-    }, [])
-  }
-
   submit(event) {
     event.preventDefault()
     const { s1, s2, s3 } = this.state
@@ -124,11 +112,10 @@ class App extends React.Component {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        const lies = this.getLies(data)
         this.setState({
-          s1: {...s1, score: data['s1']['system_1'], lie: lies.indexOf('s1')>=0},
-          s2: {...s2, score: data['s2']['system_1'], lie: lies.indexOf('s2')>=0},
-          s3: {...s3, score: data['s3']['system_1'], lie: lies.indexOf('s3')>=0},
+          s1: {...s1, ...data['s1']['system_1']},
+          s2: {...s2, ...data['s2']['system_1']},
+          s3: {...s3, ...data['s3']['system_1']},
         })
       })
       .catch((error) => console.log(error))
