@@ -1,5 +1,6 @@
 # models
 /api/models
+/api/__pycache__
 
 # dependencies
 /node_modules
