@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Submit from './components/Submit'
+import Emoji from './components/Emoji'
 import Input from './components/Input'
 import Score from './components/Score'
 import Truth from './components/Truth'
@@ -198,7 +199,10 @@ class App extends React.Component {
           <Typography>
             1. All statements should be common sense<br/>
             2. Statements should be about the same subject<br/>
-            3. Two of the statements should be true, one false (lie)</Typography>
+            3. Two of the statements should be true, one false (lie)<br/>
+            <hr/>
+            <b>All user input will be logged for scientific purposes <Emoji symbol="🔬" label="science" /></b>
+          </Typography>
         </Popover>
         <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
           <Grid container spacing={10}>
