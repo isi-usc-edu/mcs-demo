@@ -109,7 +109,7 @@ def send_slack_message(data):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "1. {}: {} - {}\n2. {}: {} - {}\n3. {}: {} - {}".format(
+                "text": "1. {}: {}% - {}\n2. {}: {}% - {}\n3. {}: {}% - {}".format(
                     data['s1']['system_1']['input'], round(float(data['s1']['system_1']['score']), 2), 'LIE! ❌ 🤥' if data['s1']['system_1']['lie'] else 'TRUE ✔️',
                     data['s2']['system_1']['input'], round(float(data['s2']['system_1']['score']), 2), 'LIE! ❌ 🤥' if data['s2']['system_1']['lie'] else 'TRUE ✔️',
                     data['s3']['system_1']['input'], round(float(data['s3']['system_1']['score']), 2), 'LIE! ❌ 🤥' if data['s3']['system_1']['lie'] else 'TRUE ✔️',
