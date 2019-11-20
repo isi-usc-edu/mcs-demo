@@ -110,9 +110,9 @@ def send_slack_message(data):
             "text": {
                 "type": "mrkdwn",
                 "text": "1. {}: {} - {}\n2. {}: {} - {}\n3. {}: {} - {}".format(
-                    data['s1']['system_1']['input'], data['s1']['system_1']['score'], 'LIE! ❌ 🤥' if data['s1']['system_1']['lie'] else 'TRUE ✅',
-                    data['s2']['system_1']['input'], data['s2']['system_1']['score'], 'LIE! ❌ 🤥' if data['s2']['system_1']['lie'] else 'TRUE ✅',
-                    data['s3']['system_1']['input'], data['s3']['system_1']['score'], 'LIE! ❌ 🤥' if data['s3']['system_1']['lie'] else 'TRUE ✅',
+                    data['s1']['system_1']['input'], data['s1']['system_1']['score'], 'LIE! ❌ 🤥' if data['s1']['system_1']['lie'] else 'TRUE ✔️',
+                    data['s2']['system_1']['input'], data['s2']['system_1']['score'], 'LIE! ❌ 🤥' if data['s2']['system_1']['lie'] else 'TRUE ✔️',
+                    data['s3']['system_1']['input'], data['s3']['system_1']['score'], 'LIE! ❌ 🤥' if data['s3']['system_1']['lie'] else 'TRUE ✔️',
                 ),
             }
         }, {
