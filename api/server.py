@@ -38,7 +38,7 @@ from tqdm import (
     trange,
 )
 
-from slack_client import SlackClient
+from slack_client import SlackClient, SlackError
 from datetime import datetime
 import logging
 import random
@@ -238,7 +238,10 @@ def classify():
     mongo.db.trials.insert_one({'ts': ts, **data})
 
     # send a slack message
-    send_slack_message(data)
+    try:
+        send_slack_message(data)
+    except SlackError as e:
+        print('SlackError: {}'.format(e.__str__()))
 
     # Return json output
     return jsonify(data)
