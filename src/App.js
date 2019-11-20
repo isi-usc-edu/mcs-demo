@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid'
 import Submit from './components/Submit'
 import Input from './components/Input'
 import Score from './components/Score'
+import Truth from './components/Truth'
 import Lie from './components/Lie'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -200,6 +201,7 @@ class App extends React.Component {
                 <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} />
                 {inputs.s1.score != null && <Score statement={inputs.s1} />}
                 {!!inputs.s1.lie && <Lie />}
+                {!inputs.s1.lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
@@ -207,6 +209,7 @@ class App extends React.Component {
                 <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
                 {inputs.s2.score != null && <Score statement={inputs.s2} />}
                 {!!inputs.s2.lie && <Lie />}
+                {!inputs.s2.lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
@@ -214,6 +217,7 @@ class App extends React.Component {
                 <Input text={inputs.s3} updateText={this.handleUpdate.bind(this)} />
                 {inputs.s3.score != null && <Score statement={inputs.s3} />}
                 {!!inputs.s3.lie && <Lie />}
+                {!inputs.s3.lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12} align="center">
