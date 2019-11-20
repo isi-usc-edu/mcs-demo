@@ -67,7 +67,7 @@ const styles = theme => ({
     borderColor: 'whitesmoke',
     borderRadius: 3,
     fontSize: theme.spacing(3.5),
-    padding: theme.spacing(3),
+    padding: theme.spacing(2, 3),
   },
 })
 
