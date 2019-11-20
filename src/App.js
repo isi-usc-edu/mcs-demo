@@ -45,8 +45,9 @@ const styles = theme => ({
     padding: theme.spacing(2),
   },
   anchorEl: {
-    textDecoration: 'underline',
+    borderBottom: '2px solid whitesmoke',
     cursor: 'pointer',
+    float: 'right',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -170,16 +171,19 @@ class App extends React.Component {
           component="h1"
           variant="h4"
           className={classes.h1}>
-          Enter 2 truths and 1 lie <span className={classes.anchorEl}
+          Enter 3 common sense statements (2 truths and 1 lie)*
+          <span className={classes.anchorEl}
             onMouseEnter={this.handlePopoverOpen.bind(this)}
-            onMouseLeave={this.handlePopoverClose.bind(this)}>(*rules apply)</span>
+            onMouseLeave={this.handlePopoverClose.bind(this)}>
+            * terms and conditions apply
+          </span>
         </Typography>
         <Popover
           open={!!anchorEl}
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'right',
+            horizontal: 'left',
           }}
           transformOrigin={{
             vertical: 'top',
