@@ -69,6 +69,7 @@ class App extends React.Component {
     super(props)
 
     this.state = {
+      processed: false,
       inputs: {
         s1: {
           id: 's1',
@@ -140,6 +141,7 @@ class App extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         this.setState({
+          processed: true,
           inputs: {
             s1: {...inputs.s1, ...data['s1']['system_1']},
             s2: {...inputs.s2, ...data['s2']['system_1']},
@@ -155,12 +157,12 @@ class App extends React.Component {
     inputs.s1 = {...inputs.s1, value: '', changed: false, lie: false, score: null}
     inputs.s2 = {...inputs.s2, value: '', changed: false, lie: false, score: null}
     inputs.s3 = {...inputs.s3, value: '', changed: false, lie: false, score: null}
-    this.setState({inputs})
+    this.setState({processed: false, inputs})
   }
 
   render() {
     const { classes } = this.props
-    const { inputs, anchorEl } = this.state
+    const { processed, inputs, anchorEl } = this.state
     return (
       <Container maxWidth="xl">
         <CssBaseline />
@@ -200,24 +202,24 @@ class App extends React.Component {
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} />
                 {inputs.s1.score != null && <Score statement={inputs.s1} />}
-                {!!inputs.s1.lie && <Lie />}
-                {!inputs.s1.lie && <Truth />}
+                {processed && !!inputs.s1.lie && <Lie />}
+                {processed && !inputs.s1.lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
                 {inputs.s2.score != null && <Score statement={inputs.s2} />}
-                {!!inputs.s2.lie && <Lie />}
-                {!inputs.s2.lie && <Truth />}
+                {processed && !!inputs.s2.lie && <Lie />}
+                {processed && !inputs.s2.lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s3} updateText={this.handleUpdate.bind(this)} />
                 {inputs.s3.score != null && <Score statement={inputs.s3} />}
-                {!!inputs.s3.lie && <Lie />}
-                {!inputs.s3.lie && <Truth />}
+                {processed && !!inputs.s3.lie && <Lie />}
+                {processed && !inputs.s3.lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12} align="center">
