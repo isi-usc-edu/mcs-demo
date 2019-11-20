@@ -1,8 +1,6 @@
 import React from 'react'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
-import Emoji from './Emoji'
 
 
 const styles = theme => ({
