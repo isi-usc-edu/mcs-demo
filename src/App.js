@@ -207,7 +207,7 @@ class App extends React.Component {
             1. All statements should be common sense<br/>
             2. Statements should be about the same subject<br/>
             3. Two of the statements should be true, one false (lie)<br/>
-            <div className={classes.divider} />
+            <span className={classes.divider} />
             <b>All user input will be logged for scientific purposes <Emoji symbol="🔬" label="science" /></b>
           </Typography>
         </Popover>
