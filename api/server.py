@@ -205,7 +205,7 @@ def classify():
     #Compute the scores
     score_0, score_1, score_2 = logits[0]
     score_0, score_1, score_2 = score_0.item(), score_1.item(), score_2.item()
-    score_0, score_1, score_2 = 100 * softmax([score_0, score_1, score_2])
+    score_0, score_1, score_2 = 100 * softmax([score_0/5.0, score_1/5.0, score_2/5.0])
 
     # Get a timestamp
     ts = datetime.now().isoformat()
