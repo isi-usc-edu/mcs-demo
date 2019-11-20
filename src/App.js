@@ -170,7 +170,9 @@ class App extends React.Component {
     inputs.s1 = {...inputs.s1, value: '', changed: false, lie: false, score: null}
     inputs.s2 = {...inputs.s2, value: '', changed: false, lie: false, score: null}
     inputs.s3 = {...inputs.s3, value: '', changed: false, lie: false, score: null}
-    this.setState({processed: false, inputs})
+    this.setState({processed: false, inputs}, () => {
+      this.inputField.focus()
+    })
   }
 
   render() {
