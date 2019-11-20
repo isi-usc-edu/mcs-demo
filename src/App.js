@@ -45,6 +45,13 @@ const styles = theme => ({
   popoverContent: {
     padding: theme.spacing(2),
   },
+  divider: {
+    width: '100%',
+    display: 'block',
+    height: theme.spacing(2),
+    borderBottom: '1px solid #555',
+    marginBottom: theme.spacing(2),
+  },
   anchorEl: {
     borderBottom: '2px solid whitesmoke',
     cursor: 'pointer',
@@ -200,7 +207,7 @@ class App extends React.Component {
             1. All statements should be common sense<br/>
             2. Statements should be about the same subject<br/>
             3. Two of the statements should be true, one false (lie)<br/>
-            <hr/>
+            <div className={classes.divider} />
             <b>All user input will be logged for scientific purposes <Emoji symbol="🔬" label="science" /></b>
           </Typography>
         </Popover>
