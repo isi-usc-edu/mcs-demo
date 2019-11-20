@@ -161,6 +161,10 @@ class App extends React.Component {
       .catch((error) => console.log(error))
   }
 
+  getInputRef(refs) {
+    this.inputField = refs.input.getElementsByTagName('input')[0]
+  }
+
   handleOnClear() {
     const { inputs } = this.state
     inputs.s1 = {...inputs.s1, value: '', changed: false, lie: false, score: null}
@@ -215,7 +219,7 @@ class App extends React.Component {
           <Grid container spacing={10}>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
-                <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} />
+                <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
                 {inputs.s1.score != null && <Score statement={inputs.s1} />}
                 {processed && !!inputs.s1.lie && <Lie />}
                 {processed && !inputs.s1.lie && <Truth />}

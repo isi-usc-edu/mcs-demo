@@ -41,6 +41,13 @@ const CustomTextField = withStyles({
 
 class Input extends React.Component {
 
+  componentDidMount() {
+    const { passInputRef } = this.props
+    if ( !!passInputRef ) {
+      passInputRef(this.refs)
+    }
+  }
+
   handleOnChange(e) {
     const {updateText, text} = this.props
     const value = e.target.value
@@ -51,6 +58,7 @@ class Input extends React.Component {
     const { autoFocus, text } = this.props
     return (
       <CustomTextField
+        ref="input"
         id={text.id}
         name={text.name}
         label={text.label}
