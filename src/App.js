@@ -218,7 +218,7 @@ class App extends React.Component {
           </Typography>
         </Popover>
         <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
-          <Grid container spacing={10}>
+          <Grid container spacing={5}>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
