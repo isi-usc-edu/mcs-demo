@@ -172,7 +172,7 @@ class App extends React.Component {
           component="h1"
           variant="h4"
           className={classes.h1}>
-          Enter 3 common sense statements (2 truths and 1 lie)*
+          Enter 3 common sense statements (2 truths and 1 lie)
           <span className={classes.anchorEl}
             onMouseEnter={this.handlePopoverOpen.bind(this)}
             onMouseLeave={this.handlePopoverClose.bind(this)}>
