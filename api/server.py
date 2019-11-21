@@ -64,7 +64,9 @@ slack_client = SlackClient(SLACK_TOKEN)
 
 # load trained models
 def load_models(model_path='models/taska_model'):
-    config_path = 'models/roberta_large'
+    #config_path = 'models/roberta_large'
+    #model_path = 'models/taska_bert'
+    config_path = model_path
     device = torch.device("cuda" if torch.cuda.is_available() and not False else "cpu")
     n_gpu = torch.cuda.device_count()
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
