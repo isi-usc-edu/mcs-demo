@@ -18,8 +18,8 @@ import { withStyles } from '@material-ui/core/styles'
 const styles = theme => ({
   '@global': {
     body: {
-      background: 'linear-gradient(-45deg, rgba(190, 255, 75, 0.75), rgba(50, 200, 255, 0.75), rgba(125, 0, 250, 0.75), rgba(250, 25, 0, 0.75))',
-      backgroundSize: '400% 400%',
+      background: 'linear-gradient(150deg, #EC6A5A, #A662D6)',
+      backgroundSize: '100% 150%',
       padding: '3em 1em 1em 1em',
     },
   },
