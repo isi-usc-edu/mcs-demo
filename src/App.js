@@ -12,6 +12,7 @@ import Input from './components/Input'
 import Score from './components/Score'
 import Truth from './components/Truth'
 import Lie from './components/Lie'
+import scramble from './utils/scramble'
 import { withStyles } from '@material-ui/core/styles'
 
 
@@ -137,6 +138,50 @@ class App extends React.Component {
     })
   }
 
+  scrambleText() {
+    const { inputs } = this.state
+    this.setState({
+      inputs: {
+        s1: {...inputs.s1, value: scramble(inputs.s1.value)},
+        s2: {...inputs.s2, value: scramble(inputs.s2.value)},
+        s3: {...inputs.s3, value: scramble(inputs.s3.value)},
+      }
+    })
+  }
+
+  animateText(inputs) {
+    return new Promise((resolve, reject) => {
+      const s1 = inputs.s1.value
+      const s2 = inputs.s2.value
+      const s3 = inputs.s3.value
+      const timeoutDuration = Math.floor(Math.random() * 1000) + 250
+      this.interval = setInterval(this.scrambleText.bind(this), 50)
+      this.timeout = setTimeout(() => {
+        clearInterval(this.interval)
+        this.setState({
+          inputs: {
+            s1: {...inputs.s1, value: s1},
+            s2: {...inputs.s2, value: s2},
+            s3: {...inputs.s3, value: s3},
+          }
+        })
+        resolve()
+      }, timeoutDuration)
+    })
+  }
+
+  fetchData(inputs) {
+    return new Promise((resolve, reject) => {
+      const s1 = inputs.s1.value
+      const s2 = inputs.s2.value
+      const s3 = inputs.s3.value
+      fetch(`/classify?s1=${s1}&s2=${s2}&s3=${s3}`)
+        .then(response => response.json())
+        .then(data => resolve(data))
+        .catch(error => reject(error))
+    })
+  }
+
   submit(event) {
     event.preventDefault()
     const { inputs } = this.state
@@ -145,20 +190,20 @@ class App extends React.Component {
       return
     }
 
-    const url = `/classify?s1=${inputs.s1.value}&s2=${inputs.s2.value}&s3=${inputs.s3.value}`
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          processed: true,
-          inputs: {
-            s1: {...inputs.s1, ...data['s1']['system_1']},
-            s2: {...inputs.s2, ...data['s2']['system_1']},
-            s3: {...inputs.s3, ...data['s3']['system_1']},
-          },
-        })
+    Promise.all([
+      this.fetchData(inputs),
+      this.animateText(inputs),
+    ]).then((values) => {
+      const data = values[0]
+      this.setState({
+        processed: true,
+        inputs: {
+          s1: {...inputs.s1, ...data['s1']['system_1']},
+          s2: {...inputs.s2, ...data['s2']['system_1']},
+          s3: {...inputs.s3, ...data['s3']['system_1']},
+        },
       })
-      .catch((error) => console.log(error))
+    })
   }
 
   getInputRef(inputRef) {
