@@ -161,8 +161,8 @@ class App extends React.Component {
       .catch((error) => console.log(error))
   }
 
-  getInputRef(refs) {
-    this.inputField = refs.input.getElementsByTagName('input')[0]
+  getInputRef(inputRef) {
+    this.inputField = inputRef
   }
 
   handleOnClear() {

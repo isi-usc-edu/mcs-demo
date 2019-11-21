@@ -43,8 +43,8 @@ class Input extends React.Component {
 
   componentDidMount() {
     const { passInputRef } = this.props
-    if ( !!passInputRef ) {
-      passInputRef(this.refs)
+    if ( typeof(passInputRef) === 'function' ) {
+      passInputRef(this.refs.input.getElementsByTagName('input')[0])
     }
   }
 
