@@ -10,6 +10,7 @@ import Submit from './components/Submit'
 import Emoji from './components/Emoji'
 import Input from './components/Input'
 import Score from './components/Score'
+import Terms from './components/Terms'
 import Truth from './components/Truth'
 import Lie from './components/Lie'
 import scramble from './utils/scramble'
@@ -226,6 +227,7 @@ class App extends React.Component {
     return (
       <Container maxWidth="xl">
         <CssBaseline />
+        <Terms />
         <Typography
           component="h1"
           variant="h4"
