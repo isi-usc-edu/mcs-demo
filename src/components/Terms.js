@@ -1,6 +1,5 @@
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import Modal from '@material-ui/core/Modal'
+import { Button, Modal, Typography } from '@material-ui/core/'
 import Emoji from './Emoji'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -34,6 +33,14 @@ const styles = theme => ({
     height: theme.spacing(2),
     borderBottom: '1px solid #fefefe',
     marginBottom: theme.spacing(2),
+  },
+  button: {
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+    fontSize: theme.spacing(3.5),
+    padding: theme.spacing(3, 12),
+    '&:hover': {
+      backgroundColor: 'rgba(25, 229, 101, 0.95)',
+    },
   },
 })
 
@@ -74,6 +81,11 @@ class Terms extends React.Component {
               <span className={classes.divider} />
               <p><b><Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> all user input will be logged for scientific purposes!</b></p>
             </Typography>
+            <br />
+            <br />
+            <Button className={classes.button} onClick={this.handleClose.bind(this)}>
+              Start
+            </Button>
           </div>
         </Modal>
       </div>
