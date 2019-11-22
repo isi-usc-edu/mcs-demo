@@ -36,25 +36,11 @@ const styles = theme => ({
     alignItems: 'center',
     position: 'relative',
   },
-  h1: {
+  header: {
     color: '#fefefe',
     marginBottom: theme.spacing(5),
   },
-  popover: {
-    pointerEvents: 'none',
-    borderRadius: 0,
-  },
-  popoverContent: {
-    padding: theme.spacing(2),
-  },
-  divider: {
-    width: '100%',
-    display: 'block',
-    height: theme.spacing(2),
-    borderBottom: '1px solid #555',
-    marginBottom: theme.spacing(2),
-  },
-  anchorEl: {
+  trigger: {
     borderBottom: '2px solid whitesmoke',
     cursor: 'pointer',
     float: 'right',
@@ -80,6 +66,7 @@ class App extends React.Component {
     super(props)
 
     this.state = {
+      openTerms: true,
       processed: false,
       inputs: {
         s1: {
@@ -113,12 +100,12 @@ class App extends React.Component {
     }
   }
 
-  handlePopoverOpen(event) {
-    this.setState({anchorEl: event.currentTarget})
+  handleOpenTerms() {
+    this.setState({openTerms: true})
   }
 
-  handlePopoverClose() {
-    this.setState({anchorEl: null})
+  handleCloseTerms() {
+    this.setState({openTerms: false})
   }
 
   handleUpdate(id, value) {
@@ -223,47 +210,21 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { processed, inputs, anchorEl } = this.state
+    const { processed, inputs, openTerms } = this.state
     return (
       <Container maxWidth="xl">
         <CssBaseline />
-        <Terms />
+        <Terms open={openTerms} onClose={this.handleCloseTerms.bind(this)} />
         <Typography
           component="h1"
           variant="h4"
-          className={classes.h1}>
+          className={classes.header}>
           Enter 3 common sense statements (2 truths and 1 lie)
-          <span className={classes.anchorEl}
-            onMouseEnter={this.handlePopoverOpen.bind(this)}
-            onMouseLeave={this.handlePopoverClose.bind(this)}>
+          <span className={classes.trigger}
+            onClick={this.handleOpenTerms.bind(this)}>
             * terms and conditions apply
           </span>
         </Typography>
-        <Popover
-          open={!!anchorEl}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-          className={classes.popover}
-          classes={{
-            paper: classes.popoverContent,
-          }}
-          onClose={this.handlePopoverClose.bind(this)}
-          disableRestoreFocus>
-          <Typography>
-            1. All statements should be common sense<br/>
-            2. Statements should be about the same subject<br/>
-            3. Two of the statements should be true, one false (lie)<br/>
-            <span className={classes.divider} />
-            <b>All user input will be logged for scientific purposes <Emoji symbol="🔬" label="science" /></b>
-          </Typography>
-        </Popover>
         <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
           <Grid container spacing={5}>
             <Grid item xs={12}>
