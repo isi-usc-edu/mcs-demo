@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Grid, Modal, Typography } from '@material-ui/core/'
+import CloseIcon from '@material-ui/icons/Close'
 import Emoji from './Emoji'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -41,6 +42,14 @@ const styles = theme => ({
       backgroundColor: 'rgba(25, 229, 101, 0.95)',
     },
   },
+  closeIcon: {
+    color: '#fefefe',
+    cursor: 'pointer',
+    fontSize: theme.spacing(6),
+    position: 'absolute',
+    top: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 })
 
 
@@ -69,6 +78,9 @@ class Terms extends React.Component {
         open={open}
         onClose={this.handleClose.bind(this)}>
         <Grid container spacing={5} className={classes.root}>
+          <CloseIcon
+            className={classes.closeIcon}
+            onClick={this.handleClose.bind(this)} />
           <Grid item xs={12}>
             <Typography component="h1" variant="h4" className={classes.header}>
               Terms and Conditions
