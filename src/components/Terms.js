@@ -83,11 +83,6 @@ class Terms extends React.Component {
               <p>5. <Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> all user input will be logged for scientific purposes</p>
             </Typography>
           </Grid>
-          <Grid item xs={12} align="center">
-            <Button className={classes.button} onClick={() => onClose()}>
-              Start
-            </Button>
-          </Grid>
         </Grid>
       </Modal>
     )
