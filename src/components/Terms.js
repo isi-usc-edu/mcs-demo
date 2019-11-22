@@ -75,10 +75,13 @@ class Terms extends React.Component {
             </Typography>
             <Typography className={classes.content}>
               <p>1. All statements should be common sense</p>
-              <p>2. Statements should be about the same subject</p>
-              <p>3. Two of the statements should be true, one false (lie)</p>
+              <p>2. Two of the statements should be true, one false (lie)</p>
+              <p>3. Statements should be about the same (common sense) subject</p>
+              <p style={{marginBottom: '0'}}>4. Refrain from using personal information, unless</p>
+              <p style={{margin: '0', paddingLeft: '3em'}}>a. it is about a well-known person (a famous person)</p>
+              <p style={{margin: '0', paddingLeft: '3em'}}>b. there is a lot of published information about this person online</p>
               <span className={classes.divider} />
-              <p><b><Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> all user input will be logged for scientific purposes!</b></p>
+              <p><b><Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> all user input will be logged for scientific purposes</b></p>
             </Typography>
           </Grid>
           <Grid item xs={12} align="center">
