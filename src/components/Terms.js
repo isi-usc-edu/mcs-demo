@@ -55,32 +55,19 @@ const styles = theme => ({
 
 class Terms extends React.Component {
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      open: true,
-    }
-  }
-
-  handleClose() {
-    this.setState({open: false})
-  }
-
   render() {
-    const { classes } = this.props
-    const { open } = this.state
+    const { classes, open, onClose } = this.props
 
     return (
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         open={open}
-        onClose={this.handleClose.bind(this)}>
+        onClose={() => onClose()}>
         <Grid container spacing={5} className={classes.root}>
           <CloseIcon
             className={classes.closeIcon}
-            onClick={this.handleClose.bind(this)} />
+            onClick={() => onClose()} />
           <Grid item xs={12}>
             <Typography component="h1" variant="h4" className={classes.header}>
               Terms and Conditions
@@ -97,7 +84,7 @@ class Terms extends React.Component {
             </Typography>
           </Grid>
           <Grid item xs={12} align="center">
-            <Button className={classes.button} onClick={this.handleClose.bind(this)}>
+            <Button className={classes.button} onClick={() => onClose()}>
               Start
             </Button>
           </Grid>
