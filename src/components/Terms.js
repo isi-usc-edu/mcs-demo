@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal, Typography } from '@material-ui/core/'
+import { Button, Grid, Modal, Typography } from '@material-ui/core/'
 import Emoji from './Emoji'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -9,7 +9,6 @@ const styles = theme => ({
     width: '60vw',
     left: '20vw',
     top: '20vh',
-    height: '60vh',
     position: 'absolute',
     padding: theme.spacing(10),
     boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12)',
@@ -64,13 +63,13 @@ class Terms extends React.Component {
     const { open } = this.state
 
     return (
-      <div>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={open}
-          onClose={this.handleClose.bind(this)}>
-          <div className={classes.root}>
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={open}
+        onClose={this.handleClose.bind(this)}>
+        <Grid container spacing={5} className={classes.root}>
+          <Grid item xs={12}>
             <Typography component="h1" variant="h4" className={classes.header}>
               Terms and Conditions
             </Typography>
@@ -81,14 +80,14 @@ class Terms extends React.Component {
               <span className={classes.divider} />
               <p><b><Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> all user input will be logged for scientific purposes!</b></p>
             </Typography>
-            <br />
-            <br />
+          </Grid>
+          <Grid item xs={12} align="center">
             <Button className={classes.button} onClick={this.handleClose.bind(this)}>
               Start
             </Button>
-          </div>
-        </Modal>
-      </div>
+          </Grid>
+        </Grid>
+      </Modal>
     )
   }
 }
