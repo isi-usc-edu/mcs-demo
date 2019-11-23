@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, Modal, Typography } from '@material-ui/core/'
+import { Grid, Modal, Typography } from '@material-ui/core/'
 import CloseIcon from '@material-ui/icons/Close'
 import Emoji from './Emoji'
 import { withStyles } from '@material-ui/core/styles'
