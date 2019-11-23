@@ -236,7 +236,8 @@ def classify():
     context = [text, text, text]
     endings = [input1, input2, input3]
 
-    score1, score2, score3 = get_system_output('system_1', context, endings)
+    s1_score1, s1_score2, s1_score3 = get_system_output('system_1', context, endings)
+    s2_score1, s2_score2, s2_score3 = get_system_output('system_2', context, endings)
 
     # Get a timestamp
     ts = datetime.now().isoformat()
@@ -245,22 +246,37 @@ def classify():
         "s1": {
             "system_1": {
                 "input": input1,
-                "score": score1,
-                "lie": bool(min([score1, score2, score3]) == score1),
+                "score": s1_score1,
+                "lie": bool(min([s1_score1, s1_score2, s1_score3]) == s1_score1),
+            },
+            "system_2": {
+                "input": input1,
+                "score": s2_score1,
+                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s1_score1),
             },
         },
         "s2": {
             "system_1": {
                 "input": input2,
-                "score": score2,
-                "lie": bool(min([score1, score2, score3]) == score2),
+                "score": s1_score2,
+                "lie": bool(min([s1_score1, s1_score2, s1_score3]) == s1_score2),
+            },
+            "system_2": {
+                "input": input2,
+                "score": s2_score2,
+                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s1_score2),
             },
         },
         "s3": {
             "system_1": {
                 "input": input3,
-                "score": score3,
-                "lie": bool(min([score1, score2, score3]) == score3),
+                "score": s1_score3,
+                "lie": bool(min([s1_score1, s1_score2, s1_score3]) == s1_score3),
+            },
+            "system_2": {
+                "input": input3,
+                "score": s2_score3,
+                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s1_score3),
             },
         },
     }
