@@ -70,6 +70,13 @@ SYSTEMS = {
         'device': None,
         'model': None,
     },
+    'system_2': {
+        'model_path': 'models/taska_bert',
+        'classes': (BertConfig, BertForMultipleChoice, BertTokenizer),
+        'tokenizer': None,
+        'device': None,
+        'model': None,
+    },
 }
 
 
