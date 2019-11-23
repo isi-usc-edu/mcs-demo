@@ -62,24 +62,30 @@ SLACK_TOKEN = os.environ.get('SLACK_TOKEN', '')
 slack_client = SlackClient(SLACK_TOKEN)
 
 
+MODEL_CLASSES = {
+    'bert': (BertConfig, BertForMultipleChoice, BertTokenizer),
+    'xlnet': (XLNetConfig, XLNetForMultipleChoice, XLNetTokenizer),
+    'roberta': (RobertaConfig, RobertaForMultipleChoice, RobertaTokenizer)
+}
+
+
 # load trained models
 def load_models(model_path='models/taska_model'):
-    config_path = model_path
     device = torch.device("cuda" if torch.cuda.is_available() and not False else "cpu")
     n_gpu = torch.cuda.device_count()
-    logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
-                        datefmt='%m/%d/%Y %H:%M:%S',
-                        level=logging.INFO if -1 in [-1, 0] else logging.WARN)
-    MODEL_CLASSES = {
-        'bert': (BertConfig, BertForMultipleChoice, BertTokenizer),
-        'xlnet': (XLNetConfig, XLNetForMultipleChoice, XLNetTokenizer),
-        'roberta': (RobertaConfig, RobertaForMultipleChoice, RobertaTokenizer)
-    }
+    logging.basicConfig(
+        format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
+        datefmt='%m/%d/%Y %H:%M:%S',
+        level=logging.INFO if -1 in [-1, 0] else logging.WARN
+    )
     config_class, model_class, tokenizer_class = MODEL_CLASSES['roberta']
-    config = config_class.from_pretrained(config_path)
-    tokenizer = tokenizer_class.from_pretrained(config_path)
-    model = model_class.from_pretrained(model_path, from_tf=bool('.ckpt' in model_path),
-                                        config=config)
+    config = config_class.from_pretrained(model_path)
+    tokenizer = tokenizer_class.from_pretrained(model_path)
+    model = model_class.from_pretrained(
+        model_path,
+        from_tf=bool('.ckpt' in model_path),
+        config=config
+    )
     model.to(device)
 
     return tokenizer, model, device
@@ -260,7 +266,7 @@ def index():
 
 if __name__ == "__main__":
     global tokenizer, model, device
-    tokenizer, model, device = load_models('models/taska_model')
+    tokenizer, model, device = load_models('models/taska_roberta')
 
     host = os.environ.get('MCS_SERVER_HOST', '0.0.0.0')
     port = int(os.environ.get('MCS_SERVER_PORT', '5005'))
