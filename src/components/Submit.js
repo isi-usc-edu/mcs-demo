@@ -13,6 +13,11 @@ const styles = theme => ({
     color: 'white',
     fontSize: theme.spacing(3.5),
     padding: theme.spacing(3, 12),
+    transition: 'all 0.15s ease',
+    opacity: 0.8,
+    '&:hover': {
+      opacity: 1,
+    },
   },
 })
 
