@@ -128,24 +128,12 @@ def send_slack_message(data):
         icon_emoji=':robot_face:',
     )
 
-
-@app.route('/classify')
-def classify():
+def get_system_output(system_id, context, endings):
     global tokenizer, model, device
-
-    input1 = request.args.get('s1')
-    input2 = request.args.get('s2')
-    input3 = request.args.get('s3')
-
     max_length = 48
 
-    # create model format data
-    addtext = "Belows are three commonsense statements."
-    contexts = [addtext, addtext, addtext]
-    endings = [input1, input2, input3]
-
     choices_features = []
-    for ending_idx, (context, ending) in enumerate(zip(contexts, endings)):
+    for ending_idx, (context, ending) in enumerate(zip(context, endings)):
         text_a = context
         text_b = ending
         inputs = tokenizer.encode_plus(
@@ -178,6 +166,7 @@ def classify():
                 'segment_ids': token_type_ids
             }
         )
+
     all_input_ids = torch.tensor(select_field(choices_features, 'input_ids'), dtype=torch.long)
     all_input_mask = torch.tensor(select_field(choices_features, 'input_mask'), dtype=torch.long)
     all_segment_ids = torch.tensor(select_field(choices_features, 'segment_ids'), dtype=torch.long)
@@ -203,9 +192,26 @@ def classify():
         out_label_ids = inputs['labels'].detach().cpu().numpy()
 
     #Compute the scores
-    score_0, score_1, score_2 = logits[0]
-    score_0, score_1, score_2 = score_0.item(), score_1.item(), score_2.item()
-    score_0, score_1, score_2 = 100 * softmax([score_0/5.0, score_1/5.0, score_2/5.0])
+    score_1, score_2, score_3 = logits[0]
+    score_1, score_2, score_3 = score_1.item(), score_2.item(), score_3.item()
+    score_1, score_2, score_3 = 100 * softmax([score_1/5.0, score_2/5.0, score_3/5.0])
+
+    return (round(score_1, 5), round(score_2, 5), round(score_3, 5))
+
+
+@app.route('/classify')
+def classify():
+
+    input1 = request.args.get('s1')
+    input2 = request.args.get('s2')
+    input3 = request.args.get('s3')
+
+    # create model format data
+    text = "Below are three common sense statements."
+    context = [text, text, text]
+    endings = [input1, input2, input3]
+
+    score1, score2, score3 = get_system_output('system_1', context, endings)
 
     # Get a timestamp
     ts = datetime.now().isoformat()
@@ -214,22 +220,22 @@ def classify():
         "s1": {
             "system_1": {
                 "input": input1,
-                "score": round(score_0, 5),
-                "lie": bool(min([score_0, score_1, score_2]) == score_0),
+                "score": score1,
+                "lie": bool(min([score1, score2, score3]) == score1),
             },
         },
         "s2": {
             "system_1": {
                 "input": input2,
-                "score": round(score_1, 5),
-                "lie": bool(min([score_0, score_1, score_2]) == score_1),
+                "score": score2,
+                "lie": bool(min([score1, score2, score3]) == score2),
             },
         },
         "s3": {
             "system_1": {
                 "input": input3,
-                "score": round(score_2, 5),
-                "lie": bool(min([score_0, score_1, score_2]) == score_2),
+                "score": score3,
+                "lie": bool(min([score1, score2, score3]) == score3),
             },
         },
     }
