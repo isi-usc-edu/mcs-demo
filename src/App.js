@@ -72,27 +72,24 @@ class App extends React.Component {
           name: 's1',
           label: 'input 1',
           changed: true,
-          score: null,
-          lie: false,
           value: 'roses are flowers',
+          output: null,
         },
         s2: {
           id: 's2',
           name: 's2',
           label: 'input 2',
           changed: true,
-          score: null,
-          lie: false,
           value: 'roses are red',
+          output: null,
         },
         s3: {
           id: 's3',
           name: 's3',
           label: 'input 3',
           changed: true,
-          score: null,
-          lie: false,
           value: 'roses are blue',
+          output: null,
         },
       },
     }
@@ -184,9 +181,9 @@ class App extends React.Component {
       this.setState({
         processed: true,
         inputs: {
-          s1: {...inputs.s1, ...data['s1']['system_1']},
-          s2: {...inputs.s2, ...data['s2']['system_1']},
-          s3: {...inputs.s3, ...data['s3']['system_1']},
+          s1: {...inputs.s1, output: {...data['s1']}},
+          s2: {...inputs.s2, output: {...data['s2']}},
+          s3: {...inputs.s3, output: {...data['s3']}},
         },
       })
     })
