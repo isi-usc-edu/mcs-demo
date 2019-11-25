@@ -128,25 +128,26 @@ def send_slack_message(data):
            },
     """
     text = 'New entry in the MCS Demo!'
-    blocks = json.dumps([
-        {
+    blocks = []
+    for system_id in SYSTEMS.keys():
+        blocks.append({
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "1. {}: {}% - {}\n2. {}: {}% - {}\n3. {}: {}% - {}".format(
-                    data['s1']['system_1']['input'], round(float(data['s1']['system_1']['score']), 2), 'LIE! ❌ 🤥' if data['s1']['system_1']['lie'] else 'TRUE ✔️',
-                    data['s2']['system_1']['input'], round(float(data['s2']['system_1']['score']), 2), 'LIE! ❌ 🤥' if data['s2']['system_1']['lie'] else 'TRUE ✔️',
-                    data['s3']['system_1']['input'], round(float(data['s3']['system_1']['score']), 2), 'LIE! ❌ 🤥' if data['s3']['system_1']['lie'] else 'TRUE ✔️',
+                "text": "{} ({}):\n\t1. {}: {}% - {}\n\t2. {}: {}% - {}\n\t3. {}: {}% - {}".format(
+                    system_id.replace('_', ' ').capitalize(),
+                    SYSTEMS[system_id]['model_name'],
+                    data['s1'][system_id]['input'], round(float(data['s1'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s1'][system_id]['lie'] else 'TRUE ✔️',
+                    data['s2'][system_id]['input'], round(float(data['s2'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s2'][system_id]['lie'] else 'TRUE ✔️',
+                    data['s3'][system_id]['input'], round(float(data['s3'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s3'][system_id]['lie'] else 'TRUE ✔️',
                 ),
             }
-        }, {
-            "type": "divider"
-        }
-    ])
+        })
+        blocks.append({"type": "divider"})
     slack_client.chat_post_message(
         '#mcs-demo',
         text,
-        blocks=blocks,
+        blocks=json.dumps(blocks),
         username='2 Truths and 1 Lie?',
         as_user='False',
         icon_emoji=':robot_face:',
