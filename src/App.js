@@ -225,25 +225,25 @@ class App extends React.Component {
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
-                {inputs.s1.score != null && <Score statement={inputs.s1} />}
-                {processed && !!inputs.s1.lie && <Lie />}
-                {processed && !inputs.s1.lie && <Truth />}
+                {inputs.s1.output != null && <Score statement={inputs.s1} />}
+                {processed && !!inputs.s1.output['system_1'].lie && <Lie />}
+                {processed && !inputs.s1.output['system_1'].lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
-                {inputs.s2.score != null && <Score statement={inputs.s2} />}
-                {processed && !!inputs.s2.lie && <Lie />}
-                {processed && !inputs.s2.lie && <Truth />}
+                {inputs.s2.output != null && <Score statement={inputs.s2} />}
+                {processed && !!inputs.s2.output['system_1'].lie && <Lie />}
+                {processed && !inputs.s2.output['system_1'].lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s3} updateText={this.handleUpdate.bind(this)} />
-                {inputs.s3.score != null && <Score statement={inputs.s3} />}
-                {processed && !!inputs.s3.lie && <Lie />}
-                {processed && !inputs.s3.lie && <Truth />}
+                {inputs.s3.output != null && <Score statement={inputs.s3} />}
+                {processed && !!inputs.s3.output['system_1'].lie && <Lie />}
+                {processed && !inputs.s3.output['system_1'].lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12} align="center">
