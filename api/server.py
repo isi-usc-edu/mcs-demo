@@ -128,18 +128,25 @@ def send_slack_message(data):
            },
     """
     text = 'New entry in the MCS Demo!'
+    input1 = data['s1']['system_1']['input']
+    input2 = data['s2']['system_1']['input']
+    input3 = data['s3']['system_1']['input']
+    max_length = max([len(input1), len(input2), len(input3)])
+    input1 = input1 + '  ' * (max_length - len(input1))
+    input2 = input2 + '  ' * (max_length - len(input2))
+    input3 = input3 + '  ' * (max_length - len(input3))
     blocks = []
     for system_id in SYSTEMS.keys():
         blocks.append({
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "{} ({}):\n\t1. {}: `{}% (score: {}) - {}`\n\t2. {}: `{}% (score: {}) - {}`\n\t3. {}: `{}% (score: {}) - {}`".format(
+                "text": "{} ({}):\n\t1. {} \t\t\t`{}% (score: {}) - {}`\n\t2. {} \t\t\t`{}% (score: {}) - {}`\n\t3. {} \t\t\t`{}% (score: {}) - {}`".format(
                     system_id.replace('_', ' ').capitalize(),
                     SYSTEMS[system_id]['model_name'],
-                    data['s1'][system_id]['input'], round(float(data['s1'][system_id]['prob']), 2), round(float(data['s1'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s1'][system_id]['lie'] else 'TRUE ✔️',
-                    data['s2'][system_id]['input'], round(float(data['s2'][system_id]['prob']), 2), round(float(data['s2'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s2'][system_id]['lie'] else 'TRUE ✔️',
-                    data['s3'][system_id]['input'], round(float(data['s3'][system_id]['prob']), 2), round(float(data['s3'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s3'][system_id]['lie'] else 'TRUE ✔️',
+                    input1, round(float(data['s1'][system_id]['prob']), 2), round(float(data['s1'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s1'][system_id]['lie'] else 'TRUE ✔️',
+                    input2, round(float(data['s2'][system_id]['prob']), 2), round(float(data['s2'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s2'][system_id]['lie'] else 'TRUE ✔️',
+                    input3, round(float(data['s3'][system_id]['prob']), 2), round(float(data['s3'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s3'][system_id]['lie'] else 'TRUE ✔️',
                 ),
             }
         })
