@@ -73,7 +73,7 @@ class Terms extends React.Component {
               Terms and Conditions
             </Typography>
             <span className={classes.divider} />
-            <Typography className={classes.content}>
+            <div className={classes.content}>
               <p>1. All statements should be common sense</p>
               <p>2. Two of the statements should be true, one false (lie)</p>
               <p>3. Statements should be about the same (common sense) subject</p>
@@ -81,7 +81,7 @@ class Terms extends React.Component {
               <p style={{margin: '0', paddingLeft: '3em'}}>a. it is about a well-known person (a famous person)</p>
               <p style={{margin: '0', paddingLeft: '3em'}}>b. there is a lot of published information about this person online</p>
               <p>5. <Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> all user input will be logged for scientific purposes</p>
-            </Typography>
+            </div>
           </Grid>
         </Grid>
       </Modal>
