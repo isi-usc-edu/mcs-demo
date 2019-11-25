@@ -8,3 +8,5 @@ export const altColor3 = 'rgb(194, 71,  255)'  // #C247FF
 
 export const positive = 'rgb(25,  229, 101)' // #19E565
 export const negative = 'rgb(240, 70,  1)'   // #F04601
+
+export const colors = [positive, color2, color3]

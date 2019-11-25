@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography } from '@material-ui/core/'
 import { withStyles } from '@material-ui/core/styles'
-import { positive } from '../utils/colors'
+import { colors } from '../utils/colors'
 
 
 const styles = theme => ({
@@ -17,7 +17,6 @@ const styles = theme => ({
   },
   scoreBar: {
     position: 'relative',
-    background: positive,
     height: theme.spacing(2),
     minWidth: '0.5%',
   },
@@ -34,16 +33,17 @@ class Score extends React.Component {
   render() {
     const { classes } = this.props
     const { statement } = this.props
-    return (
-      <Typography component="h5" variant="h5" className={classes.h5}>
-        <div title={statement.score} className={classes.score}>
-          <label>system 1 (probability of truth): {statement.score.toFixed(2)}%</label>
-          <div style={{'width': `${statement.score.toFixed(2)}%`}} className={classes.scoreBar}>
-            <span className={classes.scoreLabel}>{statement.score.toFixed(2)}%</span>
+    return Object.keys(statement.output).map((systemId, i) => (
+      <Typography component="h5" variant="h5" className={classes.h5} key={systemId}>
+        <div title={statement.output[systemId].score} className={classes.score}>
+          <label>{systemId} (probability of truth): {statement.output[systemId].score.toFixed(2)}%</label>
+          <div className={classes.scoreBar}
+            style={{'width': `${statement.output[systemId].score.toFixed(2)}%`, 'background': colors[i]}}>
+            <span className={classes.scoreLabel}>{statement.output[systemId].score.toFixed(2)}%</span>
           </div>
         </div>
       </Typography>
-    )
+    ))
   }
 }
 
