@@ -64,6 +64,7 @@ slack_client = SlackClient(SLACK_TOKEN)
 
 SYSTEMS = {
     'system_1': {
+        'model_name': 'roberta',
         'model_path': 'models/taska_roberta',
         'classes': (RobertaConfig, RobertaForMultipleChoice, RobertaTokenizer),
         'tokenizer': None,
@@ -71,6 +72,7 @@ SYSTEMS = {
         'model': None,
     },
     'system_2': {
+        'model_name': 'bert',
         'model_path': 'models/taska_bert',
         'classes': (BertConfig, BertForMultipleChoice, BertTokenizer),
         'tokenizer': None,
