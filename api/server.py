@@ -134,12 +134,12 @@ def send_slack_message(data):
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "{} ({}):\n\t1. {}: {}% - {}\n\t2. {}: {}% - {}\n\t3. {}: {}% - {}".format(
+                "text": "{} ({}):\n\t1. {}: `{}% (score: {}) - {}`\n\t2. {}: `{}% (score: {}) - {}`\n\t3. {}: `{}% (score: {}) - {}`".format(
                     system_id.replace('_', ' ').capitalize(),
                     SYSTEMS[system_id]['model_name'],
-                    data['s1'][system_id]['input'], round(float(data['s1'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s1'][system_id]['lie'] else 'TRUE ✔️',
-                    data['s2'][system_id]['input'], round(float(data['s2'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s2'][system_id]['lie'] else 'TRUE ✔️',
-                    data['s3'][system_id]['input'], round(float(data['s3'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s3'][system_id]['lie'] else 'TRUE ✔️',
+                    data['s1'][system_id]['input'], round(float(data['s1'][system_id]['prob']), 2), round(float(data['s1'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s1'][system_id]['lie'] else 'TRUE ✔️',
+                    data['s2'][system_id]['input'], round(float(data['s2'][system_id]['prob']), 2), round(float(data['s2'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s2'][system_id]['lie'] else 'TRUE ✔️',
+                    data['s3'][system_id]['input'], round(float(data['s3'][system_id]['prob']), 2), round(float(data['s3'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s3'][system_id]['lie'] else 'TRUE ✔️',
                 ),
             }
         })
