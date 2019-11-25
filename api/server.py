@@ -222,9 +222,13 @@ def get_system_output(system_id, context, endings):
     #Compute the scores
     score_1, score_2, score_3 = logits[0]
     score_1, score_2, score_3 = score_1.item(), score_2.item(), score_3.item()
-    score_1, score_2, score_3 = 100 * softmax([score_1/5.0, score_2/5.0, score_3/5.0])
+    prob_1, prob_2, prob_3 = 100 * softmax([score_1/5.0, score_2/5.0, score_3/5.0])
 
-    return (round(score_1, 5), round(score_2, 5), round(score_3, 5))
+    return (
+        (round(score_1, 5), round(prob_1, 5)),
+        (round(score_2, 5), round(prob_2, 5)),
+        (round(score_3, 5), round(prob_3, 5)),
+    )
 
 
 @app.route('/classify')
@@ -239,8 +243,8 @@ def classify():
     context = [text, text, text]
     endings = [input1, input2, input3]
 
-    s1_score1, s1_score2, s1_score3 = get_system_output('system_1', context, endings)
-    s2_score1, s2_score2, s2_score3 = get_system_output('system_2', context, endings)
+    (s1_score1, s1_prob1), (s1_score2, s1_prob2), (s1_score3, s1_prob3) = get_system_output('system_1', context, endings)
+    (s2_score1, s2_prob1), (s2_score2, s2_prob2), (s2_score3, s2_prob3) = get_system_output('system_2', context, endings)
 
     # Get a timestamp
     ts = datetime.now().isoformat()
@@ -249,11 +253,13 @@ def classify():
         "s1": {
             "system_1": {
                 "input": input1,
+                "prob": s1_prob1,
                 "score": s1_score1,
                 "lie": bool(min([s1_score1, s1_score2, s1_score3]) == s1_score1),
             },
             "system_2": {
                 "input": input1,
+                "prob": s2_prob1,
                 "score": s2_score1,
                 "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s1_score1),
             },
@@ -261,11 +267,13 @@ def classify():
         "s2": {
             "system_1": {
                 "input": input2,
+                "prob": s1_prob2,
                 "score": s1_score2,
                 "lie": bool(min([s1_score1, s1_score2, s1_score3]) == s1_score2),
             },
             "system_2": {
                 "input": input2,
+                "prob": s2_prob2,
                 "score": s2_score2,
                 "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s1_score2),
             },
@@ -273,11 +281,13 @@ def classify():
         "s3": {
             "system_1": {
                 "input": input3,
+                "prob": s1_prob3,
                 "score": s1_score3,
                 "lie": bool(min([s1_score1, s1_score2, s1_score3]) == s1_score3),
             },
             "system_2": {
                 "input": input3,
+                "prob": s2_prob3,
                 "score": s2_score3,
                 "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s1_score3),
             },
