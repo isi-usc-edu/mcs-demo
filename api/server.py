@@ -269,7 +269,7 @@ def classify():
                 "input": input1,
                 "prob": s2_prob1,
                 "score": s2_score1,
-                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s1_score1),
+                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s2_score1),
             },
         },
         "s2": {
@@ -283,7 +283,7 @@ def classify():
                 "input": input2,
                 "prob": s2_prob2,
                 "score": s2_score2,
-                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s1_score2),
+                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s2_score2),
             },
         },
         "s3": {
@@ -297,7 +297,7 @@ def classify():
                 "input": input3,
                 "prob": s2_prob3,
                 "score": s2_score3,
-                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s1_score3),
+                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s2_score3),
             },
         },
     }
