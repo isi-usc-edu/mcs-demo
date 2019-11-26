@@ -54,7 +54,7 @@ const styles = theme => ({
 })
 
 
-class Terms extends React.Component {
+class Rules extends React.Component {
 
   render() {
     const { classes, open, onClose } = this.props
@@ -73,7 +73,7 @@ class Terms extends React.Component {
           </Hidden>
           <Grid item xs={12}>
             <Typography component="h5" variant="h5" className={classes.header}>
-              Terms and Conditions
+              Rules
             </Typography>
             <span className={classes.divider} />
             <div className={classes.content}>
@@ -101,4 +101,4 @@ class Terms extends React.Component {
 }
 
 
-export default withStyles(styles)(Terms)
+export default withStyles(styles)(Rules)

@@ -6,9 +6,9 @@ import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Submit from './components/Submit'
+import Rules from './components/Rules'
 import Input from './components/Input'
 import Score from './components/Score'
-import Terms from './components/Terms'
 import scramble from './utils/scramble'
 import { withStyles, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 
@@ -56,7 +56,7 @@ class App extends React.Component {
 
     this.state = {
       processing: false,
-      openTerms: false,
+      openRules: false,
       inputs: {
         s1: {
           id: 's1',
@@ -86,12 +86,12 @@ class App extends React.Component {
     }
   }
 
-  handleOpenTerms() {
-    this.setState({openTerms: true})
+  handleOpenRules() {
+    this.setState({openRules: true})
   }
 
-  handleCloseTerms() {
-    this.setState({openTerms: false})
+  handleCloseRules() {
+    this.setState({openRules: false})
   }
 
   handleUpdate(id, value) {
@@ -175,12 +175,12 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { inputs, openTerms, processing } = this.state
+    const { inputs, openRules, processing } = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
           <CssBaseline />
-          <Terms open={openTerms} onClose={this.handleCloseTerms.bind(this)} />
+          <Rules open={openRules} onClose={this.handleCloseRules.bind(this)} />
           <Typography
             component="h4"
             variant="h4"
@@ -214,8 +214,8 @@ class App extends React.Component {
                 <Button
                   variant="outlined"
                   className={classes.button}
-                  onClick={this.handleOpenTerms.bind(this)}>
-                  Terms and conditions
+                  onClick={this.handleOpenRules.bind(this)}>
+                  Rules
                 </Button>
               </Grid>
               <Grid item xs={6} align="right">
