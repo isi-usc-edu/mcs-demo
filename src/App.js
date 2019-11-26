@@ -64,7 +64,7 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      openTerms: true,
+      openTerms: false,
       processed: false,
       inputs: {
         s1: {
