@@ -9,8 +9,6 @@ import Submit from './components/Submit'
 import Input from './components/Input'
 import Score from './components/Score'
 import Terms from './components/Terms'
-import Truth from './components/Truth'
-import Lie from './components/Lie'
 import scramble from './utils/scramble'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -224,24 +222,18 @@ class App extends React.Component {
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
                 {inputs.s1.output != null && <Score statement={inputs.s1} />}
-                {processed && !!inputs.s1.output['system_1'].lie && <Lie />}
-                {processed && !inputs.s1.output['system_1'].lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
                 {inputs.s2.output != null && <Score statement={inputs.s2} />}
-                {processed && !!inputs.s2.output['system_1'].lie && <Lie />}
-                {processed && !inputs.s2.output['system_1'].lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper component="div" className={classes.paper} square>
                 <Input text={inputs.s3} updateText={this.handleUpdate.bind(this)} />
                 {inputs.s3.output != null && <Score statement={inputs.s3} />}
-                {processed && !!inputs.s3.output['system_1'].lie && <Lie />}
-                {processed && !inputs.s3.output['system_1'].lie && <Truth />}
               </Paper>
             </Grid>
             <Grid item xs={12} align="center">

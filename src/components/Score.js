@@ -1,6 +1,8 @@
 import React from 'react'
 import { Typography } from '@material-ui/core/'
 import { withStyles } from '@material-ui/core/styles'
+import Truth from './Truth'
+import Lie from './Lie'
 import { colors } from '../utils/colors'
 
 
@@ -13,6 +15,7 @@ const styles = theme => ({
     cursor: 'pointer',
   },
   score: {
+    position: 'relative',
     width: '94%',
   },
   scoreBar: {
@@ -25,6 +28,11 @@ const styles = theme => ({
     fontSize: theme.spacing(2),
     marginTop: -1 * theme.spacing(0.25),
     right: -1 * theme.spacing(7.5),
+  },
+  outputLabels: {
+    position: 'absolute',
+    right: -1 * theme.spacing(10),
+    top: theme.spacing(2),
   },
 })
 
@@ -40,6 +48,10 @@ class Score extends React.Component {
           <div className={classes.scoreBar}
             style={{'width': `${statement.output[systemId].prob.toFixed(2)}%`, 'background': colors[i]}}>
             <span className={classes.scoreLabel}>{statement.output[systemId].prob.toFixed(2)}%</span>
+          </div>
+          <div className={classes.outputLabels}>
+            {!!statement.output[systemId].lie && <Lie />}
+            {!statement.output[systemId].lie && <Truth />}
           </div>
         </div>
       </Typography>
