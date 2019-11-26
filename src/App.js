@@ -10,7 +10,10 @@ import Input from './components/Input'
 import Score from './components/Score'
 import Terms from './components/Terms'
 import scramble from './utils/scramble'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
+
+let theme = createMuiTheme();
+theme = responsiveFontSizes(theme);
 
 
 const styles = theme => ({
@@ -186,6 +189,7 @@ class App extends React.Component {
     const { classes } = this.props
     const { inputs, openTerms, processing } = this.state
     return (
+      <ThemeProvider theme={theme}>
       <Container maxWidth="xl">
         <CssBaseline />
         <Terms open={openTerms} onClose={this.handleCloseTerms.bind(this)} />
