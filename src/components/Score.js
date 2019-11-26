@@ -35,11 +35,11 @@ class Score extends React.Component {
     const { statement } = this.props
     return Object.keys(statement.output).map((systemId, i) => (
       <Typography component="h5" variant="h5" className={classes.h5} key={systemId}>
-        <div title={statement.output[systemId].score} className={classes.score}>
-          <label>{systemId} (probability of truth): {statement.output[systemId].score.toFixed(2)}%</label>
+        <div title={statement.output[systemId].prob} className={classes.score}>
+          <label>{systemId} (probability of truth: {statement.output[systemId].prob.toFixed(2)}%, score: {statement.output[systemId].score.toFixed(2)})</label>
           <div className={classes.scoreBar}
-            style={{'width': `${statement.output[systemId].score.toFixed(2)}%`, 'background': colors[i]}}>
-            <span className={classes.scoreLabel}>{statement.output[systemId].score.toFixed(2)}%</span>
+            style={{'width': `${statement.output[systemId].prob.toFixed(2)}%`, 'background': colors[i]}}>
+            <span className={classes.scoreLabel}>{statement.output[systemId].prob.toFixed(2)}%</span>
           </div>
         </div>
       </Typography>
