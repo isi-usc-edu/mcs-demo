@@ -7,17 +7,17 @@ const styles = theme => ({
   checkIcon: {
     color: 'limegreen',
     position: 'absolute',
-    fontSize: theme.spacing(15),
-    right: theme.spacing(3),
-    top: theme.spacing(3),
+    fontSize: theme.spacing(5),
+    right: '2px',
+    top: 0,
     zIndex: 5,
   },
   shadowIcon: {
     color: 'darkgreen',
     position: 'absolute',
-    fontSize: theme.spacing(15),
-    right: theme.spacing(3),
-    top: theme.spacing(3.5),
+    fontSize: theme.spacing(5),
+    right: 0,
+    top: '2px',
     zIndex: 4,
   },
 })

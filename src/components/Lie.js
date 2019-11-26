@@ -9,29 +9,26 @@ const styles = theme => ({
   cancelIcon: {
     color: 'red',
     position: 'absolute',
-    fontSize: theme.spacing(15),
-    right: theme.spacing(3),
-    top: theme.spacing(3),
+    fontSize: theme.spacing(5),
+    right: '2px',
+    top: 0,
     zIndex: 5,
   },
   shadowIcon: {
     color: 'darkred',
     position: 'absolute',
-    fontSize: theme.spacing(15),
-    right: theme.spacing(3),
-    top: theme.spacing(3.5),
+    fontSize: theme.spacing(5),
+    right: 0,
+    top: '2px',
     zIndex: 4,
   },
   h1: {
     position: 'absolute',
     fontSize: theme.spacing(5),
-    right: theme.spacing(20),
-    top: theme.spacing(8),
+    right: theme.spacing(7),
+    top: 0,
     zIndex: 6,
-  },
-  text: {
     color: 'red',
-    marginRight: theme.spacing(1),
     fontWeight: 'bolder',
     textShadow: '2px 2px 0px darkred',
   },
@@ -44,10 +41,7 @@ class Lie extends React.Component {
     const { classes } = this.props
     return (
       <span>
-        <Typography component="h1" variant="h4" className={classes.h1}>
-          <span className={classes.text}>LIE!</span>
-          <Emoji symbol="🤥" label="lying_face" />
-        </Typography>
+        <Typography component="h1" variant="h4" className={classes.h1}>LIE!</Typography>
         <CancelIcon className={classes.shadowIcon} />
         <CancelIcon className={classes.cancelIcon} />
       </span>
