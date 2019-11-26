@@ -193,9 +193,9 @@ class App extends React.Component {
 
   handleOnClear() {
     const { inputs } = this.state
-    inputs.s1 = {...inputs.s1, value: '', changed: false, lie: false, score: null}
-    inputs.s2 = {...inputs.s2, value: '', changed: false, lie: false, score: null}
-    inputs.s3 = {...inputs.s3, value: '', changed: false, lie: false, score: null}
+    inputs.s1 = {...inputs.s1, value: '', changed: false, output: null}
+    inputs.s2 = {...inputs.s2, value: '', changed: false, output: null}
+    inputs.s3 = {...inputs.s3, value: '', changed: false, output: null}
     this.setState({inputs}, () => {
       this.inputField.focus()
     })
