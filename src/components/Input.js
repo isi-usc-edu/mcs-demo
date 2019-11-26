@@ -8,11 +8,16 @@ import { withStyles } from '@material-ui/core/styles'
 const CustomTextField = withStyles({
   root: {
     '& .MuiFormLabel-root': {
-      fontSize: '1.5em',
+      '@media (min-width:600px)': {
+        fontSize: '1.25rem',
+        opacity: 0.85,
+      },
       color: '#fefefe',
     },
     '& .MuiInput-input': {
-      fontSize: '2em',
+      '@media (min-width:600px)': {
+        fontSize: '2rem',
+      },
       color: '#fefefe',
       transition: 'background 0.3s ease',
     },

@@ -21,14 +21,14 @@ const styles = theme => ({
     body: {
       background: 'linear-gradient(150deg, #EC6A5A, #A662D6)',
       backgroundSize: '100% 150%',
-      padding: '3em 1em 1em 1em',
+      padding: theme.spacing(3, 1),
     },
   },
   paper: {
     paddingTop: theme.spacing(6),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
-    paddingBottom: theme.spacing(8),
+    paddingBottom: theme.spacing(6),
     backgroundColor: 'rgba(254, 254, 254, 0.25)',
     display: 'flex',
     flexDirection: 'column',
@@ -37,26 +37,14 @@ const styles = theme => ({
   },
   header: {
     color: '#fefefe',
-    marginBottom: theme.spacing(5),
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
-  clearButton: {
+  button: {
     color: 'white',
-    float: 'right',
     borderColor: 'whitesmoke',
-    borderRadius: 3,
-    fontSize: theme.spacing(3.5),
-    padding: theme.spacing(2, 3),
-  },
-  termsButton: {
-    fontSize: theme.spacing(2),
-    borderColor: 'white',
-    cursor: 'pointer',
-    color: 'white',
-    float: 'left',
   },
 })
 
@@ -190,52 +178,58 @@ class App extends React.Component {
     const { inputs, openTerms, processing } = this.state
     return (
       <ThemeProvider theme={theme}>
-      <Container maxWidth="xl">
-        <CssBaseline />
-        <Terms open={openTerms} onClose={this.handleCloseTerms.bind(this)} />
-        <Typography
-          component="h1"
-          variant="h4"
-          className={classes.header}>
-          Enter 3 common sense statements (2 truths and 1 lie)
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
-          <Grid container spacing={5}>
-            <Grid item xs={12}>
-              <Paper component="div" className={classes.paper} square>
-                <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
-                {inputs.s1.output != null && <Score statement={inputs.s1} />}
-              </Paper>
+        <Container maxWidth="xl">
+          <CssBaseline />
+          <Terms open={openTerms} onClose={this.handleCloseTerms.bind(this)} />
+          <Typography
+            component="h4"
+            variant="h4"
+            className={classes.header}>
+            Enter 3 common sense statements (2 truths and 1 lie)
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Paper component="div" className={classes.paper} square>
+                  <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
+                  {inputs.s1.output != null && <Score statement={inputs.s1} />}
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper component="div" className={classes.paper} square>
+                  <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
+                  {inputs.s2.output != null && <Score statement={inputs.s2} />}
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper component="div" className={classes.paper} square>
+                  <Input text={inputs.s3} updateText={this.handleUpdate.bind(this)} />
+                  {inputs.s3.output != null && <Score statement={inputs.s3} />}
+                </Paper>
+              </Grid>
+              <Grid item xs={12} align="center">
+                <Submit disabled={processing} />
+              </Grid>
+              <Grid item xs={6} align="left">
+                <Button
+                  variant="outlined"
+                  className={classes.button}
+                  onClick={this.handleOpenTerms.bind(this)}>
+                  Terms and conditions
+                </Button>
+              </Grid>
+              <Grid item xs={6} align="right">
+                <Button
+                  variant="outlined"
+                  className={classes.button}
+                  onClick={this.handleOnClear.bind(this)}>
+                  Clear
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Paper component="div" className={classes.paper} square>
-                <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
-                {inputs.s2.output != null && <Score statement={inputs.s2} />}
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper component="div" className={classes.paper} square>
-                <Input text={inputs.s3} updateText={this.handleUpdate.bind(this)} />
-                {inputs.s3.output != null && <Score statement={inputs.s3} />}
-              </Paper>
-            </Grid>
-            <Grid item xs={12} align="center">
-              <Submit disabled={processing} />
-              <Button variant="outlined" className={classes.clearButton} onClick={this.handleOnClear.bind(this)}>
-                Clear
-              </Button>
-            </Grid>
-            <Grid item xs={12} align="left">
-              <Button
-                variant="outlined"
-                className={classes.termsButton}
-                onClick={this.handleOpenTerms.bind(this)}>
-                Terms and conditions
-              </Button>
-            </Grid>
-          </Grid>
-        </form>
-      </Container>
+          </form>
+        </Container>
+      </ThemeProvider>
     )
   }
 }
