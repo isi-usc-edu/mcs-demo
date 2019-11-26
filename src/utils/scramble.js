@@ -8,7 +8,7 @@ export default function scramble(text) {
     j = text.charAt(h)
     g = b.indexOf(j)
     f[h] = g
-    a[h] = g - (h + 5)
+    a[h] = Math.floor(Math.random() * b.length)
   }
   for (h = 0; h < f.length; h++) {
     if (f[h] !== a[h]) {
