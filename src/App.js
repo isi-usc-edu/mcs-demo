@@ -65,7 +65,6 @@ class App extends React.Component {
 
     this.state = {
       openTerms: false,
-      processed: false,
       inputs: {
         s1: {
           id: 's1',
@@ -179,7 +178,6 @@ class App extends React.Component {
     ]).then((values) => {
       const data = values[0]
       this.setState({
-        processed: true,
         inputs: {
           s1: {...inputs.s1, output: {...data['s1']}},
           s2: {...inputs.s2, output: {...data['s2']}},
@@ -198,14 +196,14 @@ class App extends React.Component {
     inputs.s1 = {...inputs.s1, value: '', changed: false, lie: false, score: null}
     inputs.s2 = {...inputs.s2, value: '', changed: false, lie: false, score: null}
     inputs.s3 = {...inputs.s3, value: '', changed: false, lie: false, score: null}
-    this.setState({processed: false, inputs}, () => {
+    this.setState({inputs}, () => {
       this.inputField.focus()
     })
   }
 
   render() {
     const { classes } = this.props
-    const { processed, inputs, openTerms } = this.state
+    const { inputs, openTerms } = this.state
     return (
       <Container maxWidth="xl">
         <CssBaseline />
