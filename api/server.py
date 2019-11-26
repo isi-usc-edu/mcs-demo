@@ -44,6 +44,7 @@ import logging
 import random
 import json
 import os
+import math
 
 logger = logging.getLogger(__name__)
 
@@ -229,7 +230,8 @@ def get_system_output(system_id, context, endings):
     #Compute the scores
     score_1, score_2, score_3 = logits[0]
     score_1, score_2, score_3 = score_1.item(), score_2.item(), score_3.item()
-    prob_1, prob_2, prob_3 = 100 * softmax([score_1/5.0, score_2/5.0, score_3/5.0])
+    #prob_1, prob_2, prob_3 = 100 * softmax([score_1/5.0, score_2/5.0, score_3/5.0])
+    prob_1, prob_2, prob_3 = 1/(1+math.exp(-score_1) , 1/(1+math.exp(-score_2)) , 1/(1+math.exp(-score_3)) 
 
     return (
         (round(score_1, 5), round(prob_1, 5)),
