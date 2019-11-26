@@ -1,6 +1,6 @@
 import React from 'react'
 import CancelIcon from '@material-ui/icons/Cancel'
-import Typography from '@material-ui/core/Typography'
+import { Typography, Hidden } from '@material-ui/core/'
 import { withStyles } from '@material-ui/core/styles'
 
 
@@ -40,7 +40,9 @@ class Lie extends React.Component {
     const { classes } = this.props
     return (
       <span>
-        <Typography component="h1" variant="h4" className={classes.h1}>LIE!</Typography>
+        <Hidden smDown>
+          <Typography component="h1" variant="h4" className={classes.h1}>LIE!</Typography>
+        </Hidden>
         <CancelIcon className={classes.shadowIcon} />
         <CancelIcon className={classes.cancelIcon} />
       </span>
