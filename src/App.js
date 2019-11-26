@@ -132,27 +132,6 @@ class App extends React.Component {
     })
   }
 
-  animateText(inputs) {
-    return new Promise((resolve, reject) => {
-      const s1 = inputs.s1.value
-      const s2 = inputs.s2.value
-      const s3 = inputs.s3.value
-      const timeoutDuration = Math.floor(Math.random() * 1000) + 250
-      this.interval = setInterval(this.scrambleText.bind(this), 50)
-      this.timeout = setTimeout(() => {
-        clearInterval(this.interval)
-        this.setState({
-          inputs: {
-            s1: {...inputs.s1, value: s1},
-            s2: {...inputs.s2, value: s2},
-            s3: {...inputs.s3, value: s3},
-          }
-        })
-        resolve()
-      }, timeoutDuration)
-    })
-  }
-
   fetchData(inputs) {
     return new Promise((resolve, reject) => {
       const s1 = inputs.s1.value
@@ -174,11 +153,9 @@ class App extends React.Component {
     }
 
     this.setState({processing: true}, () => {
-      Promise.all([
-        this.fetchData(inputs),
-        this.animateText(inputs),
-      ]).then((values) => {
-        const data = values[0]
+      this.interval = setInterval(this.scrambleText.bind(this), 50)
+      this.fetchData(inputs).then(data => {
+        clearInterval(this.interval)
         this.setState({
           processing: false,
           inputs: {
