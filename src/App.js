@@ -64,6 +64,7 @@ class App extends React.Component {
     super(props)
 
     this.state = {
+      processing: false,
       openTerms: false,
       inputs: {
         s1: {
@@ -172,17 +173,20 @@ class App extends React.Component {
       return
     }
 
-    Promise.all([
-      this.fetchData(inputs),
-      this.animateText(inputs),
-    ]).then((values) => {
-      const data = values[0]
-      this.setState({
-        inputs: {
-          s1: {...inputs.s1, output: {...data['s1']}},
-          s2: {...inputs.s2, output: {...data['s2']}},
-          s3: {...inputs.s3, output: {...data['s3']}},
-        },
+    this.setState({processing: true}, () => {
+      Promise.all([
+        this.fetchData(inputs),
+        this.animateText(inputs),
+      ]).then((values) => {
+        const data = values[0]
+        this.setState({
+          processing: false,
+          inputs: {
+            s1: {...inputs.s1, output: {...data['s1']}},
+            s2: {...inputs.s2, output: {...data['s2']}},
+            s3: {...inputs.s3, output: {...data['s3']}},
+          },
+        })
       })
     })
   }
@@ -203,7 +207,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { inputs, openTerms } = this.state
+    const { inputs, openTerms, processing } = this.state
     return (
       <Container maxWidth="xl">
         <CssBaseline />
@@ -235,7 +239,7 @@ class App extends React.Component {
               </Paper>
             </Grid>
             <Grid item xs={12} align="center">
-              <Submit />
+              <Submit disabled={processing} />
               <Button variant="outlined" className={classes.clearButton} onClick={this.handleOnClear.bind(this)}>
                 Clear
               </Button>

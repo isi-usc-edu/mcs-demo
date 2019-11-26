@@ -25,9 +25,9 @@ const styles = theme => ({
 class Submit extends React.Component {
 
   render() {
-    const { classes } = this.props
+    const { classes, disabled } = this.props
     return (
-      <Button type="submit" className={classes.root}>
+      <Button type="submit" disabled={disabled} className={classes.root}>
         Submit
       </Button>
     )
