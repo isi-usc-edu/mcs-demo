@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Modal, Typography } from '@material-ui/core/'
+import { Grid, Modal, Typography, Hidden, Button } from '@material-ui/core/'
 import CloseIcon from '@material-ui/icons/Close'
 import Emoji from './Emoji'
 import { withStyles } from '@material-ui/core/styles'
@@ -7,11 +7,15 @@ import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   root: {
-    width: '60vw',
-    left: '20vw',
-    top: '10vh',
+    zIndex: 10,
     position: 'absolute',
-    padding: theme.spacing(10),
+    padding: theme.spacing(3, 3, 15, 3),
+    '@media (min-width:600px)': {
+      padding: theme.spacing(5),
+      width: '60vw',
+      left: '20vw',
+      top: '10vh',
+    },
     boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12)',
     background: 'linear-gradient(150deg, #EC6A5A, #A662D6)',
     backgroundSize: '100% 150%',
@@ -21,11 +25,12 @@ const styles = theme => ({
   },
   header: {
     color: '#fefefe',
-    marginBottom: theme.spacing(5),
+    '@media (min-width:600px)': {
+    },
   },
   content: {
     color: '#fefefe',
-    fontSize: theme.spacing(3),
+    fontSize: theme.spacing(2),
   },
   divider: {
     width: '100%',
@@ -34,14 +39,6 @@ const styles = theme => ({
     borderBottom: '1px solid #fefefe',
     marginBottom: theme.spacing(2),
   },
-  button: {
-    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-    fontSize: theme.spacing(3.5),
-    padding: theme.spacing(3, 12),
-    '&:hover': {
-      backgroundColor: 'rgba(25, 229, 101, 0.95)',
-    },
-  },
   closeIcon: {
     color: '#fefefe',
     cursor: 'pointer',
@@ -49,6 +46,10 @@ const styles = theme => ({
     position: 'absolute',
     top: theme.spacing(2),
     right: theme.spacing(2),
+  },
+  button: {
+    color: 'white',
+    borderColor: 'whitesmoke',
   },
 })
 
@@ -65,11 +66,13 @@ class Terms extends React.Component {
         open={open}
         onClose={() => onClose()}>
         <Grid container spacing={5} className={classes.root}>
-          <CloseIcon
-            className={classes.closeIcon}
-            onClick={() => onClose()} />
+          <Hidden smDown>
+            <CloseIcon
+              className={classes.closeIcon}
+              onClick={() => onClose()} />
+          </Hidden>
           <Grid item xs={12}>
-            <Typography component="h1" variant="h4" className={classes.header}>
+            <Typography component="h5" variant="h5" className={classes.header}>
               Terms and Conditions
             </Typography>
             <span className={classes.divider} />
@@ -82,6 +85,14 @@ class Terms extends React.Component {
               <p style={{margin: '0', paddingLeft: '3em'}}>b. there is a lot of published information about this person online</p>
               <p>5. <Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> all user input will be logged for scientific purposes</p>
             </div>
+          </Grid>
+          <Grid item xs={12} align="left">
+            <Button
+              variant="outlined"
+              className={classes.button}
+              onClick={() => onClose()}>
+              Close
+            </Button>
           </Grid>
         </Grid>
       </Modal>
