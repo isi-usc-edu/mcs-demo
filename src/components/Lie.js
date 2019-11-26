@@ -2,7 +2,6 @@ import React from 'react'
 import CancelIcon from '@material-ui/icons/Cancel'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
-import Emoji from './Emoji'
 
 
 const styles = theme => ({
