@@ -38,11 +38,6 @@ const styles = theme => ({
     color: '#fefefe',
     marginBottom: theme.spacing(5),
   },
-  trigger: {
-    borderBottom: '2px solid whitesmoke',
-    cursor: 'pointer',
-    float: 'right',
-  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
@@ -54,6 +49,13 @@ const styles = theme => ({
     borderRadius: 3,
     fontSize: theme.spacing(3.5),
     padding: theme.spacing(2, 3),
+  },
+  termsButton: {
+    fontSize: theme.spacing(2),
+    borderColor: 'white',
+    cursor: 'pointer',
+    color: 'white',
+    float: 'left',
   },
 })
 
@@ -215,10 +217,6 @@ class App extends React.Component {
           variant="h4"
           className={classes.header}>
           Enter 3 common sense statements (2 truths and 1 lie)
-          <span className={classes.trigger}
-            onClick={this.handleOpenTerms.bind(this)}>
-            * terms and conditions apply
-          </span>
         </Typography>
         <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
           <Grid container spacing={5}>
@@ -250,6 +248,14 @@ class App extends React.Component {
               <Submit />
               <Button variant="outlined" className={classes.clearButton} onClick={this.handleOnClear.bind(this)}>
                 Clear
+              </Button>
+            </Grid>
+            <Grid item xs={12} align="left">
+              <Button
+                variant="outlined"
+                className={classes.termsButton}
+                onClick={this.handleOpenTerms.bind(this)}>
+                Terms and conditions
               </Button>
             </Grid>
           </Grid>
