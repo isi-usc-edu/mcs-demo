@@ -80,6 +80,14 @@ SYSTEMS = {
         'device': None,
         'model': None,
     },
+    'system_3': {
+        'model_name': 'xlnet',
+        'model_path': 'models/taska_xlnet',
+        'classes': (XLNetConfig, XLNetForMultipleChoice, XLNetTokenizer),
+        'tokenizer': None,
+        'device': None,
+        'model': None,
+    },
 }
 
 
