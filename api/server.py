@@ -169,8 +169,7 @@ def send_slack_message(data):
         icon_emoji=':robot_face:',
     )
 
-def get_system_output(system_id, context, endings):
-    system = SYSTEMS[system_id]
+def get_system_output(system, context, endings):
     tokenizer = system['tokenizer']
     device = system['device']
     model = system['model']
@@ -240,11 +239,20 @@ def get_system_output(system_id, context, endings):
     score_1, score_2, score_3 = score_1.item(), score_2.item(), score_3.item()
     prob_1, prob_2, prob_3 = 100 * softmax([score_1 / 5.0, score_2 / 5.0, score_3 / 5.0])
 
-    return (
-        (round(score_1, 5), round(prob_1, 5)),
-        (round(score_2, 5), round(prob_2, 5)),
-        (round(score_3, 5), round(prob_3, 5)),
-    )
+    return {
+        "s1": {
+            "score": round(score_1, 5),
+            "prob": round(prob_1, 5),
+        },
+        "s2": {
+            "score": round(score_2, 5),
+            "prob": round(prob_2, 5),
+        },
+        "s3": {
+            "score": round(score_3, 5),
+            "prob": round(prob_3, 5),
+        },
+    }
 
 
 @app.route('/classify')
@@ -259,56 +267,33 @@ def classify():
     context = [text, text, text]
     endings = [input1, input2, input3]
 
-    (s1_score1, s1_prob1), (s1_score2, s1_prob2), (s1_score3, s1_prob3) = get_system_output('system_1', context, endings)
-    (s2_score1, s2_prob1), (s2_score2, s2_prob2), (s2_score3, s2_prob3) = get_system_output('system_2', context, endings)
+    # initialize response data format
+    data = {
+        "s1": {
+            "input": input1,
+            "output": {},
+        },
+        "s2": {
+            "input": input2,
+            "output": {},
+        },
+        "s3": {
+            "input": input3,
+            "output": {},
+        },
+    }
+
+    for system_id, system in SYSTEMS.items():
+        lie = {"key": "", "score": 99999}
+        output = get_system_output(system, context, endings)
+        for key, value in output.items():
+            data[key]["output"][system_id] = {**value}
+            if value["score"] < lie["score"]:
+                lie = {"key": key, "score": value['score']}
+        data[lie["key"]]["output"][system_id]["lie"] = True
 
     # Get a timestamp
     ts = datetime.now().isoformat()
-
-    data = {
-        "s1": {
-            "system_1": {
-                "input": input1,
-                "prob": s1_prob1,
-                "score": s1_score1,
-                "lie": bool(min([s1_score1, s1_score2, s1_score3]) == s1_score1),
-            },
-            "system_2": {
-                "input": input1,
-                "prob": s2_prob1,
-                "score": s2_score1,
-                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s2_score1),
-            },
-        },
-        "s2": {
-            "system_1": {
-                "input": input2,
-                "prob": s1_prob2,
-                "score": s1_score2,
-                "lie": bool(min([s1_score1, s1_score2, s1_score3]) == s1_score2),
-            },
-            "system_2": {
-                "input": input2,
-                "prob": s2_prob2,
-                "score": s2_score2,
-                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s2_score2),
-            },
-        },
-        "s3": {
-            "system_1": {
-                "input": input3,
-                "prob": s1_prob3,
-                "score": s1_score3,
-                "lie": bool(min([s1_score1, s1_score2, s1_score3]) == s1_score3),
-            },
-            "system_2": {
-                "input": input3,
-                "prob": s2_prob3,
-                "score": s2_score3,
-                "lie": bool(min([s2_score1, s2_score2, s2_score3]) == s2_score3),
-            },
-        },
-    }
 
     # store trial data in the mongo db
     mongo.db.trials.insert_one({'ts': ts, **data})
