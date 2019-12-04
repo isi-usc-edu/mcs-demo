@@ -129,12 +129,18 @@ def select_field(features, field):
 
 def send_slack_message(data):
     """
-       "s1": {
-           "system_1": {
-               "input": input1,
-               "score": round(score_0, 5),
-               "lie": bool(min([score_0, score_1, sco
-           },
+        "s1": {
+            "input": "",
+            "output": {
+                "system_1": {
+                   "input": input1,
+                   "score": round(score_0, 5),
+                   "lie": True,
+                },
+                ....
+            },
+        },
+        ....
     """
     text = 'New entry in the MCS Demo!'
     input1 = data['s1']['system_1']['input']
