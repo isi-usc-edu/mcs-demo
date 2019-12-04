@@ -143,34 +143,46 @@ def send_slack_message(data):
         ....
     """
     text = 'New entry in the MCS Demo!'
-    input1 = data['s1']['system_1']['input']
-    input2 = data['s2']['system_1']['input']
-    input3 = data['s3']['system_1']['input']
+    input1 = data['s1']['input']
+    input2 = data['s2']['input']
+    input3 = data['s3']['input']
     max_length = max([len(input1), len(input2), len(input3)])
     input1 = input1 + '  ' * (max_length - len(input1))
     input2 = input2 + '  ' * (max_length - len(input2))
     input3 = input3 + '  ' * (max_length - len(input3))
     blocks = []
-    for system_id in SYSTEMS.keys():
+
+    for index, d in enumerate(data.values()):
         blocks.append({
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "{} ({}):\n\t1. {} \t\t\t`{}% (score: {}) - {}`\n\t2. {} \t\t\t`{}% (score: {}) - {}`\n\t3. {} \t\t\t`{}% (score: {}) - {}`".format(
-                    system_id.replace('_', ' ').capitalize(),
-                    SYSTEMS[system_id]['model_name'],
-                    input1, round(float(data['s1'][system_id]['prob']), 2), round(float(data['s1'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s1'][system_id]['lie'] else 'TRUE ✔️',
-                    input2, round(float(data['s2'][system_id]['prob']), 2), round(float(data['s2'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s2'][system_id]['lie'] else 'TRUE ✔️',
-                    input3, round(float(data['s3'][system_id]['prob']), 2), round(float(data['s3'][system_id]['score']), 2), 'LIE! ❌ 🤥' if data['s3'][system_id]['lie'] else 'TRUE ✔️',
-                ),
+                "text": "{}. *{}*".format(index + 1, d['input']),
+            },
+        })
+        system_output = ""
+        for system_id in SYSTEMS.keys():
+            system_output += "{} ({}): {}% (score: {}) - {}\n".format(
+                system_id.replace('_', ' ').capitalize(),
+                SYSTEMS[system_id].get('model_name'),
+                round(float(d['output'][system_id].get('prob', 0)), 2),
+                round(float(d['output'][system_id].get('score', 0)), 2),
+                'LIE! ❌' if d['output'][system_id].get('lie') else 'TRUE ✔️',
+            )
+        blocks.append({
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": system_output,
             }
         })
         blocks.append({"type": "divider"})
+
     slack_client.chat_post_message(
         '#mcs-demo',
         text,
         blocks=json.dumps(blocks),
-        username='2 Truths and 1 Lie?',
+        username='Machine Common Sense (DEMO)',
         as_user='False',
         icon_emoji=':robot_face:',
     )
