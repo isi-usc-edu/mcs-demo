@@ -5,3 +5,5 @@ transformers==2.1.1
 Flask-Cors==3.0.8
 Flask-PyMongo==2.3.0
 requests==2.22.0
+slackclient==1.2.1
+slackeventsapi==2.0.0
