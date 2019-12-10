@@ -4,6 +4,10 @@ from flask import (
     jsonify,
     request,
 )
+import time
+import requests
+from bson import ObjectId
+from threading import Thread
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 
@@ -38,7 +42,9 @@ from tqdm import (
     trange,
 )
 
-from slack_client import SlackClient, SlackError
+from slackeventsapi import SlackEventAdapter
+from slackclient import SlackClient
+
 from datetime import datetime
 import logging
 import random
@@ -61,6 +67,10 @@ mongo = PyMongo(app)
 # Slack api settings
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN', '')
 slack_client = SlackClient(SLACK_TOKEN)
+
+# Slack events adapter
+SLACK_SIGNING_SECRET = os.environ.get('SLACK_SIGNING_SECRET', '')
+slack_events_adapter = SlackEventAdapter(SLACK_SIGNING_SECRET, '/slack', app)
 
 
 SYSTEMS = {
@@ -127,32 +137,21 @@ def select_field(features, field):
     ]
 
 
-def send_slack_message(data):
-    """
-        "s1": {
-            "input": "",
-            "output": {
-                "system_1": {
-                   "input": input1,
-                   "score": round(score_0, 5),
-                   "lie": True,
-                },
-                ....
-            },
-        },
-        ....
-    """
-    text = 'New entry in the MCS Demo!'
-    input1 = data['s1']['input']
-    input2 = data['s2']['input']
-    input3 = data['s3']['input']
-    max_length = max([len(input1), len(input2), len(input3)])
-    input1 = input1 + '  ' * (max_length - len(input1))
-    input2 = input2 + '  ' * (max_length - len(input2))
-    input3 = input3 + '  ' * (max_length - len(input3))
-    blocks = []
+def open_modal(data_id, trigger_id):
+    data = mongo.db.trials.find_one(ObjectId(data_id))
 
-    for index, d in enumerate(data.values()):
+    blocks = [{
+      "type": "section",
+      "text": {
+        "type": "plain_text",
+        "text": "Model output for each one of the input statements:",
+        "emoji": True
+      }
+    }, {
+      "type": "divider"
+    }]
+
+    for index, d in enumerate([data['s1'], data['s2'], data['s3']]):
         blocks.append({
             "type": "section",
             "text": {
@@ -176,16 +175,82 @@ def send_slack_message(data):
                 "text": system_output,
             }
         })
-        blocks.append({"type": "divider"})
+        if index < 2:
+            blocks.append({"type": "divider"})
 
-    slack_client.chat_post_message(
-        '#mcs-demo',
-        text,
+
+    view = json.dumps({
+      "type": "modal",
+      "title": {
+        "type": "plain_text",
+        "text": "Model Output",
+        "emoji": True
+      },
+      "blocks": json.dumps(blocks)
+    })
+
+    slack_client.api_call(
+        'views.open',
+        trigger_id=trigger_id,
+        view=view,
+        username='Machine Common Sense (DEMO)',
+        as_user='False',
+        icon_emoji=':robot_face:',
+    )
+
+
+@app.route('/events', methods=['POST'])
+def events():
+    """
+    Handles incoming slack events
+    """
+    data = json.loads(request.values.get('payload'))
+    data_id = data['actions'][0]['value']
+    trigger_id = data.get('trigger_id')
+    open_modal(data_id, trigger_id)
+    return jsonify({'ok': True})
+
+
+def send_slack_message(data, object_id):
+    """
+    Send the initial version of the user input (without model output)
+    """
+    blocks = [{
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": "*New entry in the MCS Demo!*"
+        },
+        "accessory": {
+            "type": "button",
+            "text": {
+                "type": "plain_text",
+                "text": "Show model output",
+                "emoji": True
+            },
+            "value": str(object_id)
+        }
+    }, {
+        "type": "section",
+        "text": {
+        "type": "mrkdwn",
+        "text": "1. {} \n 2. {} \n 3. {}".format(
+            data['s1']['input'],
+            data['s2']['input'],
+            data['s3']['input'],
+        )},
+    }]
+
+    slack_client.api_call(
+        'chat.postMessage',
+        channel='#mcs-demo',
+        text='New entry in the MCS Demo!',
         blocks=json.dumps(blocks),
         username='Machine Common Sense (DEMO)',
         as_user='False',
         icon_emoji=':robot_face:',
     )
+
 
 def get_system_output(system, context, endings):
     tokenizer = system['tokenizer']
@@ -211,6 +276,7 @@ def get_system_output(system, context, endings):
 
         input_ids, token_type_ids = inputs["input_ids"], inputs["token_type_ids"]
         attention_mask = [1] * len(input_ids)
+
         # Zero-pad up to the sequence length.
         padding_length = max_length - len(input_ids)
         input_ids = input_ids + ([0] * padding_length)
@@ -220,13 +286,11 @@ def get_system_output(system, context, endings):
         assert len(input_ids) == max_length
         assert len(attention_mask) == max_length
         assert len(token_type_ids) == max_length
-        choices_features.append(
-            {
-                'input_ids': input_ids,
-                'input_mask': attention_mask,
-                'segment_ids': token_type_ids
-            }
-        )
+        choices_features.append({
+            'input_ids': input_ids,
+            'input_mask': attention_mask,
+            'segment_ids': token_type_ids
+        })
 
     all_input_ids = torch.tensor(select_field(choices_features, 'input_ids'), dtype=torch.long)
     all_input_mask = torch.tensor(select_field(choices_features, 'input_mask'), dtype=torch.long)
@@ -301,6 +365,7 @@ def classify():
         },
     }
 
+    # check for the "lie" statement
     for system_id, system in SYSTEMS.items():
         lie = {"key": "", "score": 99999}
         output = get_system_output(system, context, endings)
@@ -314,12 +379,13 @@ def classify():
     ts = datetime.now().isoformat()
 
     # store trial data in the mongo db
-    mongo.db.trials.insert_one({'ts': ts, **data})
+    new_entry = mongo.db.trials.insert_one({'ts': ts, **data})
+    object_id = new_entry.inserted_id
 
     # send a slack message
     try:
-        send_slack_message(data)
-    except SlackError as e:
+        send_slack_message(data, object_id)
+    except Exception as e:
         print('SlackError: {}'.format(e.__str__()))
 
     # Return json output
