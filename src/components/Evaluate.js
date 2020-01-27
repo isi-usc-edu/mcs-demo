@@ -27,12 +27,17 @@ const styles = theme => ({
       background: 'red',
     },
   },
+  link: {
+    cursor: 'pointer',
+    marginTop: theme.spacing(5),
+    textDecoration: 'underline',
+  },
 })
 
 
 class Evaluate extends React.Component {
 
-  render() {
+  renderEvalButtons() {
     const { classes, onSelect } = this.props
     return (
       <div>
@@ -42,18 +47,44 @@ class Evaluate extends React.Component {
           className={classes.header}>
           Was the machine output correct?
         </Typography>
-                <Button
-                  variant="contained"
-                  className={classes.buttonYes}
-                  onClick={() => onSelect('yes')}>
-                  Yes
-                </Button>
-                <Button
-                  variant="contained"
-                  className={classes.buttonNo}
-                  onClick={() => onSelect('no')}>
-                  No
-                </Button>
+        <Button
+          variant="contained"
+          className={classes.buttonYes}
+          onClick={() => onSelect('yes')}>
+          Yes
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.buttonNo}
+          onClick={() => onSelect('no')}>
+          No
+        </Button>
+      </div>
+    )
+  }
+
+  renderReset() {
+    const { classes, onReset } = this.props
+    return (
+      <div>
+        <Typography
+          component="h3"
+          variant="h3"
+          className={classes.header}>
+          Thank you for participating!
+          <div className={classes.link} onClick={() => onReset()}>
+            Try again
+          </div>
+        </Typography>
+      </div>
+    )
+  }
+
+  render() {
+    const { evaluated } = this.props
+    return (
+      <div>
+        {!!evaluated ? this.renderReset() : this.renderEvalButtons()}
       </div>
     )
   }

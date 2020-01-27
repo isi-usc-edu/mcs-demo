@@ -9,8 +9,10 @@ import Submit from './components/Submit'
 import Rules from './components/Rules'
 import Input from './components/Input'
 import Output from './components/Output'
+import Evaluate from './components/Evaluate'
 import scramble from './utils/scramble'
 import { withStyles, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
+
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -57,6 +59,7 @@ class App extends React.Component {
 
     this.state = {
       processing: false,
+      evaluated: false,
       openRules: false,
       inputs: {
         s1: {
@@ -153,18 +156,22 @@ class App extends React.Component {
     this.inputField = inputRef
   }
 
+  handleSelect() {
+    this.setState({evaluated: true})
+  }
+
   handleOnClear() {
     const { inputs } = this.state
     inputs.s1 = {...inputs.s1, value: '', changed: false, output: null}
     inputs.s2 = {...inputs.s2, value: '', changed: false, output: null}
-    this.setState({inputs}, () => {
+    this.setState({evaluated: false, inputs}, () => {
       this.inputField.focus()
     })
   }
 
   render() {
     const { classes } = this.props
-    const { inputs, openRules, processing } = this.state
+    const { inputs, openRules, processing, evaluated} = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
@@ -191,7 +198,12 @@ class App extends React.Component {
                 </Paper>
               </Grid>
               <Grid item xs={12} align="center">
-                <Submit disabled={processing} />
+                {inputs.s1.output === null && <Submit disabled={processing} />}
+                {inputs.s1.output != null && (
+                  <Evaluate evaluated={evaluated}
+                    onSelect={this.handleSelect.bind(this)}
+                    onReset={this.handleOnClear.bind(this)} />
+                )}
               </Grid>
               <Grid item xs={6} align="left">
                 <Button
