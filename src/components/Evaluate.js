@@ -12,6 +12,7 @@ const styles = theme => ({
   buttonYes: {
     color: 'whitesmoke',
     background: 'darkgreen',
+    fontSize: theme.spacing(3),
     margin: theme.spacing(2, 5),
     padding: theme.spacing(2, 10),
     '&:hover': {
@@ -21,6 +22,7 @@ const styles = theme => ({
   buttonNo: {
     color: 'whitesmoke',
     background: 'darkred',
+    fontSize: theme.spacing(3),
     margin: theme.spacing(2, 5),
     padding: theme.spacing(2, 10),
     '&:hover': {
@@ -42,8 +44,8 @@ class Evaluate extends React.Component {
     return (
       <div>
         <Typography
-          component="h2"
-          variant="h2"
+          component="h3"
+          variant="h3"
           className={classes.header}>
           Was the machine output correct?
         </Typography>

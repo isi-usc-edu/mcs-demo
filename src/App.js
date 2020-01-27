@@ -178,8 +178,8 @@ class App extends React.Component {
           <CssBaseline />
           <Rules open={openRules} onClose={this.handleCloseRules.bind(this)} />
           <Typography
-            component="h4"
-            variant="h4"
+            component="h3"
+            variant="h3"
             className={classes.header}>
             Enter 2 common sense statements (1 truth and 1 lie)
           </Typography>
