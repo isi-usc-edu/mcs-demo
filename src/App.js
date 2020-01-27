@@ -64,7 +64,7 @@ class App extends React.Component {
           name: 's1',
           label: 'input 1',
           changed: true,
-          value: 'roses are flowers',
+          value: 'roses are red',
           output: null,
         },
         s2: {
@@ -72,7 +72,7 @@ class App extends React.Component {
           name: 's2',
           label: 'input 2',
           changed: true,
-          value: 'roses are red',
+          value: 'roses are blue',
           output: null,
         },
       },
