@@ -339,7 +339,7 @@ def classify():
     input2 = request.args.get('s2')
 
     # create model format data
-    text = "Below are three common sense statements."
+    text = "Below are two common sense statements."
     context = [text, text]
     endings = [input1, input2]
 
