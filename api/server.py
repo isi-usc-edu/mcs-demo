@@ -166,7 +166,7 @@ def open_modal(data_id, trigger_id):
                 SYSTEMS[system_id].get('model_name'),
                 round(float(d['output'][system_id].get('prob', 0)), 2),
                 round(float(d['output'][system_id].get('score', 0)), 2),
-                'LIE! ❌' if d['output'][system_id].get('lie') else 'TRUE ✔️',
+                'LIE! ❌' if d['output'][system_id].get('lie') else 'TRUTH ✔️',
             )
         blocks.append({
             "type": "section",
