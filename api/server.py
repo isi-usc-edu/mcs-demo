@@ -348,10 +348,14 @@ def classify():
         "s1": {
             "input": input1,
             "output": {},
+            "avg_prob": 0,
+            "truth": False,
         },
         "s2": {
             "input": input2,
             "output": {},
+            "avg_prob": 0,
+            "truth": False,
         },
     }
 
@@ -360,10 +364,19 @@ def classify():
         lie = {"key": "", "score": 99999}
         output = get_system_output(system, context, endings)
         for key, value in output.items():
+            data[key]["avg_prob"] += value["prob"]
             data[key]["output"][system_id] = {**value}
             if value["score"] < lie["score"]:
                 lie = {"key": key, "score": value['score']}
         data[lie["key"]]["output"][system_id]["lie"] = True
+
+    # update average probabilities
+    for key in data.keys():
+        data[key]["avg_prob"] = data[key]["avg_prob"] / len(SYSTEMS)
+
+    # check which statement is the correct one
+    data["s1"]["truth"] = bool(data["s1"]["avg_prob"] > data["s2"]["avg_prob"])
+    data["s2"]["truth"] = bool(data["s1"]["avg_prob"] < data["s2"]["avg_prob"])
 
     # Get a timestamp
     ts = datetime.now().isoformat()
