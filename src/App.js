@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import Submit from './components/Submit'
 import Rules from './components/Rules'
 import Input from './components/Input'
-import Score from './components/Score'
+import Output from './components/Output'
 import scramble from './utils/scramble'
 import { withStyles, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 
@@ -180,13 +180,13 @@ class App extends React.Component {
               <Grid item xs={12}>
                 <Paper component="div" className={classes.paper} square>
                   <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
-                  {inputs.s1.output != null && <Score statement={inputs.s1} />}
+                  {inputs.s1.output != null && <Output statement={inputs.s1} />}
                 </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Paper component="div" className={classes.paper} square>
                   <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
-                  {inputs.s2.output != null && <Score statement={inputs.s2} />}
+                  {inputs.s2.output != null && <Output statement={inputs.s2} />}
                 </Paper>
               </Grid>
               <Grid item xs={12} align="center">
