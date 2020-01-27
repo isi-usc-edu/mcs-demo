@@ -317,9 +317,9 @@ def get_system_output(system, context, endings):
         out_label_ids = inputs['labels'].detach().cpu().numpy()
 
     #Compute the scores
-    score_1, score_2, score_3 = logits[0]
-    score_1, score_2, score_3 = score_1.item(), score_2.item(), score_3.item()
-    prob_1, prob_2, prob_3 = 100 * softmax([score_1 / 5.0, score_2 / 5.0, score_3 / 5.0])
+    score_1, score_2 = logits[0]
+    score_1, score_2 = score_1.item(), score_2.item()
+    prob_1, prob_2 = 100 * softmax([score_1 / 5.0, score_2 / 5.0])
 
     return {
         "s1": {
@@ -330,10 +330,6 @@ def get_system_output(system, context, endings):
             "score": round(score_2, 5),
             "prob": round(prob_2, 5),
         },
-        "s3": {
-            "score": round(score_3, 5),
-            "prob": round(prob_3, 5),
-        },
     }
 
 
@@ -342,12 +338,11 @@ def classify():
 
     input1 = request.args.get('s1')
     input2 = request.args.get('s2')
-    input3 = request.args.get('s3')
 
     # create model format data
     text = "Below are three common sense statements."
-    context = [text, text, text]
-    endings = [input1, input2, input3]
+    context = [text, text]
+    endings = [input1, input2]
 
     # initialize response data format
     data = {
@@ -357,10 +352,6 @@ def classify():
         },
         "s2": {
             "input": input2,
-            "output": {},
-        },
-        "s3": {
-            "input": input3,
             "output": {},
         },
     }
