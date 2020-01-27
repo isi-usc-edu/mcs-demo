@@ -22,6 +22,7 @@ const styles = theme => ({
       background: 'linear-gradient(150deg, #EC6A5A, #A662D6)',
       backgroundSize: '100% 150%',
       padding: theme.spacing(3, 1),
+      height: '100vh',
     },
   },
   paper: {
