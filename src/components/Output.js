@@ -27,8 +27,8 @@ class Output extends React.Component {
     return (
       <div className={classes.score}>
         <div className={classes.outputLabels}>
-          {statement.truth && <Truth />}
-          {!statement.truth && <Lie />}
+          {statement.output && <Truth />}
+          {!statement.output && <Lie />}
         </div>
       </div>
     )
