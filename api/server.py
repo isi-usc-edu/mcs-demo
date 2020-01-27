@@ -234,10 +234,9 @@ def send_slack_message(data, object_id):
         "type": "section",
         "text": {
         "type": "mrkdwn",
-        "text": "1. {} \n 2. {} \n 3. {}".format(
+        "text": "1. {} \n 2. {}".format(
             data['s1']['input'],
             data['s2']['input'],
-            data['s3']['input'],
         )},
     }]
 
