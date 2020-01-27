@@ -180,14 +180,14 @@ class App extends React.Component {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Paper component="div" className={classes.paper} square>
-                  <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
                   {inputs.s1.output != null && <Output statement={inputs.s1} />}
+                  <Input text={inputs.s1} autoFocus={true} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
                 </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Paper component="div" className={classes.paper} square>
-                  <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
                   {inputs.s2.output != null && <Output statement={inputs.s2} />}
+                  <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
                 </Paper>
               </Grid>
               <Grid item xs={12} align="center">

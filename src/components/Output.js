@@ -9,11 +9,8 @@ const styles = theme => ({
   score: {
     position: 'relative',
     cursor: 'pointer',
-    marginTop: theme.spacing(2),
-    color: '#fefefe',
     width: '100%',
     '@media (min-width:600px)': {
-      marginTop: theme.spacing(3),
     },
   },
   label: {
@@ -38,7 +35,7 @@ const styles = theme => ({
   },
   outputLabels: {
     position: 'absolute',
-    top: theme.spacing(2),
+    top: -1 * theme.spacing(3),
     right: 0,
   },
 })
