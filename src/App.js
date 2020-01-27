@@ -174,7 +174,7 @@ class App extends React.Component {
             component="h4"
             variant="h4"
             className={classes.header}>
-            Enter 3 common sense statements (2 truths and 1 lie)
+            Enter 2 common sense statements (1 truth and 1 lie)
           </Typography>
           <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
             <Grid container spacing={3}>
