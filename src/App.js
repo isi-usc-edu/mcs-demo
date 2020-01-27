@@ -141,8 +141,8 @@ class App extends React.Component {
         this.setState({
           processing: false,
           inputs: {
-            s1: {...inputs.s1, output: {...data['s1']['output']}},
-            s2: {...inputs.s2, output: {...data['s2']['output']}},
+            s1: {...inputs.s1, output: {...data['s1']['output']}, truth: data['s1']['truth']},
+            s2: {...inputs.s2, output: {...data['s2']['output']}, truth: data['s2']['truth']},
           },
         })
       })

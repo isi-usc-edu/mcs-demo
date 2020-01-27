@@ -21,19 +21,14 @@ const styles = theme => ({
 
 class Output extends React.Component {
 
-  findTruth(statement) {
-    return true
-  }
-
   render() {
     const { classes } = this.props
     const { statement } = this.props
-    let truth = this.findTruth(statement)
     return (
       <div className={classes.score}>
         <div className={classes.outputLabels}>
-          {truth && <Truth />}
-          {!truth && <Lie />}
+          {statement.truth && <Truth />}
+          {!statement.truth && <Lie />}
         </div>
       </div>
     )
