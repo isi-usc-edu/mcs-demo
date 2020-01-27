@@ -74,14 +74,6 @@ class App extends React.Component {
           value: 'roses are red',
           output: null,
         },
-        s3: {
-          id: 's3',
-          name: 's3',
-          label: 'input 3',
-          changed: true,
-          value: 'roses are blue',
-          output: null,
-        },
       },
     }
   }
@@ -118,7 +110,6 @@ class App extends React.Component {
       inputs: {
         s1: {...inputs.s1, value: scramble(inputs.s1.value)},
         s2: {...inputs.s2, value: scramble(inputs.s2.value)},
-        s3: {...inputs.s3, value: scramble(inputs.s3.value)},
       }
     })
   }
@@ -127,8 +118,7 @@ class App extends React.Component {
     return new Promise((resolve, reject) => {
       const s1 = inputs.s1.value
       const s2 = inputs.s2.value
-      const s3 = inputs.s3.value
-      fetch(`/classify?s1=${s1}&s2=${s2}&s3=${s3}`)
+      fetch(`http://localhost:5005/classify?s1=${s1}&s2=${s2}`)
         .then(response => response.json())
         .then(data => resolve(data))
         .catch(error => reject(error))
@@ -152,7 +142,6 @@ class App extends React.Component {
           inputs: {
             s1: {...inputs.s1, output: {...data['s1']['output']}},
             s2: {...inputs.s2, output: {...data['s2']['output']}},
-            s3: {...inputs.s3, output: {...data['s3']['output']}},
           },
         })
       })
@@ -167,7 +156,6 @@ class App extends React.Component {
     const { inputs } = this.state
     inputs.s1 = {...inputs.s1, value: '', changed: false, output: null}
     inputs.s2 = {...inputs.s2, value: '', changed: false, output: null}
-    inputs.s3 = {...inputs.s3, value: '', changed: false, output: null}
     this.setState({inputs}, () => {
       this.inputField.focus()
     })
@@ -199,12 +187,6 @@ class App extends React.Component {
                 <Paper component="div" className={classes.paper} square>
                   <Input text={inputs.s2} updateText={this.handleUpdate.bind(this)} />
                   {inputs.s2.output != null && <Score statement={inputs.s2} />}
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper component="div" className={classes.paper} square>
-                  <Input text={inputs.s3} updateText={this.handleUpdate.bind(this)} />
-                  {inputs.s3.output != null && <Score statement={inputs.s3} />}
                 </Paper>
               </Grid>
               <Grid item xs={12} align="center">
