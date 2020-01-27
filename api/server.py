@@ -151,7 +151,7 @@ def open_modal(data_id, trigger_id):
       "type": "divider"
     }]
 
-    for index, d in enumerate([data['s1'], data['s2'], data['s3']]):
+    for index, d in enumerate([data['s1'], data['s2']]):
         blocks.append({
             "type": "section",
             "text": {
