@@ -60,7 +60,7 @@ class Input extends React.Component {
   }
 
   render() {
-    const { autoFocus, text } = this.props
+    const { autoFocus, text, disabled } = this.props
     return (
       <CustomTextField
         ref="input"
@@ -68,6 +68,7 @@ class Input extends React.Component {
         name={text.name}
         label={text.label}
         value={text.value}
+        disabled={disabled}
         autoFocus={autoFocus}
         autoComplete="off"
         onChange={this.handleOnChange.bind(this)}
