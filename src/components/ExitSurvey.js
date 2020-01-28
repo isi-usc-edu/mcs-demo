@@ -99,7 +99,7 @@ class ExitSurvey extends React.Component {
               </Typography>
               <p>How much did you enjoy participating in this experiment?</p>
               <p>(from 1 being not at all to 10 being very much)</p>
-              <RadioGroup name="q1" className={classes.radioGroup}>
+              <RadioGroup name="q1" className={classes.radioGroup} onChange={(e, val) => onAnswer('enjoyment', val)}>
                 <FormControlLabel value="1" control={<RadioButton />} label="1" />
                 <FormControlLabel value="2" control={<RadioButton />} label="2" />
                 <FormControlLabel value="3" control={<RadioButton />} label="3" />
@@ -114,7 +114,7 @@ class ExitSurvey extends React.Component {
               <br/>
               <p>How likely are you to participate again in a similar experiment?</p>
               <p>(from 1 being very unlikely to 10 being very likely)</p>
-              <RadioGroup name="q1" className={classes.radioGroup}>
+              <RadioGroup name="q1" className={classes.radioGroup}  onChange={(e, val) => onAnswer('returning', val)}>
                 <FormControlLabel value="1" control={<RadioButton />} label="1" />
                 <FormControlLabel value="2" control={<RadioButton />} label="2" />
                 <FormControlLabel value="3" control={<RadioButton />} label="3" />
