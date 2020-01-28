@@ -260,7 +260,7 @@ def send_slack_message(data):
                 "text": "Show model output",
                 "emoji": True
             },
-            "value": str(data['id'])
+            "value": data['id'],
         }
     }, {
         "type": "section",
@@ -427,7 +427,7 @@ def classify():
         'ts': ts,
         'session': uid,
     })
-    data['id'] = new_entry.inserted_id
+    data['id'] = str(new_entry.inserted_id)
 
     # send a slack message
     try:
