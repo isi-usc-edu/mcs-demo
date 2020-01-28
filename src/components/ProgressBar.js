@@ -19,8 +19,7 @@ class ProgressBar extends React.Component {
   render() {
     const { classes, progress } = this.props
     return (
-      <div className={classes.progressBar} styles={{'right': progress}}>
-      </div>
+      <div className={classes.progressBar} style={{right: `${100 - progress}%`}} />
     )
   }
 }
