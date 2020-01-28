@@ -2,7 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import True from './True'
 import False from './False'
-import Scores from './components/Scores'
+import Scores from './Scores'
 
 
 const styles = theme => ({
