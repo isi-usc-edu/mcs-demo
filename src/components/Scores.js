@@ -40,7 +40,7 @@ const styles = theme => ({
     position: 'absolute',
     fontSize: theme.spacing(2),
     marginTop: -1 * theme.spacing(0.25),
-    right: 0,
+    right: 3,
   },
 })
 
