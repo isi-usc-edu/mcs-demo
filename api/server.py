@@ -243,7 +243,7 @@ def events():
     return jsonify({'ok': True})
 
 
-def send_slack_message(data, object_id):
+def send_slack_message(data):
     """
     Send the initial version of the user input (without model output)
     """
@@ -260,7 +260,7 @@ def send_slack_message(data, object_id):
                 "text": "Show model output",
                 "emoji": True
             },
-            "value": str(object_id)
+            "value": str(data['id'])
         }
     }, {
         "type": "section",
@@ -427,11 +427,11 @@ def classify():
         'ts': ts,
         'session': uid,
     })
-    object_id = new_entry.inserted_id
+    data['id'] = new_entry.inserted_id
 
     # send a slack message
     try:
-        send_slack_message(data, object_id)
+        send_slack_message(data)
     except Exception as e:
         print('SlackError: {}'.format(e.__str__()))
 
