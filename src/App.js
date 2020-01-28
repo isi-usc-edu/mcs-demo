@@ -65,6 +65,7 @@ class App extends React.Component {
       processing: false,
       evaluated: false,
       openRules: false,
+      dataID: null,
       inputs: {
         s1: {
           id: 's1',
@@ -155,6 +156,7 @@ class App extends React.Component {
         clearInterval(this.interval)
         this.setState({
           processing: false,
+          dataID: data['id'],
           inputs: {
             s1: {...inputs.s1, output: data['s1']['output'], scores: data['s1']['scores']},
             s2: {...inputs.s2, output: data['s2']['output'], scores: data['s2']['scores']},
@@ -176,7 +178,7 @@ class App extends React.Component {
     const { inputs } = this.state
     inputs.s1 = {...inputs.s1, value: '', changed: false, output: null, scores: null}
     inputs.s2 = {...inputs.s2, value: '', changed: false, output: null, scores: null}
-    this.setState({evaluated: false, inputs}, () => {
+    this.setState({dataID: null, evaluated: false, inputs}, () => {
       this.inputField.focus()
     })
   }
