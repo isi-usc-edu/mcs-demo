@@ -124,7 +124,7 @@ class App extends React.Component {
     })
   }
 
-  fetchData(inputs) {
+  postData(inputs) {
     return new Promise((resolve, reject) => {
       const s1 = inputs.s1.value
       const s2 = inputs.s2.value
@@ -151,7 +151,7 @@ class App extends React.Component {
 
     this.setState({processing: true}, () => {
       this.interval = setInterval(this.scrambleText.bind(this), 50)
-      this.fetchData(inputs).then(data => {
+      this.postData(inputs).then(data => {
         clearInterval(this.interval)
         this.setState({
           processing: false,
