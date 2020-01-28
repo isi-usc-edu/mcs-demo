@@ -446,7 +446,15 @@ def classify():
 def evaluate():
     # Get a new timestamp and session id
     ts = datetime.now().isoformat()
+    hit_id = session.get('hit_id')
     uid = session.get('uid')
+
+    code = ''
+    num_trials = 0
+    if hit_id:
+        num_trials = mongo.db.trials.find({'hit_id': hit_id}).count()
+        if num_trials == 5:
+            code = str(uuid.uuid4())
 
     data_id = request.json.get('dataID')
     evaluation = request.json.get('evaluation')
@@ -457,18 +465,14 @@ def evaluate():
             {'$set': {
                 'evaluation': evaluation,
                 'updated_at': ts,
+                'code': code,
             }}
         )
     except Exception as e:
         print('Error: {}'.format(str(e)))
         return jsonify({'status': 'not ok'})
 
-    hit_id = session.get('hit_id')
-    if hit_id:
-        num_trials = mongo.db.trials.find({'hit_id': hit_id}).count()
-        return jsonify({'status': 'ok', 'count': num_trials})
-
-    return jsonify({'status': 'ok'})
+    return jsonify({'status': 'ok', 'count': num_trials, 'code': code})
 
 
 @app.route('/')
