@@ -128,7 +128,13 @@ class App extends React.Component {
     return new Promise((resolve, reject) => {
       const s1 = inputs.s1.value
       const s2 = inputs.s2.value
-      fetch(`/classify?s1=${s1}&s2=${s2}`)
+      fetch('/classify')
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({s1, s2}),
+      })
         .then(response => response.json())
         .then(data => resolve(data))
         .catch(error => reject(error))

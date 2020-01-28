@@ -364,10 +364,10 @@ def get_system_output(system, context, endings):
     }
 
 
-@app.route('/classify')
+@app.route('/classify', methods=['POST'])
 def classify():
-    input1 = request.args.get('s1')
-    input2 = request.args.get('s2')
+    input1 = request.json.get('s1')
+    input2 = request.json.get('s2')
 
     # create model format data
     text = "Below are two common sense statements."
