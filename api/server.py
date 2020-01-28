@@ -480,6 +480,7 @@ def evaluate():
             'worker_id': worker_id,
             'hit_id': hit_id,
         }).count()
+        num_trials = num_trials - 1
         if num_trials >= 5:
             code = str(uuid.uuid4())
 
