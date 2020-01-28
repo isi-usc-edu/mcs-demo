@@ -72,6 +72,7 @@ class App extends React.Component {
           changed: true,
           value: 'roses are red',
           output: null,
+          scores: null,
         },
         s2: {
           id: 's2',
@@ -80,6 +81,7 @@ class App extends React.Component {
           changed: true,
           value: 'roses are blue',
           output: null,
+          scores: null,
         },
       },
     }
@@ -147,8 +149,8 @@ class App extends React.Component {
         this.setState({
           processing: false,
           inputs: {
-            s1: {...inputs.s1, output: data['s1']['truth']},
-            s2: {...inputs.s2, output: data['s2']['truth']},
+            s1: {...inputs.s1, output: data['s1']['output'], scores: data['s1']['scores']},
+            s2: {...inputs.s2, output: data['s2']['output'], scores: data['s2']['scores']},
           },
         })
       })
@@ -165,8 +167,8 @@ class App extends React.Component {
 
   handleOnClear() {
     const { inputs } = this.state
-    inputs.s1 = {...inputs.s1, value: '', changed: false, output: null}
-    inputs.s2 = {...inputs.s2, value: '', changed: false, output: null}
+    inputs.s1 = {...inputs.s1, value: '', changed: false, output: null, scores: null}
+    inputs.s2 = {...inputs.s2, value: '', changed: false, output: null, scores: null}
     this.setState({evaluated: false, inputs}, () => {
       this.inputField.focus()
     })

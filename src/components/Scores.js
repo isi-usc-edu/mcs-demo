@@ -36,30 +36,22 @@ const styles = theme => ({
     marginTop: -1 * theme.spacing(0.25),
     right: -1 * theme.spacing(7.5),
   },
-  outputLabels: {
-    position: 'absolute',
-    top: theme.spacing(2),
-    right: 0,
-  },
 })
 
-class Score extends React.Component {
+
+class Scores extends React.Component {
 
   render() {
     const { classes } = this.props
     const { statement } = this.props
-    return Object.keys(statement.output).map((systemId, i) => (
+    return Object.keys(statement.scores).map((systemId, i) => (
       <div className={classes.score} key={systemId}>
-        <label title={statement.output[systemId].prob} className={classes.label}>
-          {systemId} (probability of truth: {statement.output[systemId].prob.toFixed(2)}%, score: {statement.output[systemId].score.toFixed(2)})
+        <label title={statement.scores[systemId].prob} className={classes.label}>
+          {systemId} (probability of truth: {statement.scores[systemId].prob.toFixed(2)}%, score: {statement.scores[systemId].score.toFixed(2)})
         </label>
         <div className={classes.scoreBar}
-          style={{'width': `${statement.output[systemId].prob.toFixed(2)}%`, 'background': colors[i]}}>
-          <span className={classes.scoreLabel}>{statement.output[systemId].prob.toFixed(2)}%</span>
-        </div>
-        <div className={classes.outputLabels}>
-          {!statement.output[systemId]['false'] && <True />}
-          {!!statement.output[systemId]['false'] && <False />}
+          style={{'width': `${statement.scores[systemId].prob.toFixed(2)}%`, 'background': colors[i]}}>
+          <span className={classes.scoreLabel}>{statement.scores[systemId].prob.toFixed(2)}%</span>
         </div>
       </div>
     ))
@@ -67,4 +59,4 @@ class Score extends React.Component {
 }
 
 
-export default withStyles(styles)(Score)
+export default withStyles(styles)(Scores)

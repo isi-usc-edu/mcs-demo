@@ -347,36 +347,32 @@ def classify():
     data = {
         "s1": {
             "input": input1,
-            "output": {},
+            "output": False,
             "avg_prob": 0,
-            "truth": False,
+            "scores": {},
         },
         "s2": {
             "input": input2,
-            "output": {},
+            "output": False,
             "avg_prob": 0,
-            "truth": False,
+            "scores": {},
         },
     }
 
     # check for the false statement
     for system_id, system in SYSTEMS.items():
-        false = {"key": "", "score": 99999}
-        output = get_system_output(system, context, endings)
-        for key, value in output.items():
+        system_output = get_system_output(system, context, endings)
+        for key, value in system_output.items():
             data[key]["avg_prob"] += value["prob"]
-            data[key]["output"][system_id] = {**value}
-            if value["score"] < false["score"]:
-                false = {"key": key, "score": value['score']}
-        data[false["key"]]["output"][system_id]["false"] = True
+            data[key]["scores"][system_id] = {**value}
 
     # update average probabilities
     for key in data.keys():
         data[key]["avg_prob"] = data[key]["avg_prob"] / len(SYSTEMS)
 
     # check which statement is the correct one
-    data["s1"]["truth"] = bool(data["s1"]["avg_prob"] > data["s2"]["avg_prob"])
-    data["s2"]["truth"] = bool(data["s1"]["avg_prob"] < data["s2"]["avg_prob"])
+    data["s1"]["output"] = bool(data["s1"]["avg_prob"] > data["s2"]["avg_prob"])
+    data["s2"]["output"] = bool(data["s1"]["avg_prob"] < data["s2"]["avg_prob"])
 
     # Get a timestamp
     ts = datetime.now().isoformat()

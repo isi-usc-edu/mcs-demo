@@ -2,6 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import True from './True'
 import False from './False'
+import Scores from './components/Scores'
 
 
 const styles = theme => ({
@@ -18,6 +19,7 @@ const styles = theme => ({
     right: 0,
   },
 })
+
 
 class Output extends React.Component {
 
