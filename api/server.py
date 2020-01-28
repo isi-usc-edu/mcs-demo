@@ -439,6 +439,30 @@ def classify():
     return jsonify(data)
 
 
+@app.route('/evaluate', methods=['POST'])
+def evaluate():
+    # Get a new timestamp and session id
+    ts = datetime.now().isoformat()
+    uid = session.get('uid')
+
+    data_id = request.json.get('dataID')
+    evaluation = request.json.get('evaluation')
+
+    try:
+        updated = mongo.db.trials.update_one(
+            {'_id': ObjectId(data_id), 'session': uid},
+            {'$set': {
+                'evaluation': evaluation,
+                'updated_at': ts,
+            }}
+        )
+    except Exception as e:
+        print('Error: {}'.format(str(e)))
+        return jsonify({'status': 'not ok'})
+
+    return jsonify({'status': 'ok'})
+
+
 @app.route('/')
 def index():
     ts = datetime.now().isoformat()
