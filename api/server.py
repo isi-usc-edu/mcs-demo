@@ -450,8 +450,8 @@ def survey():
     hit_id = session.get('hit_id')
     uid = session.get('uid')
 
-    enjoyment = request.json.get('enjoyment')
-    returning = request.json.get('returning')
+    enjoyment = request.json.get('enjoyment', None)
+    returning = request.json.get('returning', None)
 
     # store trial data in the mongo db
     mongo.db.survey.insert_one({
@@ -462,7 +462,7 @@ def survey():
         'enjoyment': enjoyment,
         'returning': returning,
     })
-    return jsonify({'status': 'ok'})
+    return jsonify({'enjoyment': enjoyment, 'returning': returning})
 
 
 @app.route('/evaluate', methods=['POST'])
