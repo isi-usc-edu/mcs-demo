@@ -6,7 +6,7 @@ import Scores from './Scores'
 
 
 const styles = theme => ({
-  score: {
+  output: {
     position: 'relative',
     cursor: 'pointer',
     width: '100%',
@@ -27,7 +27,7 @@ class Output extends React.Component {
     const { classes } = this.props
     const { statement } = this.props
     return (
-      <div className={classes.score}>
+      <div className={classes.output}>
         <div className={classes.outputLabels}>
           {statement.output && <True />}
           {!statement.output && <False />}
