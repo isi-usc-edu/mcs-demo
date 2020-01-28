@@ -452,7 +452,10 @@ def evaluate():
     code = ''
     num_trials = 0
     if hit_id:
-        num_trials = mongo.db.trials.find({'hit_id': hit_id}).count()
+        num_trials = mongo.db.trials.find({
+            'worker_id': worker_id,
+            'hit_id': hit_id,
+        }).count()
         if num_trials == 5:
             code = str(uuid.uuid4())
 
