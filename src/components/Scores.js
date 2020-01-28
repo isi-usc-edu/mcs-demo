@@ -25,10 +25,10 @@ const styles = theme => ({
   label: {
     opacity: 0.85,
     textAlign: 'left',
-    fontSize: theme.spacing(2),
+    fontSize: theme.spacing(2.25),
     '@media (min-width:600px)': {
-      marginTop: theme.spacing(3),
-      fontSize: theme.spacing(3),
+      display: 'inline-block',
+      marginTop: theme.spacing(1),
     },
   },
   scoreBar: {
@@ -71,7 +71,7 @@ class Scores extends React.Component {
           <ExpandLessIcon className={classes.expandIcon} />
         ) : (
           <ExpandMoreIcon className={classes.expandIcon} />
-        )} Show individual model scores
+        )} Show model scores
       </Typography>
     )
   }
