@@ -4,11 +4,14 @@ from flask import (
     jsonify,
     request,
 )
+import uuid
 import time
 import requests
 from bson import ObjectId
 from threading import Thread
+from flask import session
 from flask_pymongo import PyMongo
+from flask_session import Session
 from flask_cors import CORS
 
 import torch
@@ -57,12 +60,21 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_url_path='')
 CORS(app)
-
+app.secret_key = 'b6a1b284-dae2-440c-9b3a-4ac5c9bc2de0'
 
 # Add mongo db settings for logging
 MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://0.0.0.0:27017/mcs')
 app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
+
+# Initialize the flask session
+SESSION_TYPE = 'mongodb'
+SESSION_MONGODB = mongo.cx
+SESSION_MONGODB_DB = 'mcs'
+SESSION_MONGODB_COLLECT = 'sessions'
+SESSION_USE_SIGNER = True
+app.config.from_object(__name__)
+Session(app)
 
 # Slack api settings
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN', '')
@@ -334,6 +346,7 @@ def get_system_output(system, context, endings):
 
 @app.route('/classify')
 def classify():
+    uid = session.get('uid')
 
     input1 = request.args.get('s1')
     input2 = request.args.get('s2')
@@ -378,7 +391,7 @@ def classify():
     ts = datetime.now().isoformat()
 
     # store trial data in the mongo db
-    new_entry = mongo.db.trials.insert_one({'ts': ts, **data})
+    new_entry = mongo.db.trials.insert_one({'ts': ts, uid: uid, **data})
     object_id = new_entry.inserted_id
 
     # send a slack message
@@ -393,6 +406,10 @@ def classify():
 
 @app.route('/')
 def index():
+    ts = datetime.now().isoformat()
+    uid = uuid.uuid4()
+    session['ts'] = ts
+    session['uid'] = uid
     return app.send_static_file('index.html')
 
 
