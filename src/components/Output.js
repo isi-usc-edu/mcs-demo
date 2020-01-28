@@ -2,7 +2,6 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import True from './True'
 import False from './False'
-import Scores from './Scores'
 
 
 const styles = theme => ({
@@ -10,8 +9,6 @@ const styles = theme => ({
     position: 'relative',
     cursor: 'pointer',
     width: '100%',
-    '@media (min-width:600px)': {
-    },
   },
   outputLabels: {
     position: 'absolute',
@@ -23,16 +20,8 @@ const styles = theme => ({
 
 class Output extends React.Component {
 
-  renderScores() {
-    const { classes, statement} = this.props
-    return (
-      <div className={classes.outputLabels}>
-      </div>
-    )
-  }
-
   renderOutputLabels() {
-    const { classes, statement} = this.props
+    const { classes, statement } = this.props
     return (
       <div className={classes.outputLabels}>
         {statement.output && <True />}
@@ -46,7 +35,6 @@ class Output extends React.Component {
     return (
       <div className={classes.output}>
         {this.renderOutputLabels()}
-        {this.renderScores()}
       </div>
     )
   }
