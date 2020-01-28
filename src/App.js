@@ -11,6 +11,7 @@ import Input from './components/Input'
 import Output from './components/Output'
 import Scores from './components/Scores'
 import Evaluate from './components/Evaluate'
+import ProgressBar from './components/ProgressBar'
 import scramble from './utils/scramble'
 import { withStyles, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 
@@ -202,11 +203,12 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { inputs, openRules, processing, evaluated} = this.state
+    const { inputs, openRules, processing, evaluated, progress} = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
           <CssBaseline />
+          <ProgressBar progress={progress} />
           <Rules open={openRules} onClose={this.handleCloseRules.bind(this)} />
           <Typography
             component="h3"
