@@ -68,6 +68,7 @@ class App extends React.Component {
       openRules: false,
       dataID: null,
       progress: 0,
+      code: '',
       inputs: {
         s1: {
           id: 's1',
@@ -188,7 +189,7 @@ class App extends React.Component {
       if ( !!data['count'] ) {
         progress = Math.round(data['count'] / 5 * 100)
       }
-      this.setState({evaluated: true, progress})
+      this.setState({evaluated: true, progress, code: data['code']})
     })
   }
 
@@ -203,7 +204,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { inputs, openRules, processing, evaluated, progress} = this.state
+    const { code, inputs, openRules, processing, evaluated, progress} = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
@@ -255,6 +256,9 @@ class App extends React.Component {
                   onClick={this.handleOnClear.bind(this)}>
                   Clear
                 </Button>
+              </Grid>
+              <Grid item xs={6} align="right">
+                {!!code && <h1>{code}</h1>}
               </Grid>
             </Grid>
           </form>
