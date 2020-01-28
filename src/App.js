@@ -170,8 +170,20 @@ class App extends React.Component {
     this.inputField = inputRef
   }
 
-  handleSelect() {
-    this.setState({evaluated: true})
+  handleEvaluate(evaluation) {
+    const { dataID } = this.state
+    if ( !dataID ) { return }
+    fetch('/evaluate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({dataID, evaluation}),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      this.setState({evaluated: true})
+    })
   }
 
   handleOnClear() {
@@ -217,7 +229,7 @@ class App extends React.Component {
                 {inputs.s1.output === null && <Submit disabled={processing} />}
                 {inputs.s1.output != null && (
                   <Evaluate evaluated={evaluated}
-                    onSelect={this.handleSelect.bind(this)}
+                    onSelect={this.handleEvaluate.bind(this)}
                     onReset={this.handleOnClear.bind(this)} />
                 )}
               </Grid>
