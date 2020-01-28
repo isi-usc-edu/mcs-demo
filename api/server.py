@@ -364,7 +364,7 @@ def classify():
         system_output = get_system_output(system, context, endings)
         for key, value in system_output.items():
             data[key]["avg_prob"] += value["prob"]
-            data[key]["scores"][system_id] = {**value}
+            data[key]["scores"][system['model_name']] = {**value}
 
     # update average probabilities
     for key in data.keys():

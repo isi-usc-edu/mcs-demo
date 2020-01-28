@@ -83,7 +83,7 @@ class Scores extends React.Component {
       return Object.keys(statement.scores).map((systemId, i) => (
         <div className={classes.score} key={systemId}>
           <label title={statement.scores[systemId].prob} className={classes.label}>
-            {systemId} (probability of truth: {statement.scores[systemId].prob.toFixed(2)}%, score: {statement.scores[systemId].score.toFixed(2)})
+            System {i+1}: {systemId} (probability of truth: {statement.scores[systemId].prob.toFixed(2)}%, score: {statement.scores[systemId].score.toFixed(2)})
           </label>
           <div className={classes.scoreBar}
             style={{'width': `${statement.scores[systemId].prob.toFixed(2)}%`, 'background': colors[i]}}>
