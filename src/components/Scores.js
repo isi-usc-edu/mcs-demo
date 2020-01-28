@@ -1,6 +1,7 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import ExpandIcon from '@material-ui/icons/ExpandMore'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import { withStyles } from '@material-ui/core/styles'
 import { colors } from '../utils/colors'
 
@@ -39,7 +40,7 @@ const styles = theme => ({
     position: 'absolute',
     fontSize: theme.spacing(2),
     marginTop: -1 * theme.spacing(0.25),
-    right: -1 * theme.spacing(7.5),
+    right: 0,
   },
 })
 
@@ -59,18 +60,26 @@ class Scores extends React.Component {
     this.setState({showScores: !showScores})
   }
 
+  renderToggle() {
+    const { showScores } = this.state
+    const { classes } = this.props
+    return (
+      <Typography variant="button"
+        className={classes.scoresToggle}
+        onClick={this.toggleScores.bind(this)}>
+        {showScores ? (
+          <ExpandLessIcon className={classes.expandIcon} />
+        ) : (
+          <ExpandMoreIcon className={classes.expandIcon} />
+        )} Show individual model scores
+      </Typography>
+    )
+  }
+
   renderScores() {
     const { showScores } = this.state
     const { classes, statement } = this.props
-    if ( !showScores ) {
-      return (
-        <Typography
-          variant="button"
-          className={classes.scoresToggle}>
-          <ExpandIcon className={classes.expandIcon} /> Show model specific scores
-        </Typography>
-      )
-    } else {
+    if ( showScores ) {
       return Object.keys(statement.scores).map((systemId, i) => (
         <div className={classes.score} key={systemId}>
           <label title={statement.scores[systemId].prob} className={classes.label}>
@@ -89,6 +98,7 @@ class Scores extends React.Component {
     const { classes } = this.props
     return (
       <div className={classes.scores}>
+        {this.renderToggle()}
         {this.renderScores()}
       </div>
     )
