@@ -284,7 +284,7 @@ class App extends React.Component {
                       component="h5"
                       variant="h5"
                       className={classes.header}>
-                      Current payout: {`${Math.min(0.5 + 0.05 * (count-5), 1)} $`}
+                      Current payout: {`${Math.min(0.5 + 0.05 * (count-5), 1).toFixed(2)} $`}
                     </Typography>
                   )}
                 </Grid>
