@@ -346,8 +346,6 @@ def get_system_output(system, context, endings):
 
 @app.route('/classify')
 def classify():
-    uid = session.get('uid')
-
     input1 = request.args.get('s1')
     input2 = request.args.get('s2')
 
@@ -387,11 +385,16 @@ def classify():
     data["s1"]["output"] = bool(data["s1"]["avg_prob"] > data["s2"]["avg_prob"])
     data["s2"]["output"] = bool(data["s1"]["avg_prob"] < data["s2"]["avg_prob"])
 
-    # Get a timestamp
+    # Get a new timestamp and session id
     ts = datetime.now().isoformat()
+    uid = session.get('uid')
 
     # store trial data in the mongo db
-    new_entry = mongo.db.trials.insert_one({'ts': ts, 'uid': uid, **data})
+    new_entry = mongo.db.trials.insert_one({
+        **data,
+        'ts': ts,
+        'session': uid,
+    })
     object_id = new_entry.inserted_id
 
     # send a slack message
