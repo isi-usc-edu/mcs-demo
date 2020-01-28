@@ -374,18 +374,30 @@ def classify():
 
     # check for the false statement
     for system_id, system in SYSTEMS.items():
+        model_name = system.get('model_name')
         system_output = get_system_output(system, context, endings)
         for key, value in system_output.items():
-            data[key]["avg_prob"] += value["prob"]
-            data[key]["scores"][system['model_name']] = {**value}
+            data[key]["scores"][model_name] = {**value}
 
-    # update average probabilities
+    # compare system output, collect votes
+    for system_id, system in SYSTEMS.items():
+        model_name = system.get('model_name')
+        s1_prob = data['s1']['scores'][model_name]['prob']
+        s2_prob = data['s2']['scores'][model_name]['prob']
+        data['s1']['scores'][model_name]['vote'] = int(s1_prob > s2_prob)
+        data['s2']['scores'][model_name]['vote'] = int(s2_prob > s1_prob)
+
+    # count the votes
     for key in data.keys():
-        data[key]["avg_prob"] = data[key]["avg_prob"] / len(SYSTEMS)
+        data[key]['votes'] = sum([
+            system['vote']
+            for model_name, system
+            in data[key]['scores'].items()
+        ])
 
     # check which statement is the correct one
-    data["s1"]["output"] = bool(data["s1"]["avg_prob"] > data["s2"]["avg_prob"])
-    data["s2"]["output"] = bool(data["s1"]["avg_prob"] < data["s2"]["avg_prob"])
+    data['s1']['output'] = bool(data['s1']['votes'] > data['s2']['votes'])
+    data['s2']['output'] = bool(data['s1']['votes'] < data['s2']['votes'])
 
     # Get a new timestamp and session id
     ts = datetime.now().isoformat()
