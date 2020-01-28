@@ -427,10 +427,10 @@ def classify():
         **data,
         'ts': ts,
         'session': uid,
+        'hit_id': session.get('hit_id', ''),
+        'worker_id': session.get('worker_id', ''),
     })
     data['id'] = str(new_entry.inserted_id)
-    data['hit_id'] = session.get('hit_id', '')
-    data['worker_id'] = session.get('worker_id', '')
 
     # send a slack message
     try:
