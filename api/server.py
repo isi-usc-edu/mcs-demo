@@ -446,6 +446,7 @@ def classify():
 def evaluate():
     # Get a new timestamp and session id
     ts = datetime.now().isoformat()
+    worker_id = session.get('worker_id')
     hit_id = session.get('hit_id')
     uid = session.get('uid')
 
