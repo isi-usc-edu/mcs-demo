@@ -52,13 +52,13 @@ class Evaluate extends React.Component {
         <Button
           variant="contained"
           className={classes.buttonYes}
-          onClick={() => onSelect('yes')}>
+          onClick={() => onSelect('correct')}>
           Yes
         </Button>
         <Button
           variant="contained"
           className={classes.buttonNo}
-          onClick={() => onSelect('no')}>
+          onClick={() => onSelect('incorrect')}>
           No
         </Button>
       </div>
