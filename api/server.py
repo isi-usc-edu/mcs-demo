@@ -196,13 +196,14 @@ def open_modal(data_id, trigger_id):
     for index, d in enumerate([data['s1'], data['s2']]):
         if d['output']:
             label = 'TRUE ✔️' if d['output'] else 'FALSE! ❌'
-            summary += "{}. {} - {}\n{} out of {} system votes".format(
+            summary += "{}. {} - {}\n{} out of {} system votes\n".format(
                 index + 1,
                 d['input'],
                 label,
                 d['votes'],
                 len(SYSTEMS),
             )
+    summary += "*User evaluation: {}*\n".format(d.get('evaluation', 'none'))
     blocks.append({
         "type": "section",
         "text": {
