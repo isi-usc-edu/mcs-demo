@@ -391,7 +391,7 @@ def classify():
     ts = datetime.now().isoformat()
 
     # store trial data in the mongo db
-    new_entry = mongo.db.trials.insert_one({'ts': ts, uid: uid, **data})
+    new_entry = mongo.db.trials.insert_one({'ts': ts, 'uid': uid, **data})
     object_id = new_entry.inserted_id
 
     # send a slack message
