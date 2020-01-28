@@ -457,7 +457,7 @@ def evaluate():
             'worker_id': worker_id,
             'hit_id': hit_id,
         }).count()
-        if num_trials == 5:
+        if num_trials >= 5:
             code = str(uuid.uuid4())
 
     data_id = request.json.get('dataID')
