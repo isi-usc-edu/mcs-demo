@@ -23,15 +23,30 @@ const styles = theme => ({
 
 class Output extends React.Component {
 
+  renderScores() {
+    const { classes, statement} = this.props
+    return (
+      <div className={classes.outputLabels}>
+      </div>
+    )
+  }
+
+  renderOutputLabels() {
+    const { classes, statement} = this.props
+    return (
+      <div className={classes.outputLabels}>
+        {statement.output && <True />}
+        {!statement.output && <False />}
+      </div>
+    )
+  }
+
   render() {
     const { classes } = this.props
-    const { statement } = this.props
     return (
       <div className={classes.output}>
-        <div className={classes.outputLabels}>
-          {statement.output && <True />}
-          {!statement.output && <False />}
-        </div>
+        {this.renderOutputLabels()}
+        {this.renderScores()}
       </div>
     )
   }
