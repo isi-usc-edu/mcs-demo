@@ -172,13 +172,15 @@ def open_modal(data_id, trigger_id):
             },
         })
         system_output = ""
-        for system_id in SYSTEMS.keys():
-            system_output += "{} ({}): {}% (score: {}) - {}\n".format(
+        for system_id, system in SYSTEMS.items():
+            model_name = system.get('model_name')
+            probability = round(float(d['scores'][model_name].get('prob', 0)), 2)
+            score = round(float(d['scores'][model_name].get('score', 0)), 2)
+            system_output += "{} ({}): {}% (score: {})\n".format(
                 system_id.replace('_', ' ').capitalize(),
-                SYSTEMS[system_id].get('model_name'),
-                round(float(d['scores'][system_id].get('prob', 0)), 2),
-                round(float(d['scores'][system_id].get('score', 0)), 2),
-                'FALSE! ❌' if d['scores'][system_id].get('false') else 'TRUE ✔️',
+                model_name,
+                probability,
+                score,
             )
         blocks.append({
             "type": "section",
