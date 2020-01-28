@@ -177,7 +177,7 @@ def open_modal(data_id, trigger_id):
             model_name = system.get('model_name')
             probability = round(float(d['scores'][model_name].get('prob', 0)), 2)
             score = round(float(d['scores'][model_name].get('score', 0)), 2)
-            system_output += "{} ({}): {}% (score: {}) - {}\n".format(
+            system_output += "{} ({}): {}% (score: {})\n".format(
                 system_id.replace('_', ' ').capitalize(),
                 model_name,
                 probability,
