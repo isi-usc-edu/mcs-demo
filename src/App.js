@@ -264,21 +264,23 @@ class App extends React.Component {
                 </Button>
               </Grid>
               {!!count && (
-                <Grid item xs={12} align="center">
+                <Grid item xs={12} align="center" style={{marginTop: '-24px'}}>
+                  {!!code && (
+                    <Typography
+                      component="h5"
+                      variant="h5"
+                      className={classes.header}
+                      style={{textDecoration: 'underline', cursor: 'pointer'}}
+                      onClick={this.handleOpenSurvey.bind(this)}>
+                      Complete the HIT and get the completion Code
+                    </Typography>
+                  )}
                   <Typography
                     component="h5"
                     variant="h5"
                     className={classes.header}>
                     Generated {count} out of 5 required statements.
                   </Typography>
-                  {!!code && (
-                    <Typography
-                      component="h5"
-                      variant="h5"
-                      className={classes.header}>
-                      Completion Code: {code}
-                    </Typography>
-                  )}
                   {count >= 5 && (
                     <Typography
                       component="h5"
