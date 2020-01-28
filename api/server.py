@@ -463,6 +463,11 @@ def evaluate():
         print('Error: {}'.format(str(e)))
         return jsonify({'status': 'not ok'})
 
+    hit_id = session.get('hit_id')
+    if hit_id:
+        num_trials = mongo.db.trials.find({'hit_id': hit_id}).count()
+        return jsonify({'status': 'ok', 'count': num_trials})
+
     return jsonify({'status': 'ok'})
 
 
