@@ -192,7 +192,7 @@ def open_modal(data_id, trigger_id):
         })
         blocks.append({"type": "divider"})
 
-    summary = "Marjority vote:\n"
+    summary = "*Majority vote:*\n"
     for index, d in enumerate([data['s1'], data['s2']]):
         if d['output']:
             label = 'TRUE ✔️' if d['output'] else 'FALSE! ❌'
