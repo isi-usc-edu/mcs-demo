@@ -68,6 +68,7 @@ class App extends React.Component {
       openRules: false,
       dataID: null,
       progress: 0,
+      count: 0,
       code: '',
       inputs: {
         s1: {
@@ -189,7 +190,12 @@ class App extends React.Component {
       if ( !!data['count'] ) {
         progress = Math.max(Math.round(data['count'] / 5 * 100), 100)
       }
-      this.setState({evaluated: true, progress, code: data['code']})
+      this.setState({
+        evaluated: true,
+        count: data['count'],
+        progress: progress,
+        code: data['code']
+      })
     })
   }
 
@@ -204,7 +210,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { code, inputs, openRules, processing, evaluated, progress} = this.state
+    const { code, inputs, openRules, processing, evaluated, progress, count} = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
@@ -257,13 +263,13 @@ class App extends React.Component {
                   Clear
                 </Button>
               </Grid>
-              {!!progress && (
+              {!!count && (
                 <Grid item xs={12} align="center">
                   <Typography
                     component="h5"
                     variant="h5"
                     className={classes.header}>
-                    Generated {progress} out of 5 required statements.
+                    Generated {count} out of 5 required statements.
                   </Typography>
                   {!!code && (
                     <Typography
@@ -273,12 +279,12 @@ class App extends React.Component {
                       Completion Code: {code}
                     </Typography>
                   )}
-                  {progress >= 5 && (
+                  {count >= 5 && (
                     <Typography
                       component="h5"
                       variant="h5"
                       className={classes.header}>
-                      Current payout: {`${Math.min(0.5 + 0.05*(progress-5), 1)} $`}
+                      Current payout: {`${Math.min(0.5 + 0.05 * (count-5), 1)} $`}
                     </Typography>
                   )}
                 </Grid>
