@@ -12,7 +12,7 @@ const styles = theme => ({
     borderRadius: 3,
     color: 'white',
     fontSize: theme.spacing(3.5),
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(3),
     padding: theme.spacing(3, 12),
     transition: 'all 0.15s ease',
     opacity: 0.8,
