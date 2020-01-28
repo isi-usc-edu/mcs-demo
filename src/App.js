@@ -11,6 +11,7 @@ import Input from './components/Input'
 import Output from './components/Output'
 import Scores from './components/Scores'
 import Evaluate from './components/Evaluate'
+import ExitSurvey from './components/ExitSurvey'
 import ProgressBar from './components/ProgressBar'
 import scramble from './utils/scramble'
 import { withStyles, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
@@ -65,6 +66,7 @@ class App extends React.Component {
     this.state = {
       processing: false,
       evaluated: false,
+      openSurvey: false,
       openRules: false,
       dataID: null,
       progress: 0,
@@ -91,6 +93,14 @@ class App extends React.Component {
         },
       },
     }
+  }
+
+  handleOpenSurvey() {
+    this.setState({openSurvey: true})
+  }
+
+  handleCloseSurvey() {
+    this.setState({openSurvey: false})
   }
 
   handleOpenRules() {
@@ -199,6 +209,9 @@ class App extends React.Component {
     })
   }
 
+  handleAnswer() {
+  }
+
   handleOnClear() {
     const { inputs } = this.state
     inputs.s1 = {...inputs.s1, value: '', changed: false, output: null, scores: null}
@@ -210,13 +223,17 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { code, inputs, openRules, processing, evaluated, progress, count} = this.state
+    const { code, inputs, openRules, openSurvey, processing, evaluated, progress, count} = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
           <CssBaseline />
           <ProgressBar progress={progress} />
           <Rules open={openRules} onClose={this.handleCloseRules.bind(this)} />
+          <ExitSurvey open={openSurvey}
+            code={code}
+            onAnswer={this.handleAnswer.bind(this)}
+            onClose={this.handleCloseSurvey.bind(this)} />
           <Typography
             component="h3"
             variant="h3"
