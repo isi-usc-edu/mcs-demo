@@ -1,7 +1,5 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import True from './True'
-import False from './False'
 import { colors } from '../utils/colors'
 
 
