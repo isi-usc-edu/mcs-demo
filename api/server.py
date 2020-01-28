@@ -442,6 +442,29 @@ def classify():
     return jsonify(data)
 
 
+@app.route('/survey', methods=['POST'])
+def survey():
+    # Get a new timestamp and session id
+    ts = datetime.now().isoformat()
+    worker_id = session.get('worker_id')
+    hit_id = session.get('hit_id')
+    uid = session.get('uid')
+
+    enjoyment = request.json.get('enjoyment')
+    returning = request.json.get('returning')
+
+    # store trial data in the mongo db
+    mongo.db.survey.insert_one({
+        'ts': ts,
+        'session': uid,
+        'hit_id': hit_id,
+        'worker_id': worker_id,
+        'enjoyment': enjoyment,
+        'returning': returning,
+    })
+    return jsonify({'status': 'ok'})
+
+
 @app.route('/evaluate', methods=['POST'])
 def evaluate():
     # Get a new timestamp and session id
