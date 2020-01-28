@@ -34,14 +34,14 @@ const styles = theme => ({
 })
 
 
-class Truth extends React.Component {
+class True extends React.Component {
 
   render() {
     const { classes } = this.props
     return (
       <span>
         <Hidden smDown>
-          <Typography component="h1" variant="h4" className={classes.h1}>TRUTH!</Typography>
+          <Typography component="h1" variant="h4" className={classes.h1}>TRUE!</Typography>
         </Hidden>
         <CheckCircleIcon className={classes.shadowIcon} />
         <CheckCircleIcon className={classes.checkIcon} />
@@ -51,4 +51,4 @@ class Truth extends React.Component {
 }
 
 
-export default withStyles(styles)(Truth)
+export default withStyles(styles)(True)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Truth from './Truth'
-import Lie from './Lie'
+import True from './True'
+import False from './False'
 import { colors } from '../utils/colors'
 
 
@@ -58,8 +58,8 @@ class Score extends React.Component {
           <span className={classes.scoreLabel}>{statement.output[systemId].prob.toFixed(2)}%</span>
         </div>
         <div className={classes.outputLabels}>
-          {!!statement.output[systemId].lie && <Lie />}
-          {!statement.output[systemId].lie && <Truth />}
+          {!statement.output[systemId]['false'] && <True />}
+          {!!statement.output[systemId]['false'] && <False />}
         </div>
       </div>
     ))

@@ -34,14 +34,14 @@ const styles = theme => ({
 })
 
 
-class Lie extends React.Component {
+class False extends React.Component {
 
   render() {
     const { classes } = this.props
     return (
       <span>
         <Hidden smDown>
-          <Typography component="h1" variant="h4" className={classes.h1}>LIE!</Typography>
+          <Typography component="h1" variant="h4" className={classes.h1}>FALSE!</Typography>
         </Hidden>
         <CancelIcon className={classes.shadowIcon} />
         <CancelIcon className={classes.cancelIcon} />
@@ -51,4 +51,4 @@ class Lie extends React.Component {
 }
 
 
-export default withStyles(styles)(Lie)
+export default withStyles(styles)(False)

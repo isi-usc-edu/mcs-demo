@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Truth from './Truth'
-import Lie from './Lie'
+import True from './True'
+import False from './False'
 
 
 const styles = theme => ({
@@ -27,8 +27,8 @@ class Output extends React.Component {
     return (
       <div className={classes.score}>
         <div className={classes.outputLabels}>
-          {statement.output && <Truth />}
-          {!statement.output && <Lie />}
+          {statement.output && <True />}
+          {!statement.output && <False />}
         </div>
       </div>
     )

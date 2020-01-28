@@ -164,9 +164,9 @@ def open_modal(data_id, trigger_id):
             system_output += "{} ({}): {}% (score: {}) - {}\n".format(
                 system_id.replace('_', ' ').capitalize(),
                 SYSTEMS[system_id].get('model_name'),
-                round(float(d['output'][system_id].get('prob', 0)), 2),
-                round(float(d['output'][system_id].get('score', 0)), 2),
-                'LIE! ❌' if d['output'][system_id].get('lie') else 'TRUTH ✔️',
+                round(float(d['scores'][system_id].get('prob', 0)), 2),
+                round(float(d['scores'][system_id].get('score', 0)), 2),
+                'FALSE! ❌' if d['scores'][system_id].get('false') else 'TRUE ✔️',
             )
         blocks.append({
             "type": "section",
@@ -359,16 +359,16 @@ def classify():
         },
     }
 
-    # check for the "lie" statement
+    # check for the false statement
     for system_id, system in SYSTEMS.items():
-        lie = {"key": "", "score": 99999}
+        false = {"key": "", "score": 99999}
         output = get_system_output(system, context, endings)
         for key, value in output.items():
             data[key]["avg_prob"] += value["prob"]
             data[key]["output"][system_id] = {**value}
-            if value["score"] < lie["score"]:
-                lie = {"key": key, "score": value['score']}
-        data[lie["key"]]["output"][system_id]["lie"] = True
+            if value["score"] < false["score"]:
+                false = {"key": key, "score": value['score']}
+        data[false["key"]]["output"][system_id]["false"] = True
 
     # update average probabilities
     for key in data.keys():

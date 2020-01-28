@@ -78,7 +78,7 @@ class Rules extends React.Component {
             <span className={classes.divider} />
             <div className={classes.content}>
               <p>1. All statements should be common sense</p>
-              <p>2. One of the statements should be true, one false (lie)</p>
+              <p>2. One of the statements should be true, one false</p>
               <p>3. Statements should be about the same (common sense) subject</p>
               <p style={{marginBottom: '0'}}>4. Please refrain from using personal information, unless</p>
               <p style={{margin: '0', paddingLeft: '3em'}}>a. it is about a well-known person (a famous person)</p>
