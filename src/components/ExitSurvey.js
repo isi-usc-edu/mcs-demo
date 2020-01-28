@@ -1,5 +1,8 @@
 import React from 'react'
 import { Grid, Modal, Typography, Hidden, Button } from '@material-ui/core/'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import RadioButton from './RadioButton'
 import CloseIcon from '@material-ui/icons/Close'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -40,6 +43,10 @@ const styles = theme => ({
     height: theme.spacing(2),
     borderBottom: '1px solid #fefefe',
     marginBottom: theme.spacing(2),
+  },
+  radioGroup: {
+    color: 'white',
+    display: 'inline',
   },
   closeIcon: {
     color: '#fefefe',
@@ -92,9 +99,33 @@ class ExitSurvey extends React.Component {
               </Typography>
               <p>How much did you enjoy participating in this experiment?</p>
               <p>(from 1 being not at all to 10 being very much)</p>
+              <RadioGroup name="q1" className={classes.radioGroup}>
+                <FormControlLabel value="1" control={<RadioButton />} label="1" />
+                <FormControlLabel value="2" control={<RadioButton />} label="2" />
+                <FormControlLabel value="3" control={<RadioButton />} label="3" />
+                <FormControlLabel value="4" control={<RadioButton />} label="4" />
+                <FormControlLabel value="5" control={<RadioButton />} label="5" />
+                <FormControlLabel value="6" control={<RadioButton />} label="6" />
+                <FormControlLabel value="7" control={<RadioButton />} label="7" />
+                <FormControlLabel value="8" control={<RadioButton />} label="8" />
+                <FormControlLabel value="9" control={<RadioButton />} label="9" />
+                <FormControlLabel value="10" control={<RadioButton />} label="10" />
+              </RadioGroup>
               <br/>
               <p>How likely are you to participate again in a similar experiment?</p>
               <p>(from 1 being very unlikely to 10 being very likely)</p>
+              <RadioGroup name="q1" className={classes.radioGroup}>
+                <FormControlLabel value="1" control={<RadioButton />} label="1" />
+                <FormControlLabel value="2" control={<RadioButton />} label="2" />
+                <FormControlLabel value="3" control={<RadioButton />} label="3" />
+                <FormControlLabel value="4" control={<RadioButton />} label="4" />
+                <FormControlLabel value="5" control={<RadioButton />} label="5" />
+                <FormControlLabel value="6" control={<RadioButton />} label="6" />
+                <FormControlLabel value="7" control={<RadioButton />} label="7" />
+                <FormControlLabel value="8" control={<RadioButton />} label="8" />
+                <FormControlLabel value="9" control={<RadioButton />} label="9" />
+                <FormControlLabel value="10" control={<RadioButton />} label="10" />
+              </RadioGroup>
               <br/>
             </div>
           </Grid>
