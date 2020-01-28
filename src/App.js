@@ -66,6 +66,7 @@ class App extends React.Component {
       evaluated: false,
       openRules: false,
       dataID: null,
+      progress: 0,
       inputs: {
         s1: {
           id: 's1',
@@ -182,7 +183,11 @@ class App extends React.Component {
     })
     .then((response) => response.json())
     .then((data) => {
-      this.setState({evaluated: true})
+      let progress = 0
+      if ( !!data['count'] ) {
+        progress = data['count'] / 5
+      }
+      this.setState({evaluated: true, progress})
     })
   }
 
