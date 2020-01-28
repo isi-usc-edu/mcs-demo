@@ -389,8 +389,6 @@ def classify():
             "avg_prob": 0,
             "scores": {},
         },
-        'hit_id': session.get('hit_id', ''),
-        'worker_id': session.get('worker_id', ''),
     }
 
     # check for the false statement
@@ -431,6 +429,8 @@ def classify():
         'session': uid,
     })
     data['id'] = str(new_entry.inserted_id)
+    data['hit_id'] = session.get('hit_id', '')
+    data['worker_id'] = session.get('worker_id', '')
 
     # send a slack message
     try:
