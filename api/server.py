@@ -190,9 +190,26 @@ def open_modal(data_id, trigger_id):
                 "text": system_output,
             }
         })
-        if index < 2:
-            blocks.append({"type": "divider"})
+        blocks.append({"type": "divider"})
 
+    summary = "Marjority vote:\n"
+    for index, d in enumerate([data['s1'], data['s2']]):
+        if d['output']:
+            label = 'TRUE ✔️' if d['output'] else 'FALSE! ❌'
+            summary += "{}. {} - {}\n{} out of {} system votes".format(
+                index + 1,
+                d['input'],
+                label,
+                d['votes'],
+                len(SYSTEMS),
+            )
+    blocks.append({
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": summary,
+        }
+    })
 
     view = json.dumps({
       "type": "modal",
