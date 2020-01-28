@@ -257,9 +257,32 @@ class App extends React.Component {
                   Clear
                 </Button>
               </Grid>
-              <Grid item xs={6} align="right">
-                {!!code && <h1>{code}</h1>}
-              </Grid>
+              {!!progress && (
+                <Grid item xs={12} align="center">
+                  <Typography
+                    component="h5"
+                    variant="h5"
+                    className={classes.header}>
+                    Generated {progress} out of 5 required statements.
+                  </Typography>
+                  {!!code && (
+                    <Typography
+                      component="h5"
+                      variant="h5"
+                      className={classes.header}>
+                      Completion Code: {code}
+                    </Typography>
+                  )}
+                  {progress >= 5 && (
+                    <Typography
+                      component="h5"
+                      variant="h5"
+                      className={classes.header}>
+                      Current payout: {`${Math.min(0.5 + 0.05*(progress-5), 1)} $`}
+                    </Typography>
+                  )}
+                </Grid>
+              )}
             </Grid>
           </form>
         </Container>
