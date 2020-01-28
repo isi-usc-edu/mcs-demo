@@ -28,6 +28,7 @@ const styles = theme => ({
     },
   },
   paper: {
+    marginTop: theme.spacing(5),
     paddingTop: theme.spacing(6),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
