@@ -389,6 +389,8 @@ def classify():
             "avg_prob": 0,
             "scores": {},
         },
+        'hit_id': session.get('hit_id', ''),
+        'worker_id': session.get('worker_id', ''),
     }
 
     # check for the false statement
@@ -470,6 +472,8 @@ def index():
     uid = uuid.uuid4()
     session['ts'] = ts
     session['uid'] = uid
+    session['hit_id'] = request.args.get('hit_id')
+    session['worker_id'] = request.args.get('worker_id')
     return app.send_static_file('index.html')
 
 
