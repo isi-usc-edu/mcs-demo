@@ -66,14 +66,14 @@ class Evaluate extends React.Component {
   }
 
   renderReset() {
-    const { classes, onReset } = this.props
+    const { classes, count, onReset } = this.props
     return (
       <div>
         <Typography
           component="h3"
           variant="h3"
           className={classes.header}>
-          Thank you for participating!
+          {!count && (<span>Thank you for participating!</span>)}
           <div className={classes.link} onClick={() => onReset()}>
             Try again
           </div>
