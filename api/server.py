@@ -450,18 +450,22 @@ def survey():
     hit_id = session.get('hit_id')
     uid = session.get('uid')
 
+    # Get survey values from the request body
     enjoyment = request.json.get('enjoyment', None)
     returning = request.json.get('returning', None)
 
     # store trial data in the mongo db
-    mongo.db.survey.insert_one({
-        'ts': ts,
-        'session': uid,
-        'hit_id': hit_id,
-        'worker_id': worker_id,
-        'enjoyment': enjoyment,
-        'returning': returning,
-    })
+    updated = mongo.db.survey.update_one(
+        {'hit_id': hit_id, 'worker_id': worker_id},
+        {'$set': {
+            'ts': ts,
+            'session': uid,
+            'hit_id': hit_id,
+            'worker_id': worker_id,
+            'enjoyment': enjoyment,
+            'returning': returning,
+        }}, upsert=True
+    )
     return jsonify({'enjoyment': enjoyment, 'returning': returning})
 
 
