@@ -429,6 +429,7 @@ def classify():
         'session': uid,
         'hit_id': session.get('hit_id', ''),
         'worker_id': session.get('worker_id', ''),
+        'scenario': session.get('scenario', ''),
     })
     data['id'] = str(new_entry.inserted_id)
 
@@ -515,6 +516,7 @@ def index():
     session['uid'] = uid
     session['hit_id'] = request.args.get('hit_id')
     session['worker_id'] = request.args.get('worker_id')
+    session['scenario'] = request.args.get('scenario')
     return app.send_static_file('index.html')
 
 
