@@ -67,6 +67,8 @@ class App extends React.Component {
       processing: false,
       evaluated: false,
       openSurvey: false,
+      enjoyment: null,
+      returning: null,
       openRules: false,
       dataID: null,
       progress: 0,
@@ -209,7 +211,26 @@ class App extends React.Component {
     })
   }
 
-  handleAnswer() {
+  handleAnswer(question, value) {
+    let update = {}
+    update[question] = value
+    this.setState({...update}, () => {
+      const {enjoyment, returning} = this.state
+      fetch('/survey', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({enjoyment, returning}),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          surveyComplete: true,
+          ...data,
+        })
+      })
+    })
   }
 
   handleOnClear() {
