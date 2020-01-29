@@ -200,7 +200,7 @@ class App extends React.Component {
     .then((data) => {
       let progress = 0
       if ( !!data['count'] ) {
-        progress = Math.max(Math.round(data['count'] / 5 * 100), 100)
+        progress = Math.min(Math.round(data['count'] / 5 * 100), 100)
       }
       this.setState({
         evaluated: true,
