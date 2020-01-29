@@ -81,12 +81,9 @@ class ExitSurvey extends React.Component {
               onClick={() => onClose()} />
           </Hidden>
           <Grid item xs={12}>
-            <Typography component="h5" variant="h5" className={classes.header}>
-              Thank you for participating!
-            </Typography>
             <div className={classes.content}>
               <Typography component="h5" variant="h5" className={classes.header}>
-                Use this completion code on MTurk to complete your HIT:
+                Thank you for participating! <br/>Use this code to complete your HIT:
               </Typography>
               <Typography component="h5" variant="h5" className={classes.code}>
                 {code}

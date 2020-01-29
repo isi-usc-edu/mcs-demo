@@ -47,7 +47,7 @@ class Evaluate extends React.Component {
           component="h3"
           variant="h3"
           className={classes.header}>
-          Was the machine output correct?
+          Was this output correct?
         </Typography>
         <Button
           variant="contained"
@@ -75,7 +75,7 @@ class Evaluate extends React.Component {
           className={classes.header}>
           {!count && (<span>Thank you for participating!</span>)}
           <div className={classes.link} onClick={() => onReset()}>
-            Try again
+            Let me try again
           </div>
         </Typography>
       </div>

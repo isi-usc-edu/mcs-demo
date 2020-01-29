@@ -310,7 +310,7 @@ class App extends React.Component {
                       className={classes.header}
                       style={{textDecoration: 'underline', cursor: 'pointer'}}
                       onClick={this.handleOpenSurvey.bind(this)}>
-                      Complete the HIT and get the completion Code
+                      Complete the HIT and get the completion code
                     </Typography>
                   )}
                   <Typography
