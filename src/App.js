@@ -305,8 +305,8 @@ class App extends React.Component {
                 <Grid item xs={12} align="center" style={{marginTop: '-24px'}}>
                   {!!code && (
                     <Typography
-                      component="h5"
-                      variant="h5"
+                      component="h4"
+                      variant="h4"
                       className={classes.header}
                       style={{textDecoration: 'underline', cursor: 'pointer'}}
                       onClick={this.handleOpenSurvey.bind(this)}>
