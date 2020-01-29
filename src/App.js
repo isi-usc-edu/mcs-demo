@@ -280,7 +280,7 @@ class App extends React.Component {
               <Grid item xs={12} align="center">
                 {inputs.s1.output === null && <Submit disabled={processing} />}
                 {inputs.s1.output != null && (
-                  <Evaluate evaluated={evaluated} count={count}
+                  <Evaluate evaluated={evaluated}
                     onSelect={this.handleEvaluate.bind(this)}
                     onReset={this.handleOnClear.bind(this)} />
                 )}

@@ -66,25 +66,16 @@ class Evaluate extends React.Component {
   }
 
   renderReset() {
-    const { classes, count, onReset } = this.props
+    const { classes, onReset } = this.props
     return (
       <div>
         <Typography
           component="h3"
           variant="h3"
           className={classes.header}>
-          {count === null ? (
-            <div>
-              Thank you for participating!
-              <div className={classes.link} onClick={() => onReset()}>
-                Let's try this again
-              </div>
-            </div>
-          ) : (
-            <div className={classes.link} onClick={() => onReset()}>
-              Let me try one more!
-            </div>
-          )}
+          <div className={classes.link} onClick={() => onReset()}>
+            Let me try one more!
+          </div>
         </Typography>
       </div>
     )
