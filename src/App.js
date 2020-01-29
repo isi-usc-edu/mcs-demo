@@ -317,7 +317,7 @@ class App extends React.Component {
                     component="h5"
                     variant="h5"
                     className={classes.header}>
-                    Generated {count} out of 5 required statements.
+                    Generated {count} out of 5 (minimally) required statements.
                   </Typography>
                   {count >= 5 && (
                     <Typography
