@@ -68,10 +68,14 @@ class Scores extends React.Component {
         className={classes.scoresToggle}
         onClick={this.toggleScores.bind(this)}>
         {showScores ? (
-          <ExpandLessIcon className={classes.expandIcon} />
+          <span>
+            <ExpandLessIcon className={classes.expandIcon} /> Hide model scores
+          </span>
         ) : (
-          <ExpandMoreIcon className={classes.expandIcon} />
-        )} Show model scores
+          <span>
+            <ExpandMoreIcon className={classes.expandIcon} /> Show model scores
+          </span>
+        )}
       </Typography>
     )
   }
