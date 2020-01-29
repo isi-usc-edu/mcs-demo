@@ -73,10 +73,18 @@ class Evaluate extends React.Component {
           component="h3"
           variant="h3"
           className={classes.header}>
-          {!count && (<span>Thank you for participating!</span>)}
-          <div className={classes.link} onClick={() => onReset()}>
-            Let me try again
-          </div>
+          {!count ? (
+            <div>
+              Thank you for participating!
+              <div className={classes.link} onClick={() => onReset()}>
+                Let's try this again
+              </div>
+            </div>
+          ): (
+            <div className={classes.link} onClick={() => onReset()}>
+              Let me try one more!
+            </div>
+          )}
         </Typography>
       </div>
     )
