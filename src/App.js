@@ -72,7 +72,7 @@ class App extends React.Component {
       openRules: false,
       dataID: null,
       progress: 0,
-      count: 0,
+      count: null,
       code: '',
       inputs: {
         s1: {
