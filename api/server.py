@@ -380,13 +380,11 @@ def classify():
         "s1": {
             "input": input1,
             "output": False,
-            "avg_prob": 0,
             "scores": {},
         },
         "s2": {
             "input": input2,
             "output": False,
-            "avg_prob": 0,
             "scores": {},
         },
     }
