@@ -103,23 +103,34 @@ def write_csv(trials, filename):
 
 def calc_accuracy(trials):
     summary = {
-        's0': {'total': 0, 'bert': 0, 'roberta': 0, 'xlnet': 0},
-        's1': {'total': 0, 'bert': 0, 'roberta': 0, 'xlnet': 0},
-        's2': {'total': 0, 'bert': 0, 'roberta': 0, 'xlnet': 0},
-        's3': {'total': 0, 'bert': 0, 'roberta': 0, 'xlnet': 0},
-        's4': {'total': 0, 'bert': 0, 'roberta': 0, 'xlnet': 0},
-        's5': {'total': 0, 'bert': 0, 'roberta': 0, 'xlnet': 0}
+        's0': {'total': 0, 'roberta': 0, 'bert': 0, 'xlnet': 0},
+        's1': {'total': 0, 'roberta': 0, 'bert': 0, 'xlnet': 0},
+        's2': {'total': 0, 'roberta': 0, 'bert': 0, 'xlnet': 0},
+        's3': {'total': 0, 'roberta': 0, 'bert': 0, 'xlnet': 0},
+        's4': {'total': 0, 'roberta': 0, 'bert': 0, 'xlnet': 0},
+        's5': {'total': 0, 'roberta': 0, 'bert': 0, 'xlnet': 0}
     }
     for t in trials:
         summary[t['scenario']]['total'] += 1
-        if t['s1']['output']:
-            summary[t['scenario']]['roberta'] += t['s1']['scores']['roberta']['vote']
-            summary[t['scenario']]['bert'] += t['s1']['scores']['bert']['vote']
-            summary[t['scenario']]['xlnet'] += t['s1']['scores']['xlnet']['vote']
-        if t['s2']['output']:
-            summary[t['scenario']]['roberta'] += t['s2']['scores']['roberta']['vote']
-            summary[t['scenario']]['bert'] += t['s2']['scores']['bert']['vote']
-            summary[t['scenario']]['xlnet'] += t['s2']['scores']['xlnet']['vote']
+        if t['evaluation'] == 'correct':
+            if t['s1']['output']:
+                summary[t['scenario']]['roberta'] += t['s1']['scores']['roberta']['vote']
+                summary[t['scenario']]['bert'] += t['s1']['scores']['bert']['vote']
+                summary[t['scenario']]['xlnet'] += t['s1']['scores']['xlnet']['vote']
+            if not t['s1']['output']:
+                summary[t['scenario']]['roberta'] += int(t['s1']['scores']['roberta']['vote'] == 0)
+                summary[t['scenario']]['bert'] += int(t['s1']['scores']['bert']['vote'] == 0)
+                summary[t['scenario']]['xlnet'] += int(t['s1']['scores']['xlnet']['vote'] == 0)
+        if t['evaluation'] == 'incorrect':
+            if t['s1']['output']:
+                summary[t['scenario']]['roberta'] += int(t['s1']['scores']['roberta']['vote'] == 0)
+                summary[t['scenario']]['bert'] += int(t['s1']['scores']['bert']['vote'] == 0)
+                summary[t['scenario']]['xlnet'] += int(t['s1']['scores']['xlnet']['vote'] == 0)
+            if not t['s1']['output']:
+                summary[t['scenario']]['roberta'] += t['s1']['scores']['roberta']['vote']
+                summary[t['scenario']]['bert'] += t['s1']['scores']['bert']['vote']
+                summary[t['scenario']]['xlnet'] += t['s1']['scores']['xlnet']['vote']
+
     for scenario, data in summary.items():
         summary[scenario]['roberta_accuracy'] = data['roberta'] / float(data['total'])
         summary[scenario]['bert_accuracy'] = data['bert'] / float(data['total'])
