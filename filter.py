@@ -15,11 +15,10 @@ INCLUDED_HITS = [
 
 
 def read_json(filename):
-    trials = json.load(open(filename))
-    return trials
+    return json.load(open(filename))
 
 
-def filter(trials):
+def filter_trials(trials):
     trials = [t for t in trials if t['hit_id']]
     trials = [t for t in trials if 'evaluation' in t]
     trials = [t for t in trials if t['hit_id'] in INCLUDED_HITS]
@@ -28,7 +27,7 @@ def filter(trials):
     return trials
 
 
-def write_csv(trials, filename):
+def write_trials_csv(trials, filename):
     f = open(filename, 'w')
     writer = csv.writer(f)
 
@@ -141,8 +140,8 @@ def calc_accuracy(trials):
 
 if __name__ == '__main__':
     trials = read_json('./trials.json')
-    trials = filter(trials)
-    write_csv(trials, 'trials.csv')
+    trials = filter_trials(trials)
+    write_trials_csv(trials, 'trials.csv')
 
     accuracy = calc_accuracy(trials)
     print(json.dumps(accuracy, indent=4))
