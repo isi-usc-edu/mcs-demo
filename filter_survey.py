@@ -68,5 +68,4 @@ if __name__ == '__main__':
     survey_responses = read_json('./survey_responses.json')
     survey_responses = filter_responses(survey_responses)
     survey_responses = map_scenarios(survey_responses)
-    import pdb; pdb.set_trace()
     write_csv(survey_responses, 'survey_responses.csv')
