@@ -2,10 +2,10 @@ option = {
     title: {
         text: '',
     },
-    legend: {textStyle: {fontSize:14}},
-    tooltip: {textStyle: {fontSize:14}},
+    legend: {textStyle: {fontSize:16}},
+    tooltip: {textStyle: {fontSize:16}},
     backgroundColor: 'white',
-    textStyle: {fontSize:14},
+    textStyle: {fontSize:16},
     dataset: {
         source: [
             ['product', 'roberta', 'bert', 'xlnet'],
@@ -26,12 +26,12 @@ option = {
         name: 'Scenario',
         nameLocation: 'middle',
         nameTextStyle: {
-            fontSize: 14,
+            fontSize: 16,
             padding: 10,
         },
         axisLabel: {
             formatter: '{value}',
-            textStyle: {fontSize: 13},
+            textStyle: {fontSize: 16, padding:0},
         },
     },
     yAxis: {
@@ -41,12 +41,12 @@ option = {
         min: 0.4,
         max: 1.,
         nameTextStyle: {
-            fontSize: 14,
+            fontSize: 16,
             padding: 20,
         },
         axisLabel: {
             formatter: '{value}',
-            textStyle: {fontSize: 14},
+            textStyle: {fontSize: 16},
         },
     },
     // Declare several bar series, each will be mapped
@@ -57,9 +57,9 @@ option = {
             label: {
                 show: true,
                 position: 'top',
-                textStyle: {fontSize:14},
+                textStyle: {fontSize:16},
             },
-            fontSize: 14,
+            fontSize: 16,
             barGap: 0,
             color: 'rgb(255, 69,  0)',
         },
@@ -68,7 +68,7 @@ option = {
             label: {
                 show: true,
                 position: 'top',
-                textStyle: {fontSize:14},
+                textStyle: {fontSize:16},
             },
             barGap: 0,
             color: 'rgb(31,  191, 255)',
@@ -78,7 +78,7 @@ option = {
             label: {
                 show: true,
                 position: 'top',
-                textStyle: {fontSize:14},
+                textStyle: {fontSize:16},
             },
             barGap: 0,
             color: 'rgb(163, 0,   245)',
