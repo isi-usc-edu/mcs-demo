@@ -24,7 +24,6 @@ option = {
     xAxis: {
         type: 'category',
         name: 'Scenario',
-        // fontSize:  '50em',
         nameLocation: 'middle',
         nameTextStyle: {
             fontSize: 14,
@@ -39,6 +38,8 @@ option = {
         name: 'Model accuracy',
         position: 'left',
         nameLocation: 'middle',
+        min: 0.4,
+        max: 1.,
         nameTextStyle: {
             fontSize: 14,
             padding: 20,
