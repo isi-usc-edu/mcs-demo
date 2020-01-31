@@ -1,20 +1,21 @@
 option = {
     title: {
-        text: '',
+        text: 'Model Accuracy By Scenario',
+        left: 'start',
     },
-    legend: {textStyle: {fontSize:16}},
-    tooltip: {textStyle: {fontSize:16}},
+    legend: {textStyle: {fontSize: 25}},
+    tooltip: {textStyle: {fontSize: 25}},
     backgroundColor: 'white',
-    textStyle: {fontSize:16},
+    textStyle: {fontSize: 25},
     dataset: {
         source: [
             ['product', 'roberta', 'bert', 'xlnet'],
-            ['general', 0.87, 0.87, 0.85],
-            ['double negation ', 0.79, 0.75, 0.70],
-            ['exists/all', 0.90, 0.89, 0.77],
-            ['active/passive', 0.85, 0.84, 0.83],
-            ['temporal event', 0.88, 0.80, 0.81],
-            ['cultural', 0.86, 0.82, 0.82],
+            ['s0', 0.87, 0.87, 0.85],
+            ['s1 ', 0.79, 0.75, 0.70],
+            ['s2', 0.90, 0.89, 0.77],
+            ['s3', 0.85, 0.84, 0.83],
+            ['s4', 0.88, 0.80, 0.81],
+            ['s5', 0.86, 0.82, 0.82],
         ],
     },
     grid: [
@@ -26,12 +27,15 @@ option = {
         name: 'Scenario',
         nameLocation: 'middle',
         nameTextStyle: {
-            fontSize: 16,
-            padding: 10,
+            fontSize: 25,
+            padding: 20,
         },
         axisLabel: {
             formatter: '{value}',
-            textStyle: {fontSize: 16, padding:0},
+            textStyle: {
+                fontSize: 25,
+                padding: 0,
+            },
         },
     },
     yAxis: {
@@ -41,12 +45,14 @@ option = {
         min: 0.4,
         max: 1.,
         nameTextStyle: {
-            fontSize: 16,
-            padding: 20,
+            fontSize: 25,
+            padding: 40,
         },
         axisLabel: {
             formatter: '{value}',
-            textStyle: {fontSize: 16},
+            textStyle: {
+                fontSize: 25,
+            },
         },
     },
     // Declare several bar series, each will be mapped
@@ -57,9 +63,8 @@ option = {
             label: {
                 show: true,
                 position: 'top',
-                textStyle: {fontSize:16},
+                textStyle: {fontSize:20},
             },
-            fontSize: 16,
             barGap: 0,
             color: 'rgb(255, 69,  0)',
         },
@@ -68,7 +73,7 @@ option = {
             label: {
                 show: true,
                 position: 'top',
-                textStyle: {fontSize:16},
+                textStyle: {fontSize:20},
             },
             barGap: 0,
             color: 'rgb(31,  191, 255)',
@@ -78,7 +83,7 @@ option = {
             label: {
                 show: true,
                 position: 'top',
-                textStyle: {fontSize:16},
+                textStyle: {fontSize:20},
             },
             barGap: 0,
             color: 'rgb(163, 0,   245)',
