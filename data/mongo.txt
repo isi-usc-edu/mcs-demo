@@ -1,0 +1,27 @@
+Docmenting some of the filtering methods used in mongo:
+
+
+// Find unique HIT IDs in the trials database
+db.trials.distinct("hit_id", { "hit_id": {$exists:true} })
+
+// Example of OR filtering logic
+db.trials.find({"$or": [{"hit_id": "1"}, {"hit_id": "2"}] })
+
+// update a document
+db.trials.update({"hit_id": {$exists: true}, "scenario": {$exists: false} }, {}, {upsert: false})
+
+
+// Match, aggregate and sort nuumber of trials per scenario
+db.trials.aggregate([ { "$match": { "scenario": { "$exists": true, "$ne": "" }}}, {"$group": {"_id": "$scenario", "count": { "$sum": 1 }}}, { $sort: { "count": -1 }} ])
+
+
+// Aggregate and match example
+db.collection.aggregate([
+    { "$group": {
+        "_id": "$field",
+        "count": { "$sum": 1 }
+    }},
+    { "$match": {
+        "count": { "$gt": 1 }
+    }}
+])
