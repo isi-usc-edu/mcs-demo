@@ -3,13 +3,13 @@ option = {
         text: 'Model Accuracy By Scenario',
         left: 'start',
     },
-    legend: {textStyle: {fontSize: 25}},
+    legend: {textStyle: {fontSize: 35}},
     tooltip: {textStyle: {fontSize: 25}},
     backgroundColor: 'white',
     textStyle: {fontSize: 25},
     dataset: {
         source: [
-            ['product', 'roberta', 'bert', 'xlnet'],
+            ['product', 'RoBERTa', 'BERT', 'XLNet'],
             ['s0', 0.87, 0.87, 0.85],
             ['s1 ', 0.79, 0.75, 0.70],
             ['s2', 0.90, 0.89, 0.77],
@@ -27,13 +27,13 @@ option = {
         name: 'Scenario',
         nameLocation: 'middle',
         nameTextStyle: {
-            fontSize: 25,
+            fontSize: 35,
             padding: 20,
         },
         axisLabel: {
             formatter: '{value}',
             textStyle: {
-                fontSize: 25,
+                fontSize: 30,
                 padding: 0,
             },
         },
@@ -45,13 +45,13 @@ option = {
         min: 0.4,
         max: 1.,
         nameTextStyle: {
-            fontSize: 25,
+            fontSize: 35,
             padding: 40,
         },
         axisLabel: {
             formatter: '{value}',
             textStyle: {
-                fontSize: 25,
+                fontSize: 28,
             },
         },
     },
