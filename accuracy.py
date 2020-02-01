@@ -63,10 +63,7 @@ def aggregate(hits):
     for key, hit in hits.items():
         for index, trial in enumerate(hit):
             aggr[index]['total'] += 1
-            try:
-                aggr[index]['correct'] += int(trial['evaluation'] == 'correct')
-            except KeyError:
-                import pdb; pdb.set_trace()
+            aggr[index]['correct'] += int(trial['evaluation'] == 'correct')
     for agg in aggr:
         agg['accuracy'] = agg['correct'] / float(agg['total'])
     return aggr
