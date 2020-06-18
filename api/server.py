@@ -60,7 +60,7 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_url_path='')
 CORS(app)
-app.secret_key = 'b6a1b284-dae2-440c-9b3a-4ac5c9bc2de0'
+app.secret_key = os.environ.get('APP_SECRET', '')
 
 # Add mongo db settings for logging
 MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://0.0.0.0:27017/mcs')
