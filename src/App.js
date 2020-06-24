@@ -259,6 +259,28 @@ class App extends React.Component {
     })
   }
 
+  handleGetdata(){
+        fetch('/getdata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                let s1=data.s1;
+                let s2=data.s2;
+                let prediction=data.prediction;
+                let s1Update={...this.state.inputs.s1,value:s1}
+                let s2Update={...this.state.inputs.s2,value:s2}
+                let stateUpdate={...this.state.inputs,s1:s1Update,s2:s2Update}
+
+                this.setState({
+                    inputs:stateUpdate
+                })
+            })
+    }
+  
   handleOnClear() {
     const { inputs } = this.state
     inputs.s1 = {...inputs.s1, value: '', changed: false, output: null, scores: null}
