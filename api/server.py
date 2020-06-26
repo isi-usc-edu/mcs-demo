@@ -511,10 +511,10 @@ def getData():
     # Add number of examples here(maximum is 5)
     # currently here is an example to return
     data=mongo.db.trials.find()[1]
-    s1_input=data.s1.input
-    s2_input=data.s2.input
-    s1_votes=data.s1.votes
-    s2_votes=data.s2.votes
+    s1_input=data['s1']['input']
+    s2_input=data['s2']['input']
+    s1_votes=data['s1']['votes']
+    s2_votes=data['s2']['votes']
 
     if s1_votes>s2_votes:
         prediction=1
