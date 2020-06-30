@@ -101,6 +101,7 @@ class App extends React.Component {
       count: null,
       code: '',
       inputs: {
+        preEvaluate:null,
         s1: {
           id: 's1',
           name: 's1',
@@ -156,6 +157,26 @@ class App extends React.Component {
       }
     })
   }
+  handleGetdata(){
+        fetch('/getdata', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                let s1=data.s1;
+                let s2=data.s2;
+                let prediction=data.prediction;
+                let s1Update={...this.state.inputs.s1,value:s1}
+                let s2Update={...this.state.inputs.s2,value:s2}
+                let stateUpdate={...this.state.inputs,s1:s1Update,s2:s2Update,preEvaluate: prediction}
+                this.setState({
+                    inputs:stateUpdate
+                })
+            })
+    }
 
   scrambleText() {
     const { inputs } = this.state
@@ -285,24 +306,60 @@ class App extends React.Component {
             component="h3"
             variant="h3"
             className={classes.header}>
-            Enter 2 common sense statements (1 TRUE and 1 FALSE)
+            Here are examples of common sense statements (1 TRUE and 1 FALSE)
           </Typography>
           <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Paper component="div" className={classes.paper} square>
                   {inputs.s1.output != null && <Output statement={inputs.s1} />}
-                  <Input text={inputs.s1} autoFocus={true} disabled={inputs.s1.output != null} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
+                  <Input text={inputs.s1} autoFocus={true} disabled={inputs.s1.output != null} updateText={this.handleGetdata.bind(this)} passInputRef={this.getInputRef.bind(this)} />
                   {inputs.s1.scores != null && <Scores statement={inputs.s1} />}
                 </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Paper component="div" className={classes.paper} square>
                   {inputs.s2.output != null && <Output statement={inputs.s2} />}
-                  <Input text={inputs.s2} disabled={inputs.s2.output != null} updateText={this.handleUpdate.bind(this)} />
+                  <Input text={inputs.s2} disabled={inputs.s2.output != null} updateText={this.hhandleGetdata.bind(this)} />
                   {inputs.s2.scores != null && <Scores statement={inputs.s2} />}
                 </Paper>
               </Grid>
+                            <Typography
+                                component="h3"
+                                variant="h3"
+                                className={classes.header}>
+                                <h2 style={{color: "blue"}}>The predictions from previous users:
+                                    input{this.state.inputs.preEvaluate}</h2>
+
+                            </Typography>
+                            <Typography
+                                component="h3"
+                                variant="h3"
+                                className={classes.header}>
+                                Please answer 3 questions below
+                            </Typography>
+                            <Grid item xs={12} ys={2}>
+                                <h2 component="div" className={classes.paper} square>
+                                    If these statements belong to common sense statements
+                                    <input id="rad1" type="radio" name="rad"/><label>YES</label>
+                                    <input id="rad2" type="radio" name="rad"/><label>NO</label>
+                                </h2>
+
+                            </Grid>
+                            <Grid item xs={12} ys={2}>
+                                <h2 component="div" className={classes.paper} square>
+                                    If these statements belong to specific scenarios
+                                    <input id="rad3" type="radio" name="rad"/><label>YES</label>
+                                    <input id="rad4" type="radio" name="rad"/><label>NO</label>
+                                </h2>
+                            </Grid>
+                            <Grid item xs={12} ys={2}>
+                                <h2 component="div" className={classes.paper} square>
+                                    Are the prediction results correct?
+                                    <input id="rad5" type="radio" name="rad"/><label>YES</label>
+                                    <input id="rad6" type="radio" name="rad"/><label>NO</label>
+                                </h2>
+                            </Grid>
               <Grid item xs={12} align="center">
                 {inputs.s1.output === null && <Submit disabled={processing} />}
                 {inputs.s1.output != null && (
