@@ -47,9 +47,8 @@ class Evaluate extends React.Component {
           component="h3"
           variant="h3"
           className={classes.header}>
-          Was this output correct?
-        </Typography>
-        <Button
+          Was this user input commonsense statements?
+         <Button
           variant="contained"
           className={classes.buttonYes}
           onClick={() => onSelect('correct')}>
@@ -61,6 +60,44 @@ class Evaluate extends React.Component {
           onClick={() => onSelect('incorrect')}>
           No
         </Button>
+        </Typography>
+        <Typography
+          component="h3"
+          variant="h3"
+          className={classes.header}>
+          Was this output belong to the scenarios?
+         <Button
+          variant="contained"
+          className={classes.buttonYes}
+          onClick={() => onSelect('correct')}>
+          Yes
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.buttonNo}
+          onClick={() => onSelect('incorrect')}>
+          No
+        </Button>
+        </Typography>
+        <Typography
+          component="h3"
+          variant="h3"
+          className={classes.header}>
+          Was the machine prediction correct?
+         <Button
+          variant="contained"
+          className={classes.buttonYes}
+          onClick={() => onSelect('correct')}>
+          Yes
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.buttonNo}
+          onClick={() => onSelect('incorrect')}>
+          No
+        </Button>
+        </Typography>
+        
       </div>
     )
   }
