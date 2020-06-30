@@ -101,7 +101,6 @@ class App extends React.Component {
       count: null,
       code: '',
       inputs: {
-        preEvaluate:null,
         s1: {
           id: 's1',
           name: 's1',
@@ -157,7 +156,9 @@ class App extends React.Component {
       }
     })
   }
-  handleGetdata(){
+  
+  componentDidMount() {
+        const { inputs } = this.state
         fetch('/getdata', {
             method: 'GET',
             headers: {
@@ -166,17 +167,15 @@ class App extends React.Component {
         })
             .then((response) => response.json())
             .then((data) => {
-                let s1=data.s1;
-                let s2=data.s2;
-                let prediction=data.prediction;
-                let s1Update={...this.state.inputs.s1,value:s1}
-                let s2Update={...this.state.inputs.s2,value:s2}
-                let stateUpdate={...this.state.inputs,s1:s1Update,s2:s2Update,preEvaluate: prediction}
                 this.setState({
-                    inputs:stateUpdate
+                    inputs: {
+                        s1: {...inputs.s1, value:data['s1']['input'], output: data['s1']['output'], scores: data['s1']['scores']},
+                        s2: {...inputs.s2, value:data['s2']['input'], output: data['s2']['output'], scores: data['s2']['scores']},
+                    },
                 })
             })
     }
+  
 
   scrambleText() {
     const { inputs } = this.state
@@ -306,7 +305,7 @@ class App extends React.Component {
             component="h3"
             variant="h3"
             className={classes.header}>
-            Here are examples of common sense statements (1 TRUE and 1 FALSE)
+            Here are previous users inputs(machine predictions on the RIGHT side)
           </Typography>
           <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
             <Grid container spacing={3}>
@@ -324,49 +323,15 @@ class App extends React.Component {
                   {inputs.s2.scores != null && <Scores statement={inputs.s2} />}
                 </Paper>
               </Grid>
-                            <Typography
-                                component="h3"
-                                variant="h3"
-                                className={classes.header}>
-                                <h2 style={{color: "blue"}}>The predictions from previous users:
-                                    input{this.state.inputs.preEvaluate}</h2>
-
-                            </Typography>
-                            <Typography
-                                component="h3"
-                                variant="h3"
-                                className={classes.header}>
-                                Please answer 3 questions below
-                            </Typography>
-                            <Grid item xs={12} ys={2}>
-                                <h2 component="div" className={classes.paper} square>
-                                    If these statements belong to common sense statements
-                                    <input id="rad1" type="radio" name="rad"/><label>YES</label>
-                                    <input id="rad2" type="radio" name="rad"/><label>NO</label>
-                                </h2>
-
-                            </Grid>
-                            <Grid item xs={12} ys={2}>
-                                <h2 component="div" className={classes.paper} square>
-                                    If these statements belong to specific scenarios
-                                    <input id="rad3" type="radio" name="rad"/><label>YES</label>
-                                    <input id="rad4" type="radio" name="rad"/><label>NO</label>
-                                </h2>
-                            </Grid>
-                            <Grid item xs={12} ys={2}>
-                                <h2 component="div" className={classes.paper} square>
-                                    Are the prediction results correct?
-                                    <input id="rad5" type="radio" name="rad"/><label>YES</label>
-                                    <input id="rad6" type="radio" name="rad"/><label>NO</label>
-                                </h2>
-                            </Grid>
+                            
               <Grid item xs={12} align="center">
-                {inputs.s1.output === null && <Submit disabled={processing} />}
+                
                 {inputs.s1.output != null && (
                   <Evaluate evaluated={evaluated}
                     onSelect={this.handleEvaluate.bind(this)}
                     onReset={this.handleOnClear.bind(this)} />
                 )}
+                <Submit />
               </Grid>
               <Grid item xs={6} align="left">
                 <Button
