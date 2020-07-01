@@ -505,7 +505,7 @@ def evaluate():
 
     return jsonify({'status': 'ok', 'count': num_trials, 'code': code})
 
-@app.route('/getdata',methods=['POST'])
+@app.route('/getdata', methods=['GET'])
 def getData():
 
     # Add number of examples here(maximum is 5)
