@@ -161,7 +161,7 @@ class App extends React.Component {
       }
     })
   }
-  
+
   componentDidMount() {
         const { inputs } = this.state
         fetch('/getdata', {
@@ -180,7 +180,7 @@ class App extends React.Component {
                 })
             })
     }
-  
+
 
   scrambleText() {
     const { inputs } = this.state
@@ -328,9 +328,9 @@ class App extends React.Component {
                   {inputs.s2.scores != null && <Scores statement={inputs.s2} />}
                 </Paper>
               </Grid>
-                            
+
               <Grid item xs={12} align="center">
-                
+
                 {inputs.s1.output != null && !this.state.userEval && (
                   <Evaluate evaluated={evaluated}
                     onSelect={this.handleEvaluate.bind(this)}
