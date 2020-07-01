@@ -39,66 +39,75 @@ const styles = theme => ({
 class Evaluate extends React.Component {
 
   renderEvalButtons() {
-    const { classes, onSelect } = this.props
+    const { classes, questions, onSelect } = this.props
     return (
       <div>
-        <Typography
-          component="h3"
-          variant="h3"
-          className={classes.header}>
-          Was this user input commonsense statements?
-          <br/>
-          <Button
-            variant="contained"
-            className={classes.buttonYes}
-            onClick={() => onSelect('evalQ1', 'yes')}>
-            Yes
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.buttonNo}
-            onClick={() => onSelect('evalQ1', 'no')}>
-            No
-          </Button>
-        </Typography>
-        <Typography
-          component="h3"
-          variant="h3"
-          className={classes.header}>
-          Was this output belong to the scenarios?
-          <br/>
-          <Button
-            variant="contained"
-            className={classes.buttonYes}
-            onClick={() => onSelect('evalQ2', 'yes')}>
-            Yes
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.buttonNo}
-            onClick={() => onSelect('evalQ2', 'no')}>
-            No
-          </Button>
-        </Typography>
-        <Typography
-          component="h3"
-          variant="h3"
-          className={classes.header}>
-          Was the machine prediction correct?
-          <br/>
-          <Button
-            variant="contained"
-            className={classes.buttonYes}
-            onClick={() => onSelect('evalQ3', 'yes')}>
-            Yes
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.buttonNo}
-            onClick={() => onSelect('evalQ3', 'no')}>
-            No
-          </Button>
-        </Typography>
+
+        {questions.indexOf('evalQ1') >= 0 && (
+          <Typography
+            component="h3"
+            variant="h3"
+            className={classes.header}>
+            Was this user input commonsense statements?
+            <br/>
+            <Button
+              variant="contained"
+              className={classes.buttonYes}
+              onClick={() => onSelect('evalQ1', 'yes')}>
+              Yes
+            </Button>
+            <Button
+              variant="contained"
+              className={classes.buttonNo}
+              onClick={() => onSelect('evalQ1', 'no')}>
+              No
+            </Button>
+          </Typography>
+        )}
+
+        {questions.indexOf('evalQ2') >= 0 && (
+          <Typography
+            component="h3"
+            variant="h3"
+            className={classes.header}>
+            Was this output belong to the scenarios?
+            <br/>
+            <Button
+              variant="contained"
+              className={classes.buttonYes}
+              onClick={() => onSelect('evalQ2', 'yes')}>
+              Yes
+            </Button>
+            <Button
+              variant="contained"
+              className={classes.buttonNo}
+              onClick={() => onSelect('evalQ2', 'no')}>
+              No
+            </Button>
+          </Typography>
+        )}
+
+        {questions.indexOf('evalQ3') >= 0 && (
+          <Typography
+            component="h3"
+            variant="h3"
+            className={classes.header}>
+            Was the machine prediction correct?
+            <br/>
+            <Button
+              variant="contained"
+              className={classes.buttonYes}
+              onClick={() => onSelect('evalQ3', 'yes')}>
+              Yes
+            </Button>
+            <Button
+              variant="contained"
+              className={classes.buttonNo}
+              onClick={() => onSelect('evalQ3', 'no')}>
+              No
+            </Button>
+          </Typography>
+        )}
 
       </div>
     )

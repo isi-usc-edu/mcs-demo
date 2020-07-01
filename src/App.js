@@ -102,6 +102,7 @@ class App extends React.Component {
       count: null,
       code: '',
       userEval: true,
+      evalQuestions: ['evalQ1', 'evalQ2', 'evalQ3'],
       evalQ1: null,
       evalQ2: null,
       evalQ3: null,
@@ -315,7 +316,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { code, inputs, openRules, openSurvey, evaluated, progress, count, userEval} = this.state
+    const { code, inputs, openRules, openSurvey, evaluated, progress, count, userEval, evalQuestions } = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
@@ -352,7 +353,9 @@ class App extends React.Component {
               <Grid item xs={12} align="center">
 
                 {inputs.s1.output != null && userEval &&(
-                  <UserEval onSelect={this.handleOnEval.bind(this)} />
+                  <UserEval
+                    questions={evalQuestions}
+                    onSelect={this.handleOnEval.bind(this)} />
                 )}
                 {inputs.s1.output != null && !userEval && (
                   <Evaluate evaluated={evaluated}
