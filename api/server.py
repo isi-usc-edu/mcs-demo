@@ -510,6 +510,7 @@ def evaluate():
 def getData():
     data = mongo.db.trials.find_one({}, sort=[('ts', -1)])
     return jsonify({
+        'id': str(data['_id']),
         's1': data['s1'],
         's2': data['s2'],
     })
