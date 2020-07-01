@@ -14,6 +14,7 @@ import Evaluate from './components/Evaluate'
 import ExitSurvey from './components/ExitSurvey'
 import ProgressBar from './components/ProgressBar'
 import scramble from './utils/scramble'
+import UserEval from './components/UserEval'
 import { withStyles, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 
 
@@ -100,6 +101,10 @@ class App extends React.Component {
       progress: 0,
       count: null,
       code: '',
+      userEval:true,
+      evalQ1:null,
+      evalQ2:null,
+      evalQ3:null,
       inputs: {
         s1: {
           id: 's1',
@@ -326,10 +331,13 @@ class App extends React.Component {
                             
               <Grid item xs={12} align="center">
                 
-                {inputs.s1.output != null && (
+                {inputs.s1.output != null && !this.state.userEval && (
                   <Evaluate evaluated={evaluated}
                     onSelect={this.handleEvaluate.bind(this)}
                     onReset={this.handleOnClear.bind(this)} />
+                )}
+                {inputs.s1.output != null && this.state.userEval &&(
+                        <UserEval />
                 )}
                 <Submit />
               </Grid>
