@@ -102,6 +102,7 @@ class App extends React.Component {
       count: null,
       code: '',
       userEval: true,
+      evalCount: 0,
       evalQuestions: ['evalQ1', 'evalQ2', 'evalQ3'],
       evalQ1: null,
       evalQ2: null,
@@ -290,7 +291,7 @@ class App extends React.Component {
     updated[question] = answer
     this.setState(updated)
 
-    const { dataID, evalQuestions } = this.state
+    const { dataID, evalQuestions, evalCount } = this.state
 
     fetch('/set_eval', {
       method: 'POST',
@@ -307,10 +308,18 @@ class App extends React.Component {
     .then(data => {
       if ( data['status'] == 'ok' ) {
         const updatedQuestions = evalQuestions.filter(q => q != question)
-        this.setState({
-          evalQuestions: updatedQuestions,
-          userEval: !!updatedQuestions.length,
-        })
+        if(updatedQuestions.length==0) {
+          this.setState({
+            evalCount: evalCount+(+(updatedQuestions.length==0)),
+            evalQuestions: ['evalQ1', 'evalQ2', 'evalQ3'],
+            userEval: !(this.state.evalCount==5)
+          })
+        }
+        else{
+          this.setState({
+            evalQuestions: updatedQuestions,
+          })
+        }
       }
     })
   }
