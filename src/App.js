@@ -101,10 +101,10 @@ class App extends React.Component {
       progress: 0,
       count: null,
       code: '',
-      userEval:true,
-      evalQ1:null,
-      evalQ2:null,
-      evalQ3:null,
+      userEval: true,
+      evalQ1: null,
+      evalQ2: null,
+      evalQ3: null,
       inputs: {
         s1: {
           id: 's1',
@@ -163,24 +163,23 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-        const { inputs } = this.state
-        fetch('/getdata', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                this.setState({
-                    inputs: {
-                        s1: {...inputs.s1, value:data['s1']['input'], output: data['s1']['output'], scores: data['s1']['scores']},
-                        s2: {...inputs.s2, value:data['s2']['input'], output: data['s2']['output'], scores: data['s2']['scores']},
-                    },
-                })
-            })
-    }
-
+    const { inputs } = this.state
+    fetch('/getdata', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      this.setState({
+        inputs: {
+          s1: {...inputs.s1, value: data['s1']['input'], output: data['s1']['output'], scores: data['s1']['scores']},
+          s2: {...inputs.s2, value: data['s2']['input'], output: data['s2']['output'], scores: data['s2']['scores']},
+        },
+      })
+    })
+  }
 
   scrambleText() {
     const { inputs } = this.state
@@ -295,7 +294,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { code, inputs, openRules, openSurvey, processing, evaluated, progress, count} = this.state
+    const { code, inputs, openRules, openSurvey, processing, evaluated, progress, count, userEval} = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
@@ -331,13 +330,13 @@ class App extends React.Component {
 
               <Grid item xs={12} align="center">
 
-                {inputs.s1.output != null && !this.state.userEval && (
+                {inputs.s1.output != null && userEval &&(
+                  <UserEval />
+                )}
+                {inputs.s1.output != null && !userEval && (
                   <Evaluate evaluated={evaluated}
                     onSelect={this.handleEvaluate.bind(this)}
                     onReset={this.handleOnClear.bind(this)} />
-                )}
-                {inputs.s1.output != null && this.state.userEval &&(
-                        <UserEval />
                 )}
                 <Submit />
               </Grid>
