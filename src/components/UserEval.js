@@ -76,6 +76,7 @@ class Evaluate extends React.Component {
           variant="h3"
           className={classes.header}>
           Was this user input commonsense statements?
+          <br/>
           <Button
             variant="contained"
             className={classes.buttonYes}
@@ -94,6 +95,7 @@ class Evaluate extends React.Component {
           variant="h3"
           className={classes.header}>
           Was this output belong to the scenarios?
+          <br/>
           <Button
             variant="contained"
             className={classes.buttonYes}
@@ -112,6 +114,7 @@ class Evaluate extends React.Component {
           variant="h3"
           className={classes.header}>
           Was the machine prediction correct?
+          <br/>
           <Button
             variant="contained"
             className={classes.buttonYes}
