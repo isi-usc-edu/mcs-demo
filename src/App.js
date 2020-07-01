@@ -164,7 +164,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const { inputs } = this.state
-    fetch('/getdata', {
+    fetch('/get_eval', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -291,7 +291,7 @@ class App extends React.Component {
 
     const { dataID } = this.state
 
-    fetch('/update', {
+    fetch('/set_eval', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

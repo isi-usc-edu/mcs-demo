@@ -506,8 +506,8 @@ def evaluate():
     return jsonify({'status': 'ok', 'count': num_trials, 'code': code})
 
 
-@app.route('/getdata', methods=['GET'])
-def getData():
+@app.route('/get_eval', methods=['GET'])
+def get_eval():
     data = mongo.db.trials.find_one({'evalQ1': None, 'evalQ2': None, 'evalQ3': None}, sort=[('ts', -1)])
     return jsonify({
         'id': str(data['_id']),
@@ -516,8 +516,8 @@ def getData():
     })
 
 
-@app.route('/update',methods=['POST'])
-def update():
+@app.route('/set_eval',methods=['POST'])
+def set_eval():
     data_id = request.json.get('dataID')
     question = request.json.get('question')
     answer = request.json.get('answer')
