@@ -38,35 +38,6 @@ const styles = theme => ({
 
 class Evaluate extends React.Component {
 
-  constructor(props){
-    super(props)
-
-    this.state={
-      Question1:null,
-      Question2:null,
-      Question3:null
-    }
-  }
-
-  handleTrueQ1(){
-    this.setState({Question1:true})
-  }
-  handleFalseQ1(){
-    this.setState({Question1:false})
-  }
-  handleTrueQ2(){
-    this.setState({Question2:true})
-  }
-  handleFalseQ2(){
-    this.setState({Question2:false})
-  }
-  handleTrueQ3(){
-    this.setState({Question3:true})
-  }
-  handleFalseQ3(){
-    this.setState({Question3:false})
-  }
-
   renderEvalButtons() {
     const { classes, onSelect } = this.props
     return (
@@ -80,13 +51,13 @@ class Evaluate extends React.Component {
           <Button
             variant="contained"
             className={classes.buttonYes}
-            onClick={this.handleTrueQ1.bind(this)}>
+            onClick={() => onSelect('evalQ1', 'yes')}>
             Yes
           </Button>
           <Button
             variant="contained"
             className={classes.buttonNo}
-            onClick={this.handleFalseQ1.bind(this)}>
+            onClick={() => onSelect('evalQ1', 'no')}>
             No
           </Button>
         </Typography>
@@ -99,13 +70,13 @@ class Evaluate extends React.Component {
           <Button
             variant="contained"
             className={classes.buttonYes}
-            onClick={this.handleTrueQ2.bind(this)}>
+            onClick={() => onSelect('evalQ2', 'yes')}>
             Yes
           </Button>
           <Button
             variant="contained"
             className={classes.buttonNo}
-            onClick={this.handleFalseQ2.bind(this)}>
+            onClick={() => onSelect('evalQ2', 'no')}>
             No
           </Button>
         </Typography>
@@ -118,13 +89,13 @@ class Evaluate extends React.Component {
           <Button
             variant="contained"
             className={classes.buttonYes}
-            onClick={this.handleTrueQ3.bind(this)}>
+            onClick={() => onSelect('evalQ3', 'yes')}>
             Yes
           </Button>
           <Button
             variant="contained"
             className={classes.buttonNo}
-            onClick={this.handleFalseQ3.bind(this)}>
+            onClick={() => onSelect('evalQ3', 'no')}>
             No
           </Button>
         </Typography>
