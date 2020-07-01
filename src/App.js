@@ -173,6 +173,7 @@ class App extends React.Component {
     .then((response) => response.json())
     .then((data) => {
       this.setState({
+        dataID: data['id'],
         inputs: {
           s1: {...inputs.s1, value: data['s1']['input'], output: data['s1']['output'], scores: data['s1']['scores']},
           s2: {...inputs.s2, value: data['s2']['input'], output: data['s2']['output'], scores: data['s2']['scores']},
