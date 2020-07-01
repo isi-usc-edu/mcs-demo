@@ -359,7 +359,7 @@ class App extends React.Component {
                     onSelect={this.handleEvaluate.bind(this)}
                     onReset={this.handleOnClear.bind(this)} />
                 )}
-                <Submit />
+                {!userEval && <Submit />}
               </Grid>
               <Grid item xs={6} align="left">
                 <Button
@@ -370,12 +370,14 @@ class App extends React.Component {
                 </Button>
               </Grid>
               <Grid item xs={6} align="right">
-                <Button
-                  variant="outlined"
-                  className={classes.button}
-                  onClick={this.handleOnClear.bind(this)}>
-                  Clear
-                </Button>
+                {!userEval && (
+                  <Button
+                    variant="outlined"
+                    className={classes.button}
+                    onClick={this.handleOnClear.bind(this)}>
+                    Clear
+                  </Button>
+                )}
               </Grid>
               {!!count && (
                 <Grid item xs={12} align="center" style={{marginTop: '-24px'}}>
