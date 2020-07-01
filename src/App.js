@@ -306,7 +306,11 @@ class App extends React.Component {
     .then(response => response.json())
     .then(data => {
       if ( data['status'] == 'ok' ) {
-        this.setState({evalQuestions: evalQuestions.filter(q => q != question)})
+        const updatedQuestions = evalQuestions.filter(q => q != question)
+        this.setState({
+          evalQuestions: updatedQuestions,
+          userEval: !!updatedQuestions.length,
+        })
       }
     })
   }
