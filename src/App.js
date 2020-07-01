@@ -288,6 +288,20 @@ class App extends React.Component {
     let updated = {}
     updated[question] = answer
     this.setState(updated)
+
+    const { dataID } = this.state
+
+    fetch('/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'dataID': dataID,
+        'question': question,
+        'answer': answer,
+      }),
+    })
   }
 
   handleOnClear() {
