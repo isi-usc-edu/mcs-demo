@@ -290,7 +290,7 @@ class App extends React.Component {
     updated[question] = answer
     this.setState(updated)
 
-    const { dataID } = this.state
+    const { dataID, evalQuestions } = this.state
 
     fetch('/set_eval', {
       method: 'POST',
@@ -302,6 +302,12 @@ class App extends React.Component {
         'question': question,
         'answer': answer,
       }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if ( data['status'] == 'ok' ) {
+        this.setState({evalQuestions: evalQuestions.filter(q => q != question)})
+      }
     })
   }
 
