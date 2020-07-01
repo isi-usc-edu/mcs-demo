@@ -283,6 +283,12 @@ class App extends React.Component {
     })
   }
 
+  handleOnEval(question, answer) {
+    let updated = {}
+    updated[question] = answer
+    this.setState(updated)
+  }
+
   handleOnClear() {
     const { inputs } = this.state
     inputs.s1 = {...inputs.s1, value: '', changed: false, output: null, scores: null}
@@ -331,7 +337,7 @@ class App extends React.Component {
               <Grid item xs={12} align="center">
 
                 {inputs.s1.output != null && userEval &&(
-                  <UserEval />
+                  <UserEval onSelect={this.handleOnEval.bind(this)} />
                 )}
                 {inputs.s1.output != null && !userEval && (
                   <Evaluate evaluated={evaluated}
