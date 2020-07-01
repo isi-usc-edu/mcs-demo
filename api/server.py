@@ -505,20 +505,14 @@ def evaluate():
 
     return jsonify({'status': 'ok', 'count': num_trials, 'code': code})
 
+
 @app.route('/getdata', methods=['GET'])
 def getData():
-
-    # Add number of examples here(maximum is 5)
-    # currently here is an example to return
-    data=mongo.db.trials.find()[1]
-    
-
-    s1=data['s1']
-    s2=data['s2']
-    return jsonify({'s1':s1,'s2':s2})
-    
-
-
+    data = mongo.db.trials.find_one({}, sort=[('ts', -1)])
+    return jsonify({
+        's1': data['s1'],
+        's2': data['s2'],
+    })
 
 
 @app.route('/')
