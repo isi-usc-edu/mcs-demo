@@ -519,19 +519,17 @@ def getData():
 @app.route('/update',methods=['POST'])
 def update():
     data_id = request.json.get('dataID')
-    evalQ1 = request.json.get('evalQ1')
-    evalQ2 = request.json.get('evalQ2')
-    evalQ3 = request.json.get('evalQ3')
+    question = request.json.get('question')
+    answer = request.json.get('answer')
 
-    mongo.db.trials.update({"_id": ObjectId(data_id)},
-        {
-            '$set':
-                {
-                    'evalQ1': evalQ1,
-                    'evalQ2': evalQ2,
-                    'evalQ3': evalQ3
-                }
-        })
+    updated = {}
+    updated[question] = answer # {'evalQ1': 'yes'}
+
+    obj = mongo.db.trials.update_one(
+        {"_id": ObjectId(data_id)},
+        {'$set': {**updated}}
+    )
+
     return jsonify({'status': 'ok'})
 
 
