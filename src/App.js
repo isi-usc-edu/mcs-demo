@@ -317,14 +317,14 @@ class App extends React.Component {
               <Grid item xs={12}>
                 <Paper component="div" className={classes.paper} square>
                   {inputs.s1.output != null && <Output statement={inputs.s1} />}
-                  <Input text={inputs.s1} autoFocus={true} disabled={inputs.s1.output != null} updateText={this.handleGetdata.bind(this)} passInputRef={this.getInputRef.bind(this)} />
+                  <Input text={inputs.s1} autoFocus={true} disabled={inputs.s1.output != null} updateText={this.handleUpdate.bind(this)} passInputRef={this.getInputRef.bind(this)} />
                   {inputs.s1.scores != null && <Scores statement={inputs.s1} />}
                 </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Paper component="div" className={classes.paper} square>
                   {inputs.s2.output != null && <Output statement={inputs.s2} />}
-                  <Input text={inputs.s2} disabled={inputs.s2.output != null} updateText={this.hhandleGetdata.bind(this)} />
+                  <Input text={inputs.s2} disabled={inputs.s2.output != null} updateText={this.hhandleUpdate.bind(this)} />
                   {inputs.s2.scores != null && <Scores statement={inputs.s2} />}
                 </Paper>
               </Grid>
