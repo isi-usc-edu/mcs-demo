@@ -315,7 +315,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { code, inputs, openRules, openSurvey, processing, evaluated, progress, count, userEval} = this.state
+    const { code, inputs, openRules, openSurvey, evaluated, progress, count, userEval} = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
