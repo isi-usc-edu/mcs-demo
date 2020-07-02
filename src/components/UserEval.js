@@ -48,7 +48,7 @@ class Evaluate extends React.Component {
             component="h3"
             variant="h3"
             className={classes.header}>
-            Was this user input commonsense statements?
+            Are these user input statements common sense?
             <br/>
             <Button
               variant="contained"
@@ -70,7 +70,7 @@ class Evaluate extends React.Component {
             component="h3"
             variant="h3"
             className={classes.header}>
-            Was this output belong to the scenarios?
+            Do these user input statements fit in the scenario:
             <br/>
             <Button
               variant="contained"
@@ -92,7 +92,7 @@ class Evaluate extends React.Component {
             component="h3"
             variant="h3"
             className={classes.header}>
-            Was the machine prediction correct?
+            Was the machine output correct?
             <br/>
             <Button
               variant="contained"

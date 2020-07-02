@@ -47,7 +47,7 @@ class Evaluate extends React.Component {
           component="h3"
           variant="h3"
           className={classes.header}>
-          Was this output correct?
+          Was the machine output correct?
         </Typography>
         <Button
           variant="contained"
