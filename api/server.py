@@ -513,7 +513,7 @@ def get_eval():
         'evalQ1': None,
         'evalQ2': None,
         'evalQ3': None,
-        'scenario': scenario,
+        'scenario': scenario if not 'null' else None,
     }, sort=[('ts', -1)])
     if data:
         return jsonify({
