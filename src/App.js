@@ -409,7 +409,7 @@ class App extends React.Component {
               </span>
             ) : (
               <span>
-                <span className={classes.underlined}>Part 2:</span> Enter 2 common sense statements (1 TRUE and 1 FALSE)
+                <span className={classes.underlined}>Part 2:</span> Enter 2 common sense statements {!!scenario && `about ${SCENARIOS[scenario]}`} (1 TRUE and 1 FALSE)
               </span>
             )}
           </Typography>
