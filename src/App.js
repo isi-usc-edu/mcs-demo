@@ -23,6 +23,7 @@ theme = responsiveFontSizes(theme);
 
 
 const NUM_EVALUATIONS = 5
+const MAX_NUM_EVALUATIONS = 15
 const EVAL_QUESTIONS = ['evalQ1', 'evalQ2', 'evalQ3']
 
 
@@ -328,9 +329,8 @@ class App extends React.Component {
       if ( data['status'] === 'ok' ) {
         const updatedQuestions = evalQuestions.filter(q => q !== question)
         if ( !updatedQuestions.length ) {
-          if ( this.state.evalCount >= NUM_EVALUATIONS ) {
-            this.handleOnClear()
-            this.setInputDefaults()
+          if ( this.state.evalCount >= MAX_NUM_EVALUATIONS ) {
+            this.skipUserEval()
           } else {
             this.fetchPrevTrial().then(
               this.setState({
