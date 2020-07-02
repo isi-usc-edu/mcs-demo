@@ -186,8 +186,8 @@ class App extends React.Component {
   }
 
   fetchPrevTrial() {
-    const { inputs } = this.state
-    return fetch('/get_eval', {
+    const { inputs, scenario } = this.state
+    return fetch(`/get_eval?scenario=${scenario}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
