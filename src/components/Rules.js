@@ -77,13 +77,16 @@ class Rules extends React.Component {
             </Typography>
             <span className={classes.divider} />
             <div className={classes.content}>
-              <p>1. All statements should be common sense</p>
-              <p>2. One of the statements should be true, one false</p>
-              <p>3. Statements should be about the same (common sense) subject</p>
-              <p style={{marginBottom: '0'}}>4. Please refrain from using personal information, unless</p>
-              <p style={{margin: '0', paddingLeft: '3em'}}>a. it is about a well-known person (a famous person)</p>
-              <p style={{margin: '0', paddingLeft: '3em'}}>b. there is a lot of published information about this person online</p>
-              <p>5. <Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> All user input will be logged for scientific purposes</p>
+              <p>1. All generated statement pairs should be grammatically correct.</p>
+              <p>2. All generated statement pairs should contain specific scenarios<./p>
+              <p>3. All generated statement pairs should be of common sense nature (i.e. things that are shared by (‘common to’) nearly all people and can reasonably
+                be expected of nearly all people without need for debate).</p>
+              <p>4. For all generated common sense statement pairs, one should be true and one false.</p>
+              <p>5. Do not include any personal information about yourself or
+                others in any of the generated statement pairs.</p>
+              <p>6. Please do not repeat any of the statements you write or evaluate.</p>
+              <p>7.Each generated pair should be about the same subject.</p>
+              <p>8. <Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> All user input will be logged for scientific purposes</p>
             </div>
           </Grid>
           <Grid item xs={12} align="left">
