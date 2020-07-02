@@ -358,7 +358,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { code, inputs, openRules, openSurvey, evaluated, progress, count, userEval, evalQuestions } = this.state
+    const { code, inputs, openRules, openSurvey, evaluated, progress, scenario, count, userEval, evalQuestions } = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
@@ -400,6 +400,7 @@ class App extends React.Component {
 
                 {inputs.s1.output != null && userEval &&(
                   <UserEval
+                    scenario={scenario}
                     questions={evalQuestions}
                     onSelect={this.handleOnEval.bind(this)} />
                 )}
