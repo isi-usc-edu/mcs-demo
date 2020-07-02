@@ -308,7 +308,7 @@ class App extends React.Component {
   }
 
   handleOnEval(question, answer) {
-    const { dataID, evalQuestions, evalCount, inputs } = this.state
+    const { dataID, evalQuestions, evalCount } = this.state
 
     fetch('/set_eval', {
       method: 'POST',
@@ -323,8 +323,8 @@ class App extends React.Component {
     })
     .then(response => response.json())
     .then(data => {
-      if ( data['status'] == 'ok' ) {
-        const updatedQuestions = evalQuestions.filter(q => q != question)
+      if ( data['status'] === 'ok' ) {
+        const updatedQuestions = evalQuestions.filter(q => q !== question)
         if ( !updatedQuestions.length ) {
           if ( this.state.evalCount >= NUM_EVALUATIONS ) {
             this.handleOnClear()
