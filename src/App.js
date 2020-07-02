@@ -22,7 +22,9 @@ let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
 
 
-const NUM_EVALUATIONS = 5
+const MIN_NUM_TRIALS = 5
+const MAX_NUM_TRIALS = 15
+const MIN_NUM_EVALUATIONS = 5
 const MAX_NUM_EVALUATIONS = 15
 const EVAL_QUESTIONS = ['evalQ1', 'evalQ2', 'evalQ3']
 
@@ -284,7 +286,7 @@ class App extends React.Component {
     .then((data) => {
       let progress = 0
       if ( !!data['count'] ) {
-        progress = Math.min(Math.round(data['count'] / 5 * 100), 100)
+        progress = Math.min(Math.round(data['count'] / MIN_NUM_TRIALS * 100), 100)
       }
       this.setState({
         evaluated: true,
@@ -391,7 +393,7 @@ class App extends React.Component {
               <span>
                 <span className={classes.underlined}>Part 1:</span> Please review 5 previous users inputs (machine predictions are on the RIGHT side) <br/>
                 Currently reviewing {evalCount} out of 5 statement pairs (you can review up to 15 statements) <br/>
-                {evalCount > NUM_EVALUATIONS && (
+                {evalCount > MIN_NUM_EVALUATIONS && (
                   <span className={classes.link} onClick={this.skipUserEval.bind(this)}>> You can now proceed to Part 2</span>
                 )}
               </span>
