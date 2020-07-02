@@ -358,6 +358,11 @@ class App extends React.Component {
     })
   }
 
+  skipUserEval() {
+    this.handleOnClear()
+    this.setInputDefaults()
+  }
+
   render() {
     const { classes } = this.props
     const { code, inputs, openRules, openSurvey, evaluated, progress, scenario, count, userEval, evalCount, evalQuestions } = this.state
