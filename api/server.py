@@ -508,7 +508,11 @@ def evaluate():
 
 @app.route('/get_eval', methods=['GET'])
 def get_eval():
-    data = mongo.db.trials.find_one({'evalQ1': None, 'evalQ2': None, 'evalQ3': None}, sort=[('ts', -1)])
+    data = mongo.db.trials.find_one({
+        'evalQ1': None,
+        'evalQ2': None,
+        'evalQ3': None,
+    }, sort=[('ts', -1)])
     return jsonify({
         'id': str(data['_id']),
         's1': data['s1'],
