@@ -360,7 +360,7 @@ class App extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { code, inputs, openRules, openSurvey, evaluated, progress, scenario, count, userEval, evalQuestions } = this.state
+    const { code, inputs, openRules, openSurvey, evaluated, progress, scenario, count, userEval, evalCount, evalQuestions } = this.state
     return (
       <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
@@ -376,7 +376,10 @@ class App extends React.Component {
             variant="h3"
             className={classes.header}>
             {userEval ? (
-              <span>Part 1: Please review previous users inputs (machine predictions are on the RIGHT side)</span>
+              <span>
+                Part 1: Please review 5 previous users inputs (machine predictions are on the RIGHT side) <br/>
+                Currently reviewing {evalCount} out of 5 statement pairs
+              </span>
             ) : (
               <span>Part 2: Enter 2 common sense statements (1 TRUE and 1 FALSE)</span>
             )}
