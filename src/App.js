@@ -22,6 +22,9 @@ let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
 
 
+const EVAL_QUESTIONS = ['evalQ1', 'evalQ2', 'evalQ3']
+
+
 const styles = theme => ({
   '@global': {
     body: {
@@ -103,10 +106,7 @@ class App extends React.Component {
       code: '',
       userEval: true,
       evalCount: 1,
-      evalQuestions: ['evalQ1', 'evalQ2', 'evalQ3'],
-      evalQ1: null,
-      evalQ2: null,
-      evalQ3: null,
+      evalQuestions: EVAL_QUESTIONS,
       inputs: {
         s1: {
           id: 's1',
@@ -291,10 +291,6 @@ class App extends React.Component {
   }
 
   handleOnEval(question, answer) {
-    let updated = {}
-    updated[question] = answer
-    this.setState(updated)
-
     const { dataID, evalQuestions, evalCount, inputs } = this.state
 
     fetch('/set_eval', {
@@ -316,7 +312,7 @@ class App extends React.Component {
           this.fetchPrevTrial().then(
             this.setState({
               evalCount: evalCount + 1,
-              evalQuestions: ['evalQ1', 'evalQ2', 'evalQ3'],
+              evalQuestions: EVAL_QUESTIONS,
               userEval: !(this.state.evalCount == 5),
             })
           )
