@@ -77,16 +77,20 @@ class Rules extends React.Component {
             </Typography>
             <span className={classes.divider} />
             <div className={classes.content}>
-              <p>1. All generated statement pairs should be grammatically correct.</p>
-              <p>2. All generated statement pairs should contain specific scenarios</p>
-              <p>3. All generated statement pairs should be of common sense nature (i.e. things that are shared by (‘common to’) nearly all people and can reasonably
+              <p>1. You will receive 0.05$ for each evaluation in part1, and 0.10$ for each generation pair in part2; If the pair you generate is evaluated
+                valid by other users, you will also receive 0.10$ for each as bonus.</p>
+              <p>2. You are welcome to generate more in part2 but only first 5 payment is 0.10$ each, the additional inputs are 0.05$ payment each. The maximum
+               payment in part2 is 1.00$.</p>
+              <p>3. All generated statement pairs should be grammatically correct.</p>
+              <p>4. All generated statement pairs should contain specific scenarios</p>
+              <p>5. All generated statement pairs should be of common sense nature (i.e. things that are shared by (‘common to’) nearly all people and can reasonably
                 be expected of nearly all people without need for debate).</p>
-              <p>4. For all generated common sense statement pairs, one should be true and one false.</p>
-              <p>5. Do not include any personal information about yourself or
+              <p>6. For all generated common sense statement pairs, one should be true and one false.</p>
+              <p>7. Do not include any personal information about yourself or
                 others in any of the generated statement pairs.</p>
-              <p>6. Please do not repeat any of the statements you write or evaluate.</p>
-              <p>7.Each generated pair should be about the same subject.</p>
-              <p>8. <Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> All user input will be logged for scientific purposes</p>
+              <p>8. Please do not repeat any of the statements you write or evaluate.</p>
+              <p>9. Each generated pair should be about the same subject.</p>
+              <p>10. <Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> All user input will be logged for scientific purposes</p>
             </div>
           </Grid>
           <Grid item xs={12} align="left">
