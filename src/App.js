@@ -102,7 +102,7 @@ class App extends React.Component {
       count: null,
       code: '',
       userEval: true,
-      evalCount: 0,
+      evalCount: 1,
       evalQuestions: ['evalQ1', 'evalQ2', 'evalQ3'],
       evalQ1: null,
       evalQ2: null,
@@ -128,6 +128,10 @@ class App extends React.Component {
         },
       },
     }
+  }
+
+  componentDidMount() {
+    this.fetchPrevTrial()
   }
 
   handleOpenSurvey() {
@@ -164,9 +168,9 @@ class App extends React.Component {
     })
   }
 
-  componentDidMount() {
+  fetchPrevTrial() {
     const { inputs } = this.state
-    fetch('/get_eval', {
+    return fetch('/get_eval', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -308,28 +312,14 @@ class App extends React.Component {
     .then(data => {
       if ( data['status'] == 'ok' ) {
         const updatedQuestions = evalQuestions.filter(q => q != question)
-        if(updatedQuestions.length==0) {
-          fetch('/get_eval', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              this.setState({
-                dataID: data['id'],
-                inputs: {
-                  s1: {...inputs.s1, value: data['s1']['input'], output: data['s1']['output'], scores: data['s1']['scores']},
-                  s2: {...inputs.s2, value: data['s2']['input'], output: data['s2']['output'], scores: data['s2']['scores']},
-                },
-              })
+        if ( !updatedQuestions.length ) {
+          this.fetchPrevTrial().then(
+            this.setState({
+              evalCount: evalCount + 1,
+              evalQuestions: ['evalQ1', 'evalQ2', 'evalQ3'],
+              userEval: !(this.state.evalCount == 5),
             })
-          this.setState({
-            evalCount: evalCount+(+(updatedQuestions.length==0)),
-            evalQuestions: ['evalQ1', 'evalQ2', 'evalQ3'],
-            userEval: !(this.state.evalCount==5)
-          })
+          )
         }
         else{
           this.setState({
