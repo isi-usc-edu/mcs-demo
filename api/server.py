@@ -515,11 +515,14 @@ def get_eval():
         'evalQ3': None,
         'scenario': scenario,
     }, sort=[('ts', -1)])
-    return jsonify({
-        'id': str(data['_id']),
-        's1': data['s1'],
-        's2': data['s2'],
-    })
+    if data:
+        return jsonify({
+            'status': 'ok',
+            'id': str(data['_id']),
+            's1': data['s1'],
+            's2': data['s2'],
+        })
+    return jsonify({'status': 'not ok'})
 
 
 @app.route('/set_eval',methods=['POST'])
