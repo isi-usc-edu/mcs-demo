@@ -314,7 +314,7 @@ class App extends React.Component {
             this.setState({
               evalCount: evalCount + 1,
               evalQuestions: EVAL_QUESTIONS,
-              userEval: !(this.state.evalCount == NUM_EVALUATIONS),
+              userEval: !(this.state.evalCount >= NUM_EVALUATIONS),
             })
           )
         }
