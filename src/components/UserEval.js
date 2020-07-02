@@ -36,10 +36,20 @@ const styles = theme => ({
 })
 
 
+const SCENARIOS = {
+  's1': 'double negation',
+  's2': 'active/passive expressions',
+  's3': 'logic exist/all',
+  's4': 'event temporal relation',
+  's5': 'cultural common sense',
+}
+
+
 class Evaluate extends React.Component {
 
   renderEvalButtons() {
-    const { classes, questions, onSelect } = this.props
+    const { classes, questions, scenario, onSelect } = this.props
+
     return (
       <div>
 
@@ -70,7 +80,7 @@ class Evaluate extends React.Component {
             component="h3"
             variant="h3"
             className={classes.header}>
-            Do these user input statements fit in the scenario:
+            Do these user input statements fit in the scenario: {SCENARIOS[scenario]}
             <br/>
             <Button
               variant="contained"
