@@ -78,7 +78,7 @@ class Rules extends React.Component {
             <span className={classes.divider} />
             <div className={classes.content}>
               <p>1. All generated statement pairs should be grammatically correct.</p>
-              <p>2. All generated statement pairs should contain specific scenarios<./p>
+              <p>2. All generated statement pairs should contain specific scenarios</p>
               <p>3. All generated statement pairs should be of common sense nature (i.e. things that are shared by (‘common to’) nearly all people and can reasonably
                 be expected of nearly all people without need for debate).</p>
               <p>4. For all generated common sense statement pairs, one should be true and one false.</p>
