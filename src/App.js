@@ -68,31 +68,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    let s1_value = 'roses are red'
-    let s2_value = 'roses are blue'
-    const locationQuery = new URLSearchParams(window.location.search)
-    const scenario = locationQuery.get('scenario')
-
-    if ( scenario === 's1' ) {
-      s1_value = 'Basketball is not non-sports'
-      s2_value = 'Singing is not non-sports'
-    }
-    if ( scenario === 's2' ) {
-      s1_value = 'Cars are manufactured by factory workers'
-      s2_value = 'Factory workers are manufactured by cars'
-    }
-    if ( scenario === 's3' ) {
-      s1_value = 'Some fish are mammals'
-      s2_value = 'All fish are mammals'
-    }
-    if ( scenario === 's4' ) {
-      s1_value = 'We have lunch before dinner'
-      s2_value = 'We have dinner before lunch'
-    }
-    if ( scenario === 's5' ) {
-      s1_value = 'Sushi is Japanese food'
-      s2_value = 'Tofu is American food'
-    }
+    const s1_value = 'roses are red'
+    const s2_value = 'roses are blue'
 
     this.state = {
       processing: false,
@@ -165,6 +142,44 @@ class App extends React.Component {
             this.setState({inputs})
           }
         })
+      }
+    })
+  }
+
+  setInputDefaults() {
+    const { inputs } = this.state
+
+    let s1_value = 'roses are red'
+    let s2_value = 'roses are blue'
+
+    const locationQuery = new URLSearchParams(window.location.search)
+    const scenario = locationQuery.get('scenario')
+
+    if ( scenario === 's1' ) {
+      s1_value = 'Basketball is not non-sports'
+      s2_value = 'Singing is not non-sports'
+    }
+    if ( scenario === 's2' ) {
+      s1_value = 'Cars are manufactured by factory workers'
+      s2_value = 'Factory workers are manufactured by cars'
+    }
+    if ( scenario === 's3' ) {
+      s1_value = 'Some fish are mammals'
+      s2_value = 'All fish are mammals'
+    }
+    if ( scenario === 's4' ) {
+      s1_value = 'We have lunch before dinner'
+      s2_value = 'We have dinner before lunch'
+    }
+    if ( scenario === 's5' ) {
+      s1_value = 'Sushi is Japanese food'
+      s2_value = 'Tofu is American food'
+    }
+
+    this.setState({
+      inputs: {
+        s1: {...inputs.s1, value: s1_value},
+        s2: {...inputs.s2, value: s2_value},
       }
     })
   }
@@ -312,6 +327,7 @@ class App extends React.Component {
         if ( !updatedQuestions.length ) {
           if ( this.state.evalCount >= NUM_EVALUATIONS ) {
             this.handleOnClear()
+            this.setInputDefaults()
           } else {
             this.fetchPrevTrial().then(
               this.setState({
