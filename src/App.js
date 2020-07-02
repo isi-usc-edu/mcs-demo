@@ -68,6 +68,9 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
+    const locationQuery = new URLSearchParams(window.location.search)
+    const scenario = locationQuery.get('scenario')
+
     const s1_value = 'roses are red'
     const s2_value = 'roses are blue'
 
@@ -85,6 +88,7 @@ class App extends React.Component {
       userEval: true,
       evalCount: 1,
       evalQuestions: EVAL_QUESTIONS,
+      scenario: scenario,
       inputs: {
         s1: {
           id: 's1',
@@ -147,13 +151,10 @@ class App extends React.Component {
   }
 
   setInputDefaults() {
-    const { inputs } = this.state
+    const { inputs, scenario } = this.state
 
     let s1_value = 'roses are red'
     let s2_value = 'roses are blue'
-
-    const locationQuery = new URLSearchParams(window.location.search)
-    const scenario = locationQuery.get('scenario')
 
     if ( scenario === 's1' ) {
       s1_value = 'Basketball is not non-sports'
