@@ -352,7 +352,11 @@ class App extends React.Component {
             component="h3"
             variant="h3"
             className={classes.header}>
-            Here are previous users inputs(machine predictions on the RIGHT side)
+            {userEval ? (
+              <span>Please review previous users inputs (machine predictions are on the RIGHT side)</span>
+            ) : (
+              <span>Enter 2 common sense statements (1 TRUE and 1 FALSE)</span>
+            )}
           </Typography>
           <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
             <Grid container spacing={3}>
