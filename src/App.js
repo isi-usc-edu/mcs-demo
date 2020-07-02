@@ -61,6 +61,13 @@ const styles = theme => ({
     borderColor: 'whitesmoke',
     marginTop: theme.spacing(3),
   },
+  underlined: {
+    textDecoration: 'underline',
+  },
+  link: {
+    cursor: 'pointer',
+    textDecoration: 'underline',
+  },
 })
 
 
@@ -382,11 +389,16 @@ class App extends React.Component {
             className={classes.header}>
             {userEval ? (
               <span>
-                Part 1: Please review 5 previous users inputs (machine predictions are on the RIGHT side) <br/>
-                Currently reviewing {evalCount} out of 5 statement pairs
+                <span className={classes.underlined}>Part 1:</span> Please review 5 previous users inputs (machine predictions are on the RIGHT side) <br/>
+                Currently reviewing {evalCount} out of 5 statement pairs (you can review up to 15 statements) <br/>
+                {evalCount > NUM_EVALUATIONS && (
+                  <span className={classes.link} onClick={this.skipUserEval.bind(this)}>> You can now proceed to Part 2</span>
+                )}
               </span>
             ) : (
-              <span>Part 2: Enter 2 common sense statements (1 TRUE and 1 FALSE)</span>
+              <span>
+                <span className={classes.underlined}>Part 2:</span> Enter 2 common sense statements (1 TRUE and 1 FALSE)
+              </span>
             )}
           </Typography>
           <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
