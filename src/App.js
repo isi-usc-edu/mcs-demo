@@ -29,6 +29,16 @@ const MAX_NUM_EVALUATIONS = 15
 const EVAL_QUESTIONS = ['evalQ1', 'evalQ2', 'evalQ3']
 
 
+const SCENARIOS = {
+  'null': 'general',
+  's1': 'negation',
+  's2': 'active/passive expressions',
+  's3': 'logic exist/all',
+  's4': 'event temporal relation',
+  's5': 'cultural common sense',
+}
+
+
 const styles = theme => ({
   '@global': {
     body: {
@@ -399,7 +409,7 @@ class App extends React.Component {
               </span>
             ) : (
               <span>
-                <span className={classes.underlined}>Part 2:</span> Enter 2 common sense statements (1 TRUE and 1 FALSE)
+                <span className={classes.underlined}>Part 2:</span> Enter 2 common sense statements {!!scenario && `about ${SCENARIOS[scenario]}`} (1 TRUE and 1 FALSE)
               </span>
             )}
           </Typography>
@@ -424,7 +434,7 @@ class App extends React.Component {
 
                 {inputs.s1.output != null && userEval &&(
                   <UserEval
-                    scenario={scenario}
+                    scenario={SCENARIOS[scenario]}
                     questions={evalQuestions}
                     onSelect={this.handleOnEval.bind(this)} />
                 )}
