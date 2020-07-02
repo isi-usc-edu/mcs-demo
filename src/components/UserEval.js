@@ -37,7 +37,8 @@ const styles = theme => ({
 
 
 const SCENARIOS = {
-  's1': 'double negation',
+  'null': 'general',
+  's1': 'negation',
   's2': 'active/passive expressions',
   's3': 'logic exist/all',
   's4': 'event temporal relation',
