@@ -22,6 +22,7 @@ let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
 
 
+const NUM_EVALUATIONS = 5
 const EVAL_QUESTIONS = ['evalQ1', 'evalQ2', 'evalQ3']
 
 
@@ -313,7 +314,7 @@ class App extends React.Component {
             this.setState({
               evalCount: evalCount + 1,
               evalQuestions: EVAL_QUESTIONS,
-              userEval: !(this.state.evalCount == 5),
+              userEval: !(this.state.evalCount == NUM_EVALUATIONS),
             })
           )
         }
