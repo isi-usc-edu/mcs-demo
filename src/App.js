@@ -310,13 +310,16 @@ class App extends React.Component {
       if ( data['status'] == 'ok' ) {
         const updatedQuestions = evalQuestions.filter(q => q != question)
         if ( !updatedQuestions.length ) {
-          this.fetchPrevTrial().then(
-            this.setState({
-              evalCount: evalCount + 1,
-              evalQuestions: EVAL_QUESTIONS,
-              userEval: !(this.state.evalCount >= NUM_EVALUATIONS),
-            })
-          )
+          if ( this.state.evalCount >= NUM_EVALUATIONS ) {
+            this.handleOnClear()
+          } else {
+            this.fetchPrevTrial().then(
+              this.setState({
+                evalCount: evalCount + 1,
+                evalQuestions: EVAL_QUESTIONS,
+              })
+            )
+          }
         }
         else{
           this.setState({
@@ -331,7 +334,7 @@ class App extends React.Component {
     const { inputs } = this.state
     inputs.s1 = {...inputs.s1, value: '', changed: false, output: null, scores: null}
     inputs.s2 = {...inputs.s2, value: '', changed: false, output: null, scores: null}
-    this.setState({dataID: null, evaluated: false, inputs}, () => {
+    this.setState({dataID: null, evaluated: false, userEval: false, inputs}, () => {
       this.inputField.focus()
     })
   }
