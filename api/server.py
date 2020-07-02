@@ -509,11 +509,28 @@ def evaluate():
 @app.route('/get_eval', methods=['GET'])
 def get_eval():
     scenario = request.args.get('scenario')
+    scenario = scenario if scenario != 'null' else None
+
+    uid = session.get('uid')
+    hit_id = session.get('hit_id')
+    worker_id = session.get('worker_id')
+
     data = mongo.db.trials.find_one({
-        'evalQ1': None,
-        'evalQ2': None,
-        'evalQ3': None,
-        'scenario': scenario if not 'null' else None,
+        "$and": [
+            {'evalQ1': None},
+            {'evalQ2': None},
+            {'evalQ3': None},
+            {'scenario': scenario},
+            {'session': {
+                "$ne": uid,
+            }},
+            {'hit_id': {
+                "$ne": hit_id,
+            }},
+            {'worker_id': {
+                "$ne": worker_id,
+            }},
+        ]
     }, sort=[('ts', -1)])
     if data:
         return jsonify({
