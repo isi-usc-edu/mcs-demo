@@ -376,9 +376,9 @@ class App extends React.Component {
             variant="h3"
             className={classes.header}>
             {userEval ? (
-              <span>Please review previous users inputs (machine predictions are on the RIGHT side)</span>
+              <span>Part 1: Please review previous users inputs (machine predictions are on the RIGHT side)</span>
             ) : (
-              <span>Enter 2 common sense statements (1 TRUE and 1 FALSE)</span>
+              <span>Part 2: Enter 2 common sense statements (1 TRUE and 1 FALSE)</span>
             )}
           </Typography>
           <form className={classes.form} noValidate onSubmit={this.submit.bind(this)}>
