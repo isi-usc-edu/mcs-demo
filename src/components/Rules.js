@@ -77,9 +77,8 @@ class Rules extends React.Component {
             </Typography>
             <span className={classes.divider} />
             <div className={classes.content}>
-              <p>1. You will receive 0.05$ for each evaluation in part1, and 0.10$ for each generation pair in part2; If the pair you generate is evaluated
-                valid by other users, you will also receive 0.10$ for each as bonus.</p>
-              <p>2. You are welcome to generate more in part2 but only first 5 payment is 0.10$ each, the additional inputs are 0.05$ payment each. The maximum
+              <p>1. You will receive 0.05$ for each evaluation in part1, and 0.10$ for each generation pair in part2.</p>
+              <p>2. You are welcome to generate more in part2 but only first 5 payment is 0.10$ each, and the additional inputs are 0.05$ payment each. The maximum
                payment in part2 is 1.00$.</p>
               <p>3. All generated statement pairs should be grammatically correct.</p>
               <p>4. All generated statement pairs should contain specific scenarios</p>
