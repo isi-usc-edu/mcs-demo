@@ -8,13 +8,16 @@ import { withStyles } from '@material-ui/core/styles'
 const styles = theme => ({
   root: {
     zIndex: 10,
+    height: '100vh',
+    overflow: 'scroll',
     position: 'absolute',
     padding: theme.spacing(3, 3, 15, 3),
+    margin: 0,
     '@media (min-width:600px)': {
       padding: theme.spacing(5),
       width: '60vw',
       left: '20vw',
-      top: '10vh',
+      top: '2.5vh',
     },
     boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12)',
     background: 'linear-gradient(150deg, #EC6A5A, #A662D6)',
@@ -63,6 +66,7 @@ class Rules extends React.Component {
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        disableScrollLock={true}
         open={open}
         onClose={() => onClose()}>
         <Grid container spacing={5} className={classes.root}>
