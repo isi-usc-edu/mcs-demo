@@ -73,23 +73,34 @@ class Rules extends React.Component {
           </Hidden>
           <Grid item xs={12}>
             <Typography component="h5" variant="h5" className={classes.header}>
-              Rules
+              HIT Requirements
             </Typography>
             <span className={classes.divider} />
             <div className={classes.content}>
-              <p>1. You will receive 0.05$ for each evaluation in part1, and 0.10$ for each generation pair in part2.</p>
-              <p>2. You are welcome to generate more in part2 but only first 5 payment is 0.10$ each, and the additional inputs are 0.05$ payment each. The maximum
-               payment in part2 is 1.00$.</p>
-              <p>3. All generated statement pairs should be grammatically correct.</p>
-              <p>4. All generated statement pairs should contain specific scenarios</p>
-              <p>5. All generated statement pairs should be of common sense nature (i.e. things that are shared by (‘common to’) nearly all people and can reasonably
+              <p>1. You will receive $0.05 for each evaluation in part 1, and $0.10 for each statement pair in part 2.</p>
+              <p>2. The first 5 pairs of statements in part 2 are $0.10 each, any additional inputs (up to a total of 15) are $0.05 each. The maximum
+               payment in part 2 is $1.00.</p>
+              <p>3. Your generated statements will be evaluated by others, and rejected if they are not in compliance with the rules below.</p>
+              <p>4. You will get a $0.20 bonus for each of the statement pairs that 'fooled the machine' (where the machine output was incorrect) while also passing the validation of another user.</p>
+            </div>
+            <span className={classes.divider} />
+            <Typography component="h5" variant="h5" className={classes.header}>
+              Rules
+            </Typography>
+            <div className={classes.content}>
+              <p>1. All generated statement pairs should be grammatically correct.</p>
+              <p>2. All generated statement pairs should contain specific scenario requested in the HIT.</p>
+              <p>3. All generated statement pairs should be of common sense nature (i.e. things that are shared by (‘common to’) nearly all people and can reasonably
                 be expected of nearly all people without need for debate).</p>
-              <p>6. For all generated common sense statement pairs, one should be true and one false.</p>
-              <p>7. Do not include any personal information about yourself or
+              <p>4. For all generated common sense statement pairs, one should be true and one false.</p>
+              <p>5. Do not include any personal information about yourself or
                 others in any of the generated statement pairs.</p>
-              <p>8. Please do not repeat any of the statements you write or evaluate.</p>
-              <p>9. Each generated pair should be about the same subject.</p>
-              <p>10. <Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> All user input will be logged for scientific purposes</p>
+              <p>6. Please do not repeat any of the statements you write or evaluate.</p>
+              <p>7. Each generated pair should be about the same subject.</p>
+            </div>
+            <span className={classes.divider} />
+            <div className={classes.content}>
+              <p><Emoji symbol="📝" label="notes" /><Emoji symbol="👩‍🔬" label="scientist" /> All user input will be logged for scientific purposes</p>
             </div>
           </Grid>
           <Grid item xs={12} align="left">
