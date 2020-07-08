@@ -443,7 +443,7 @@ class App extends React.Component {
                     onSelect={this.handleEvaluate.bind(this)}
                     onReset={this.handleOnClear.bind(this)} />
                 )}
-                {!userEval && <Submit />}
+                {!userEval && inputs.s1.output === null && <Submit />}
               </Grid>
               <Grid item xs={6} align="left">
                 <Button
