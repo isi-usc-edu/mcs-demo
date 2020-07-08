@@ -163,6 +163,32 @@ def open_modal(data_id, trigger_id):
       "type": "divider"
     }]
 
+    if not data:
+        blocks.append({
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Err.. can't find this record in our database :("
+            },
+        })
+        view = json.dumps({
+          "type": "modal",
+          "title": {
+            "type": "plain_text",
+            "text": "Model Output",
+            "emoji": True
+          },
+          "blocks": json.dumps(blocks)
+        })
+        slack_client.api_call(
+            'views.open',
+            trigger_id=trigger_id,
+            view=view,
+            username='Machine Common Sense (DEMO)',
+            as_user='False',
+            icon_emoji=':robot_face:',
+        )
+
     for index, d in enumerate([data['s1'], data['s2']]):
         label = 'TRUE ✔️' if d['output'] else 'FALSE! ❌'
         blocks.append({
