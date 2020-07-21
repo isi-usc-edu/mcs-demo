@@ -598,7 +598,7 @@ def index():
 
 
 if __name__ == "__main__":
-    for  system in SYSTEMS.values():
+    for system in SYSTEMS.values():
         load_models(system)
 
     host = os.environ.get('MCS_SERVER_HOST', '0.0.0.0')
