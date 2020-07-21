@@ -550,12 +550,20 @@ def get_eval():
             {'session': {
                 "$ne": uid,
             }},
-            {'hit_id': {
-                "$ne": hit_id,
-            }},
-            {'worker_id': {
-                "$ne": worker_id,
-            }},
+            {"$or": [{
+                'hit_id': None,
+            }, {
+                'hit_id': {
+                    "$ne": hit_id,
+                },
+            }]},
+            {"$or": [{
+                'worker_id': None,
+            }, {
+                'worker_id': {
+                    "$ne": worker_id,
+                }
+            }]},
         ]
     }, sort=[('ts', -1)])
     if data:
